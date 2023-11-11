@@ -6,7 +6,9 @@ import NavigationButton from './NavigationButton'
 const Description = styled.h2`
   margin: 8px;
   text-align: center;
-  width: 72vw;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 8px;
 `
 const Homepage: React.FC = () => {
   return (
