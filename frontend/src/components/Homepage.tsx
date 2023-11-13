@@ -10,6 +10,7 @@ const Description = styled.h2`
   max-width: 600px;
   padding: 8px;
 `
+
 const Homepage: React.FC = () => {
   return (
     <Grid
@@ -29,10 +30,7 @@ const Homepage: React.FC = () => {
         </Description>
       </Grid>
       <Grid item sm={12} sx={{ marginTop: '64px' }}>
-        <NavigationButton
-          buttonText="Click here to start!"
-          destination={'/planner'}
-        />
+        <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
       </Grid>
     </Grid>
   )

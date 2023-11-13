@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
     --margin-line: #941c5a;
     --lines: #1d97b8;
     --background-color:#fbfff1;
-    --button-color:#090c9b;
-    --font-color:#3c3744;
+    --button-color:#3066be;
+    --font-color:#b4c5e4;
     --background-darkercolor:#3c3744;
     --title-color:#3066be;
 
@@ -50,6 +50,8 @@ const GlobalStyle = createGlobalStyle`
     body,textarea {
         line-height: 1;
         font-family: 'Roboto', sans-serif;
+        color:var(--font-color);
+        background-color:var(--background-darkercolor)
     }
     ol, ul {
         list-style: none;
