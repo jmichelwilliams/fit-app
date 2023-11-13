@@ -8,6 +8,12 @@ const GlobalStyle = createGlobalStyle`
         :root {
     --margin-line: #941c5a;
     --lines: #1d97b8;
+    --background-color:#fbfff1;
+    --button-color:#090c9b;
+    --font-color:#3c3744;
+    --background-darkercolor:#3c3744;
+    --title-color:#3066be;
+
 }
     html, body, div, span, applet, object, iframe,
     blockquote, pre,
