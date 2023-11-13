@@ -1,15 +1,7 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import styled from 'styled-components'
 import NavigationButton from './NavigationButton'
-
-const Description = styled.h2`
-  margin: 8px;
-  text-align: center;
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 8px;
-`
+import Typography from '@mui/material/Typography'
 
 const Homepage: React.FC = () => {
   return (
@@ -17,17 +9,18 @@ const Homepage: React.FC = () => {
       container
       spacing={8}
       direction="column"
-      justifyContent="flex-start"
+      justifyContent="center"
       alignItems="center"
     >
       <Grid item sm={4}>
-        <h1>Fit-App</h1>
+        <Typography variant="h1">Fit-App</Typography>
+        <h1></h1>
       </Grid>
       <Grid item xs={12} sm={8}>
-        <Description>
+        <Typography variant="h5" gutterBottom textAlign="center">
           Tired of losing track of your workouts? Fear no more, Fit-App is here
           to help you!
-        </Description>
+        </Typography>
       </Grid>
       <Grid item sm={12} sx={{ marginTop: '64px' }}>
         <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
