@@ -1,31 +1,48 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 import NavigationButton from './NavigationButton'
 import Typography from '@mui/material/Typography'
+import { GiMuscleUp } from 'react-icons/gi'
 
 const Homepage: React.FC = () => {
   return (
-    <Grid
-      container
-      spacing={8}
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '8px'
+      }}
     >
-      <Grid item sm={4}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          margin: '16px auto'
+        }}
+      >
         <Typography variant="h1">Fit-App</Typography>
-        <h1></h1>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <Typography variant="h5" gutterBottom textAlign="center">
+        <GiMuscleUp style={{ height: '5em', width: '5em' }} />
+      </Box>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', margin: '16px auto' }}
+      >
+        <Typography
+          variant="h5"
+          gutterBottom
+          textAlign="center"
+          sx={{ marginTop: '32px' }}
+        >
           Tired of losing track of your workouts? Fear no more, Fit-App is here
           to help you!
         </Typography>
-      </Grid>
-      <Grid item sm={12} sx={{ marginTop: '64px' }}>
+      </Box>
+      <Box sx={{ marginTop: '32px' }}>
         <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   )
 }
 
