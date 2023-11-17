@@ -68,6 +68,35 @@ const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+
+    /* MUI STYLING */
+    .MuiInputBase-root{
+        color:var(--font-color);
+    
+    }
+    .MuiInputBase-root.Mui-focused {
+    color: var(--font-color);
+    }
+    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+        border-color: white;
+    }
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: white;
+    }
+    .MuiInputBase-root.Mui-disabled {
+    color: var(--font-color)
+    }   
+    .MuiInputLabel-outlined{
+    color:white
+    }
+
+    .MuiInputLabel-outlined.Mui-focused{
+    color:white
+    }
+
+    .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--font-color)
+    }
 `
 
 export default GlobalStyle
