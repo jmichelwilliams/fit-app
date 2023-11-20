@@ -1,48 +1,69 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-interface FormData {
-  programName: string
+interface Exercise {
+  exerciseName: string
+  sets: number
+  reps: number
+  weight: number
+  rest: string
 }
 
-interface Exercises {
-  exerciseName: string
-  sets: string
-  reps: string
-  rest: string
-  tempo: string
+interface Program {
+  id: string
+  programName: string
+  exercises: Exercise[]
 }
 const Planner: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({ programName: '' })
-  const [exercises, setExercises] = useState<Exercises[]>([])
+  const [programs, setPrograms] = useState<Program[]>([])
+  const [programName, setProgramName] = useState<string>('')
+  const [exercises, setExercises] = useState<Exercise[]>([])
+
+  useEffect(() => {
+    console.log('Programs:', programs)
+  }, [programs])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    console.log(formData)
+    if (programName.trim() !== '' && exercises.length > 0) {
+      const newProgram: Program = {
+        id: '123abc', // TODO: Generate id from backend
+        programName,
+        exercises
+      }
+      setPrograms((prevPrograms) => [...prevPrograms, newProgram])
+      setProgramName('')
+      setExercises([])
+    }
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ): void => {
     const { name, value } = event.target
-    setFormData({
-      ...formData,
-      [name]: value
-    })
+    const updatedExercises = [...exercises]
+    updatedExercises[index] = {
+      ...updatedExercises[index],
+      [name]: name === 'exerciseName' ? value : parseInt(value, 10)
+    }
+    setExercises(updatedExercises)
   }
 
   const handleAddExercise = (): void => {
-    const newExercise = {
+    const newExercise: Exercise = {
       exerciseName: '',
-      sets: '',
-      reps: '',
-      rest: '',
-      tempo: ''
+      sets: 0,
+      reps: 0,
+      weight: 0,
+      rest: ''
     }
-
     setExercises([...exercises, newExercise])
   }
+
   return (
     <Box
       sx={{
@@ -58,11 +79,7 @@ const Planner: React.FC = () => {
         </Typography>
       </Box>
       <Box>
-        <form
-          onSubmit={(event) => {
-            handleSubmit(event)
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <Box
             sx={{
               display: 'flex',
@@ -76,68 +93,76 @@ const Planner: React.FC = () => {
                 label="Name of Program"
                 id="program-name"
                 name="programName"
-                onChange={handleChange}
+                value={programName}
+                onChange={(e) => {
+                  setProgramName(e.target.value)
+                }}
                 required
               />
             </Box>
-            {Object.keys(exercises).map((exercise, index) => {
-              return (
-                <Box key={`${exercise}-${index}`}>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    sx={{
-                      border: '2px solid var(--font-color)',
-                      borderRadius: '8px',
-                      padding: '8px',
-                      margin: '16px'
+            {exercises.map((exercise, index) => (
+              <Box key={`exercise-${index}`}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  sx={{
+                    border: '2px solid var(--font-color)',
+                    borderRadius: '8px',
+                    padding: '8px',
+                    margin: '16px'
+                  }}
+                >
+                  <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+                    Exercise {index + 1}{' '}
+                  </Typography>
+                  <TextField
+                    id={'exerciseName'}
+                    label="Exercise Name"
+                    name="exerciseName"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
                     }}
-                  >
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ textAlign: 'center' }}
-                    >
-                      Exercise {index + 1}{' '}
-                    </Typography>
-                    <TextField
-                      id={`exercise-name-${index}`}
-                      label="Exercise Name"
-                      name={`exerciseName-${index}`}
-                      onChange={handleChange}
-                      sx={{ margin: '8px auto' }}
-                    />
-                    <TextField
-                      id={`number-of-sets-${index}`}
-                      label="Number of Sets"
-                      name={`sets-${index}`}
-                      onChange={handleChange}
-                      sx={{ margin: '8px auto' }}
-                    />
-                    <TextField
-                      id="number-of-reps"
-                      label="Number of Reps"
-                      name="reps"
-                      onChange={handleChange}
-                      sx={{ margin: '8px auto' }}
-                    />
-                    <TextField
-                      id="rest-time"
-                      label="Rest Time"
-                      name="rest"
-                      onChange={handleChange}
-                      sx={{ margin: '8px auto' }}
-                    />
-                    <TextField
-                      id="tempo"
-                      label="Tempo"
-                      name="tempo"
-                      onChange={handleChange}
-                      sx={{ margin: '8px auto' }}
-                    />
-                  </Box>
+                    sx={{ margin: '8px auto' }}
+                  />
+                  <TextField
+                    id="sets"
+                    label="Number of Sets"
+                    name="sets"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
+                    }}
+                    sx={{ margin: '8px auto' }}
+                  />
+                  <TextField
+                    id="number-of-reps"
+                    label="Number of Reps"
+                    name="reps"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
+                    }}
+                    sx={{ margin: '8px auto' }}
+                  />
+                  <TextField
+                    id="rest-time"
+                    label="Rest Time"
+                    name="rest"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
+                    }}
+                    sx={{ margin: '8px auto' }}
+                  />
+                  <TextField
+                    id="tempo"
+                    label="Tempo"
+                    name="tempo"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
+                    }}
+                    sx={{ margin: '8px auto' }}
+                  />
                 </Box>
-              )
-            })}
+              </Box>
+            ))}
             <Box display="flex" flexDirection="column">
               <Button
                 variant="contained"
@@ -154,7 +179,7 @@ const Planner: React.FC = () => {
                 type="submit"
                 sx={{ backgroundColor: 'var(--button-color)' }}
               >
-                Add Program
+                Save Program
               </Button>
             </Box>
           </Box>
