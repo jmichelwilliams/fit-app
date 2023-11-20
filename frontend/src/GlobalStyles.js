@@ -94,9 +94,22 @@ const GlobalStyle = createGlobalStyle`
     color:white
     }
 
-    .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: var(--font-color)
-    }
+    input:-internal-autofill-selected {
+  background-color: black !important;
+
+
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--background-darkercolor) inset !important;
+  
+}
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--font-color) !important;
+}
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--font-color) !important;
+}
 `
 
 export default GlobalStyle
