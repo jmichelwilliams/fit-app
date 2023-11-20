@@ -1,40 +1,48 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
-import styled from 'styled-components'
+import Box from '@mui/material/Box'
 import NavigationButton from './NavigationButton'
+import Typography from '@mui/material/Typography'
+import { GiMuscleUp } from 'react-icons/gi'
 
-const Description = styled.h2`
-  margin: 8px;
-  text-align: center;
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 8px;
-`
 const Homepage: React.FC = () => {
   return (
-    <Grid
-      container
-      spacing={8}
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="center"
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '8px'
+      }}
     >
-      <Grid item sm={4}>
-        <h1>Fit-App</h1>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <Description>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          margin: '16px auto'
+        }}
+      >
+        <Typography variant="h1">Fit-App</Typography>
+        <GiMuscleUp style={{ height: '5em', width: '5em' }} />
+      </Box>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', margin: '16px auto' }}
+      >
+        <Typography
+          variant="h5"
+          gutterBottom
+          textAlign="center"
+          sx={{ marginTop: '32px' }}
+        >
           Tired of losing track of your workouts? Fear no more, Fit-App is here
           to help you!
-        </Description>
-      </Grid>
-      <Grid item sm={12} sx={{ marginTop: '64px' }}>
-        <NavigationButton
-          buttonText="Click here to start!"
-          destination={'/planner'}
-        />
-      </Grid>
-    </Grid>
+        </Typography>
+      </Box>
+      <Box sx={{ marginTop: '32px' }}>
+        <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
+      </Box>
+    </Box>
   )
 }
 

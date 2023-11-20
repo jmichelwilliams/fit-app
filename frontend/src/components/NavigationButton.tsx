@@ -19,7 +19,11 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     <Button
       variant="contained"
       onClick={handleNavigate}
-      sx={{ height: '60px', width: '150px' }}
+      sx={{
+        height: '60px',
+        width: '150px',
+        backgroundColor: 'var(--button-color)'
+      }}
     >
       {buttonText}
     </Button>

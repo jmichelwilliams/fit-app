@@ -8,6 +8,12 @@ const GlobalStyle = createGlobalStyle`
         :root {
     --margin-line: #941c5a;
     --lines: #1d97b8;
+    --background-color:#fbfff1;
+    --button-color:#3066be;
+    --font-color:#b4c5e4;
+    --background-darkercolor:#3c3744;
+    --title-color:#3066be;
+
 }
     html, body, div, span, applet, object, iframe,
     blockquote, pre,
@@ -44,6 +50,8 @@ const GlobalStyle = createGlobalStyle`
     body,textarea {
         line-height: 1;
         font-family: 'Roboto', sans-serif;
+        color:var(--font-color);
+        background-color:var(--background-darkercolor)
     }
     ol, ul {
         list-style: none;
@@ -60,6 +68,48 @@ const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+
+    /* MUI STYLING */
+    .MuiInputBase-root{
+        color:var(--font-color);
+    
+    }
+    .MuiInputBase-root.Mui-focused {
+    color: var(--font-color);
+    }
+    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+        border-color: white;
+    }
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: white;
+    }
+    .MuiInputBase-root.Mui-disabled {
+    color: var(--font-color)
+    }   
+    .MuiInputLabel-outlined{
+    color:white
+    }
+
+    .MuiInputLabel-outlined.Mui-focused{
+    color:white
+    }
+
+    input:-internal-autofill-selected {
+  background-color: black !important;
+
+
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--background-darkercolor) inset !important;
+  
+}
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--font-color) !important;
+}
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--font-color) !important;
+}
 `
 
 export default GlobalStyle
