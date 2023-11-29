@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './Homepage'
 import Planner from './Planner'
+import Training from './Training'
 import GlobalStyle from '../GlobalStyles'
 
 const App: React.FC = () => {
@@ -11,7 +12,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/planner" element={<Planner />} />
-        <Route path="/training" element={'Training'} />
+        <Route path="/training" element={<Training />} />
       </Routes>
     </Router>
   )

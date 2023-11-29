@@ -10,6 +10,7 @@ interface Exercise {
   reps: number
   weight: number
   rest: string
+  tempo: number
 }
 
 interface Program {
@@ -59,7 +60,8 @@ const Planner: React.FC = () => {
       sets: 0,
       reps: 0,
       weight: 0,
-      rest: ''
+      rest: '',
+      tempo: 0
     }
     setExercises([...exercises, newExercise])
   }
@@ -100,7 +102,7 @@ const Planner: React.FC = () => {
                 required
               />
             </Box>
-            {exercises.map((exercise, index) => (
+            {exercises.map((_, index) => (
               <Box key={`exercise-${index}`}>
                 <Box
                   display="flex"
@@ -155,6 +157,15 @@ const Planner: React.FC = () => {
                     id="tempo"
                     label="Tempo"
                     name="tempo"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
+                    }}
+                    sx={{ margin: '8px auto' }}
+                  />
+                  <TextField
+                    id="weight"
+                    label="Weight"
+                    name="weight"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       handleChange(e, index)
                     }}
