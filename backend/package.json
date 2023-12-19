@@ -13,7 +13,8 @@
     "uuid": "^9.0.1"
   },
   "scripts": {
-    "start": "node server.ts"
+    "start": "node ./dist/server.js",
+    "dev:backend": "nodemon ./dist/server.js"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
