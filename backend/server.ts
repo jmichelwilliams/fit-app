@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from 'express';
 import morgan from 'morgan';
-import { getAllProgramsForUser } from './user_handlers';
+import { getUserById, getAllProgramsForUser } from './user_handlers';
 
 const app = express();
 
@@ -8,7 +8,8 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/programs', getAllProgramsForUser);
+app.get('/user/:userId', getUserById);
+app.get('/user/:userId/programs', getAllProgramsForUser);
 app.get('*', (req: Request, res: Response) => {
   res.status(404).json({
     status: 404,
