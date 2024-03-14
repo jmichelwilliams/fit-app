@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
-import { connectToDatabase } from './db_connect';
+import { connectToDatabase } from '../database/db_connect';
 
 dotenv.config({ path: '../.env' });
 

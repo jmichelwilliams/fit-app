@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './Homepage'
 import Planner from './Planner'
 import Training from './Training'
-import GlobalStyle from '../GlobalStyles'
+import GlobalStyle from '../styles/GlobalStyles'
 
 const App: React.FC = () => {
   return (
