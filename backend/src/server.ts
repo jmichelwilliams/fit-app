@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from 'express';
 import morgan from 'morgan';
-import { getUserById, getAllProgramsForUser } from './src/api/user_handlers';
+import { getUserById, getAllProgramsForUser } from './api/user_handlers';
 
 const app = express();
 
