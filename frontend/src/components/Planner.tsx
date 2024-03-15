@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
+
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Select, { type SelectChangeEvent } from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 
 interface Exercise {
   exerciseName: string
   sets: number
   reps: number
-  weight: number
   rest: string
-  tempo: number
 }
 
 interface Program {
@@ -18,6 +21,7 @@ interface Program {
   programName: string
   exercises: Exercise[]
 }
+
 const Planner: React.FC = () => {
   const [programs, setPrograms] = useState<Program[]>([])
   const [programName, setProgramName] = useState<string>('')
@@ -54,14 +58,25 @@ const Planner: React.FC = () => {
     setExercises(updatedExercises)
   }
 
+  const handleSelectChange = (
+    event: SelectChangeEvent<number | string>,
+    index: number,
+    property: keyof Exercise
+  ): void => {
+    const { value } = event.target
+    const updatedExercises = [...exercises]
+    updatedExercises[index] = {
+      ...updatedExercises[index],
+      [property]: value
+    }
+    setExercises(updatedExercises)
+  }
   const handleAddExercise = (): void => {
     const newExercise: Exercise = {
       exerciseName: '',
       sets: 0,
       reps: 0,
-      weight: 0,
-      rest: '',
-      tempo: 0
+      rest: ''
     }
     setExercises([...exercises, newExercise])
   }
@@ -111,7 +126,8 @@ const Planner: React.FC = () => {
                     border: '2px solid var(--font-color)',
                     borderRadius: '8px',
                     padding: '8px',
-                    margin: '16px'
+                    margin: '16px',
+                    alignItems: 'center'
                   }}
                 >
                   <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
@@ -126,51 +142,64 @@ const Planner: React.FC = () => {
                     }}
                     sx={{ margin: '8px auto' }}
                   />
-                  <TextField
-                    id="sets"
-                    label="Number of Sets"
-                    name="sets"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{ margin: '8px auto' }}
-                  />
-                  <TextField
-                    id="number-of-reps"
-                    label="Number of Reps"
-                    name="reps"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{ margin: '8px auto' }}
-                  />
-                  <TextField
-                    id="rest-time"
-                    label="Rest Time"
-                    name="rest"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{ margin: '8px auto' }}
-                  />
-                  <TextField
-                    id="tempo"
-                    label="Tempo"
-                    name="tempo"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{ margin: '8px auto' }}
-                  />
-                  <TextField
-                    id="weight"
-                    label="Weight"
-                    name="weight"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{ margin: '8px auto' }}
-                  />
+                  <FormControl sx={{ alignItems: 'center' }}>
+                    <InputLabel id="sets-label">Sets</InputLabel>
+                    <Select
+                      labelId="sets-label"
+                      id="sets"
+                      label="Sets"
+                      onChange={(e: SelectChangeEvent<number>) => {
+                        handleSelectChange(e, index, 'sets')
+                      }}
+                      defaultValue={1}
+                      sx={{ marginBottom: '8px', width: '64px' }}
+                    >
+                      {Array.from({ length: 5 }, (_, i) => i + 1).map((set) => (
+                        <MenuItem key={set} value={set}>
+                          {set}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ alignItems: 'center' }}>
+                    <InputLabel id="reps-label">Reps</InputLabel>
+                    <Select
+                      labelId="reps-label"
+                      id="reps"
+                      label="Reps"
+                      onChange={(e: SelectChangeEvent<number>) => {
+                        handleSelectChange(e, index, 'reps')
+                      }}
+                      defaultValue={1}
+                      sx={{ marginBottom: '8px', width: '64px' }}
+                    >
+                      {Array.from({ length: 15 }, (_, i) => i + 1).map(
+                        (rep) => (
+                          <MenuItem key={rep} value={rep}>
+                            {rep}
+                          </MenuItem>
+                        )
+                      )}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ alignItems: 'center' }}>
+                    <InputLabel id="rest-label">Rest</InputLabel>
+                    <Select
+                      labelId="rest-label"
+                      id="rest"
+                      label="Rest"
+                      onChange={(e: SelectChangeEvent<string>) => {
+                        handleSelectChange(e, index, 'rest')
+                      }}
+                      defaultValue={'0:30'}
+                      sx={{ marginBottom: '8px' }}
+                    >
+                      <MenuItem value={'0:30'}>0:30</MenuItem>
+                      <MenuItem value={'1:00'}>1:00</MenuItem>
+                      <MenuItem value={'1:30'}>1:30</MenuItem>
+                      <MenuItem value={'2:00'}>2:00</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Box>
               </Box>
             ))}
