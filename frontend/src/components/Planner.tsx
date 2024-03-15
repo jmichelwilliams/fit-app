@@ -142,7 +142,7 @@ const Planner: React.FC = () => {
                     }}
                     sx={{ margin: '8px auto' }}
                   />
-                  <FormControl sx={{ alignItems: 'center' }}>
+                  <FormControl>
                     <InputLabel id="sets-label">Sets</InputLabel>
                     <Select
                       labelId="sets-label"
@@ -161,7 +161,7 @@ const Planner: React.FC = () => {
                       ))}
                     </Select>
                   </FormControl>
-                  <FormControl sx={{ alignItems: 'center' }}>
+                  <FormControl>
                     <InputLabel id="reps-label">Reps</InputLabel>
                     <Select
                       labelId="reps-label"
@@ -182,7 +182,7 @@ const Planner: React.FC = () => {
                       )}
                     </Select>
                   </FormControl>
-                  <FormControl sx={{ alignItems: 'center' }}>
+                  <FormControl>
                     <InputLabel id="rest-label">Rest</InputLabel>
                     <Select
                       labelId="rest-label"
@@ -192,7 +192,7 @@ const Planner: React.FC = () => {
                         handleSelectChange(e, index, 'rest')
                       }}
                       defaultValue={'0:30'}
-                      sx={{ marginBottom: '8px' }}
+                      sx={{ marginBottom: '8px', width: '80px' }}
                     >
                       <MenuItem value={'0:30'}>0:30</MenuItem>
                       <MenuItem value={'1:00'}>1:00</MenuItem>
