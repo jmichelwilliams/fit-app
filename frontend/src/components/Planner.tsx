@@ -14,6 +14,7 @@ interface Exercise {
   sets: number
   reps: number
   rest: string
+  weight?: number
 }
 
 interface Program {
@@ -74,9 +75,9 @@ const Planner: React.FC = () => {
   const handleAddExercise = (): void => {
     const newExercise: Exercise = {
       exerciseName: '',
-      sets: 0,
-      reps: 0,
-      rest: ''
+      sets: 1,
+      reps: 1,
+      rest: '0:30'
     }
     setExercises([...exercises, newExercise])
   }
@@ -219,6 +220,20 @@ const Planner: React.FC = () => {
                       </Select>
                     </FormControl>
                   </Box>
+                  <TextField
+                    id={'weight'}
+                    label="Weight in lbs"
+                    name="weight"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleChange(e, index)
+                    }}
+                    type="number"
+                    sx={{
+                      margin: '8px auto',
+                      width: '270px',
+                      maxWidth: '290px'
+                    }}
+                  />
                 </Box>
               </Box>
             ))}
