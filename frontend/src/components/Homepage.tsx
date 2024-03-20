@@ -20,14 +20,14 @@ const Homepage: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          margin: '16px auto'
+          margin: '8px auto'
         }}
       >
         <Typography variant="h1">Fit-App</Typography>
-        <GiMuscleUp style={{ height: '5em', width: '5em' }} />
+        <GiMuscleUp style={{ height: '4em', width: '4em' }} />
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'center', margin: '16px auto' }}
+        sx={{ display: 'flex', justifyContent: 'center', margin: '8px auto' }}
       >
         <Typography
           variant="h5"
@@ -39,8 +39,17 @@ const Homepage: React.FC = () => {
           to help you!
         </Typography>
       </Box>
-      <Box sx={{ marginTop: '32px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '160px',
+          marginTop: '32px',
+          justifyContent: 'space-between'
+        }}
+      >
         <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
+        <NavigationButton buttonText="Workout" destination={'/training'} />
       </Box>
     </Box>
   )
