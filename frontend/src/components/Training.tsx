@@ -19,24 +19,14 @@ const Training: React.FC = () => {
       exerciseName: 'Bench',
       reps: 3,
       sets: 4,
-      rest: 5,
-      tempo: {
-        eccentric: 2,
-        isometric: 0,
-        concentric: 1
-      },
+      rest: '1:00',
       weight: 100
     },
     {
       exerciseName: 'Military Press',
       reps: 2,
       sets: 1,
-      rest: 4,
-      tempo: {
-        eccentric: 0,
-        isometric: 0,
-        concentric: 0
-      },
+      rest: '0:30',
       weight: 50
     }
   ]
@@ -49,6 +39,20 @@ const Training: React.FC = () => {
 
   const handleInputChange = (event: { target: { value: any } }): void => {
     console.log(event.target.value)
+  }
+
+  const formatRestTime = (restTime: string): string => {
+    const [minutes, seconds] = restTime
+      .split(':')
+      .map((part: string) => parseInt(part))
+
+    if (minutes > 0 && seconds > 0) {
+      return `${minutes} minutes ${seconds} seconds`
+    } else if (minutes > 0) {
+      return `${minutes} minutes`
+    } else {
+      return `${seconds} seconds`
+    }
   }
 
   return (
@@ -70,7 +74,7 @@ const Training: React.FC = () => {
             key={`exercise-${index}`}
             sx={{
               border: '4px solid black',
-              width: '70vw',
+              width: '90vw',
               height: 'auto',
               margin: '16px',
               padding: '8px',
@@ -110,13 +114,17 @@ const Training: React.FC = () => {
                           label="reps"
                           type="number"
                           size="small"
+                          defaultValue={exercise.reps}
                           onChange={handleInputChange}
                           inputProps={{
                             inputMode: 'numeric',
                             pattern: '[0-9]*'
                           }}
                           InputLabelProps={{
-                            sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
+                            sx: {
+                              fontSize: isSmallScreen ? '.95rem' : '1rem',
+                              textAlign: 'center'
+                            }
                           }}
                           sx={{
                             width: '90%'
@@ -129,6 +137,7 @@ const Training: React.FC = () => {
                           label="weight (lbs)"
                           type="number"
                           size="small"
+                          defaultValue={exercise.weight}
                           onChange={handleInputChange}
                           inputProps={{
                             inputMode: 'numeric',
@@ -148,8 +157,7 @@ const Training: React.FC = () => {
                       textAlign="center"
                       sx={{ marginTop: '8px' }}
                     >
-                      Rest: {exercise.rest} mins Tempo:{' '}
-                      {`${exercise.tempo.eccentric}-${exercise.tempo.isometric}-${exercise.tempo.concentric}`}
+                      Rest: {formatRestTime(exercise.rest)}
                     </Typography>
                   </Box>
                 )
