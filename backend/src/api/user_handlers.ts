@@ -17,7 +17,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
   try {
     const userCollection = db.collection(USERS_COLLECTION);
-    const result = await userCollection.findOne({ userName: userId as any });
+    const result = await userCollection.findOne({ _id: userId as any });
 
     if (result === null) {
       res.status(404).json({ status: 404, message: 'No User found' });
@@ -35,6 +35,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const getAllProgramsForUser = async (req: Request, res: Response) => {
   const { userId } = req.params;
+
   if (!MONGO_URI || !DB_NAME || !PROGRAMS_COLLECTION || !USERS_COLLECTION) {
     throw new Error('MONGO_URI or DB_NAME not defined');
   }
