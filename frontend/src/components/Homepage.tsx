@@ -1,6 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import NavigationButton from './NavigationButton'
+import LoginButton from './LoginButton'
+import LogoutButton from './LogoutButton'
 import Typography from '@mui/material/Typography'
 import { GiMuscleUp } from 'react-icons/gi'
 
@@ -48,6 +50,8 @@ const Homepage: React.FC = () => {
           justifyContent: 'space-between'
         }}
       >
+        <LoginButton buttonText={'Login'} isSmall={false} />
+        <LogoutButton />
         <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
         <NavigationButton buttonText="Workout" destination={'/training'} />
       </Box>
