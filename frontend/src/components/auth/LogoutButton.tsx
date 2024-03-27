@@ -12,11 +12,10 @@ const LogoutButton: React.FC = () => {
   return (
     <Button
       variant="contained"
-      color="secondary"
       onClick={handleLogout}
       sx={{
-        height: '60px',
-        width: '150px'
+        height: '30px',
+        width: '100px'
       }}
     >
       Log Out
