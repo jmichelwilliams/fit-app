@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './components/App'
 import { Auth0Provider } from '@auth0/auth0-react'
 
-const audience = process.env.REACT_APP_AUTH0_AUDIENCE
+const audience = process.env.REACT_APP_AUTH_USER_AUDIENCE
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Auth0Provider
