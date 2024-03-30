@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import NavigationButton from './NavigationButton'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { useAuth0 } from '@auth0/auth0-react'
 
 interface Program {
   _id: string
@@ -22,12 +23,21 @@ interface Program {
 const Workouts: React.FC = () => {
   const { userId } = useParams()
   const [programs, setPrograms] = useState<Program[]>([])
+  const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     const fetchUserId = async (): Promise<void> => {
-      try {
-        const res = await fetch(`/user/${userId}/programs`)
+      const accessToken = await getAccessTokenSilently()
 
+      try {
+        const res = await fetch(`/user/${userId}/programs`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+        console.log('res: ', res)
         if (!res.ok) {
           throw new Error('Failed to fetch user')
         }

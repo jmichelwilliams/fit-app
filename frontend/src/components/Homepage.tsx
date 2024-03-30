@@ -1,10 +1,14 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import NavigationButton from './NavigationButton'
+import LoginButton from './auth/LoginButton'
 import Typography from '@mui/material/Typography'
 import { GiMuscleUp } from 'react-icons/gi'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Homepage: React.FC = () => {
+  const { isAuthenticated } = useAuth0()
+
   return (
     <Box
       sx={{
@@ -39,18 +43,35 @@ const Homepage: React.FC = () => {
           to help you!
         </Typography>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '160px',
-          marginTop: '32px',
-          justifyContent: 'space-between'
-        }}
-      >
-        <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
-        <NavigationButton buttonText="Workout" destination={'/training'} />
-      </Box>
+      {isAuthenticated ? (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '160px',
+            marginTop: '32px',
+            justifyContent: 'space-between'
+          }}
+        >
+          <NavigationButton
+            buttonText="Go to Planner"
+            destination={'/planner'}
+          />
+          <NavigationButton buttonText="Workout" destination={'/training'} />
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '160px',
+            marginTop: '32px',
+            justifyContent: 'space-between'
+          }}
+        >
+          <LoginButton buttonText="Login / Register" isSmall={false} />
+        </Box>
+      )}
     </Box>
   )
 }
