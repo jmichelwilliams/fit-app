@@ -4,8 +4,10 @@
   "main": "server.ts",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-oauth2-jwt-bearer": "^1.6.0",
     "mongodb": "^6.3.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.2",
