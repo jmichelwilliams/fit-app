@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from 'express';
 import morgan from 'morgan';
-import { getUserById, getAllProgramsForUser } from './api/user_handlers';
+import { getUserById } from './api/user_handlers';
+import { getAllProgramsForUser } from './api/program_handlers';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 const cors = require('cors');
