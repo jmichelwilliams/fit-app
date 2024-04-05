@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import { connectToDatabase } from '../database/db_connect';
-import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config({ path: '../.env' });
 
