@@ -8,6 +8,7 @@ dotenv.config({ path: '../.env' });
 const { PROGRAMS_COLLECTION } = process.env;
 
 interface Exercise {
+  exerciseId: string;
   exerciseName: string;
   sets: number;
   reps: number;
@@ -18,7 +19,7 @@ interface Exercise {
 interface Program {
   _id: string;
   programName: string;
-  exercises: Exercise[];
+  newExercises: Exercise[];
   createdBy: string;
 }
 
@@ -64,10 +65,17 @@ export const addProgram = async (req: Request, res: Response) => {
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
 
+    const newExercises = exercises.map((exercise: any) => {
+      return {
+        ...exercise,
+        exerciseId: uuidv4(),
+      };
+    });
+
     const newProgram: Program = {
       _id: uuidv4(),
       programName,
-      exercises,
+      newExercises,
       createdBy: userId,
     };
 
