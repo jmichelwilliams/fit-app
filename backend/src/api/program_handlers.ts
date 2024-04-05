@@ -65,7 +65,7 @@ export const addProgram = async (req: Request, res: Response) => {
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
 
-    const newExercises = exercises.map((exercise: any) => {
+    const newExercises = exercises.map((exercise: Exercise) => {
       return {
         ...exercise,
         exerciseId: uuidv4(),
