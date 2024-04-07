@@ -7,6 +7,9 @@ dotenv.config({ path: '../.env' });
 
 const { PROGRAMS_COLLECTION } = process.env;
 
+if (!PROGRAMS_COLLECTION) {
+  throw new Error('PROGRAMS_COLLECTION not defined');
+}
 interface Exercise {
   exerciseId: string;
   exerciseName: string;
@@ -25,10 +28,6 @@ interface Program {
 
 export const getAllProgramsForUser = async (req: Request, res: Response) => {
   const { userId } = req.params;
-
-  if (!PROGRAMS_COLLECTION) {
-    throw new Error('PROGRAMS_COLLECTION not defined');
-  }
   const { client, db } = await connectToDatabase();
 
   try {
@@ -56,10 +55,6 @@ export const getAllProgramsForUser = async (req: Request, res: Response) => {
 export const addProgram = async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { programName, exercises } = req.body.newProgram;
-
-  if (!PROGRAMS_COLLECTION) {
-    throw new Error('PROGRAMS_COLLECTION not defined');
-  }
   const { client, db } = await connectToDatabase();
 
   try {
@@ -86,6 +81,32 @@ export const addProgram = async (req: Request, res: Response) => {
   } finally {
     if (client) {
       await client.close();
+    }
+  }
+};
+
+export const getProgram = async (req: Request, res: Response) => {
+  const { programId } = req.params;
+  const { client, db } = await connectToDatabase();
+
+  try {
+    const programCollection = db.collection(PROGRAMS_COLLECTION);
+
+    const result = await programCollection.findOne({
+      _id: programId as any,
+    });
+
+    if (result === null) {
+      res.status(404).json({ status: 404, message: 'Program not found!' });
+    } else {
+      res.status(200).json({ status: 200, data: result });
+    }
+  } catch (error) {
+    console.error('Error occurred:', error);
+    res.status(500).json({ status: 500, message: 'Server error, try again' });
+  } finally {
+    if (client) {
+      client.close();
     }
   }
 };

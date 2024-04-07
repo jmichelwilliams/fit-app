@@ -32,7 +32,7 @@ const Workouts: React.FC = () => {
       const accessToken = await getAccessTokenSilently()
 
       try {
-        const res = await fetch(`/programs/${user.sub}`, {
+        const res = await fetch(`/programs/user/${user.sub}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
