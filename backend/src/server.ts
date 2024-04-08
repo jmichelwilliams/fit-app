@@ -5,6 +5,7 @@ import {
   addProgram,
   getAllProgramsForUser,
   getProgram,
+  updateProgram,
 } from './api/program_handlers';
 import * as dotenv from 'dotenv';
 import { check } from 'prettier';
@@ -27,6 +28,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.get('/user/:userId', checkJwt, getUserById);
 app.get('/programs/user/:userId', checkJwt, getAllProgramsForUser);
 app.get('/programs/:programId', checkJwt, getProgram);
+app.put('/programs/:programId', checkJwt, updateProgram);
 app.post('/programs/:userId', checkJwt, addProgram);
 
 app.get('*', (req: Request, res: Response) => {
