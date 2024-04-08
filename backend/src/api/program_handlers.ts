@@ -22,7 +22,7 @@ interface Exercise {
 interface Program {
   _id: string;
   programName: string;
-  newExercises: Exercise[];
+  exercises: Exercise[];
   createdBy: string;
 }
 
@@ -70,7 +70,7 @@ export const addProgram = async (req: Request, res: Response) => {
     const newProgram: Program = {
       _id: uuidv4(),
       programName,
-      newExercises,
+      exercises: newExercises,
       createdBy: userId,
     };
 
@@ -114,11 +114,13 @@ export const getProgram = async (req: Request, res: Response) => {
 // Work in progress
 export const updateProgram = async (req: Request, res: Response) => {
   const { programId } = req.params;
-  const { exercises } = req.body;
+  const { updatedProgram } = req.body;
   const { client, db } = await connectToDatabase();
-
+  console.log('Program:', req.body);
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
+    const query = { _id: updatedProgram._id };
+    const newValue = { $set: updatedProgram };
 
     // Find the program by its programId
     const program = await programCollection.findOne({ _id: programId as any });
@@ -130,22 +132,8 @@ export const updateProgram = async (req: Request, res: Response) => {
     }
 
     // Update each exercise in the program
-    const result = await Promise.all(
-      program.exercises.map(async (exercise: Exercise) => {
-        const query = { _id: exercise.exerciseId };
-        const newValue = { $set: exercise };
-
-        // Update the exercise
-        return programCollection.updateOne(query as any, newValue);
-      }),
-    );
-
-    // Check if any update failed
-    if (result.some(({ matchedCount }) => matchedCount === 0)) {
-      return res
-        .status(500)
-        .json({ status: 500, message: 'Could not update exercises' });
-    }
+    const result = await programCollection.updateOne(query as any, newValue);
+    console.log(result);
 
     // Return success response
     res
