@@ -3,12 +3,14 @@ import morgan from 'morgan';
 import { getUserById } from './api/user_handlers';
 import {
   addProgram,
+  deleteProgram,
   getAllProgramsForUser,
   getProgram,
   updateProgram,
 } from './api/program_handlers';
 import * as dotenv from 'dotenv';
 import { check } from 'prettier';
+import { claimCheck } from 'express-oauth2-jwt-bearer';
 dotenv.config({ path: '../.env' });
 const cors = require('cors');
 
@@ -30,6 +32,7 @@ app.get('/programs/user/:userId', checkJwt, getAllProgramsForUser);
 app.get('/programs/:programId', checkJwt, getProgram);
 app.put('/programs/:programId', checkJwt, updateProgram);
 app.post('/programs/:userId', checkJwt, addProgram);
+app.delete('/programs/:programId', checkJwt, deleteProgram);
 
 app.get('*', (req: Request, res: Response) => {
   res.status(404).json({

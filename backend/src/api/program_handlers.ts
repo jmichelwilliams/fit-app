@@ -111,6 +111,7 @@ export const getProgram = async (req: Request, res: Response) => {
   }
 };
 
+// Work in progress
 export const updateProgram = async (req: Request, res: Response) => {
   const { programId } = req.params;
   const { exercises } = req.body;
@@ -150,6 +151,30 @@ export const updateProgram = async (req: Request, res: Response) => {
     res
       .status(200)
       .json({ status: 200, message: 'Exercises updated successfully' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ status: 500, message: 'Internal server error' });
+  } finally {
+    if (client) {
+      client.close();
+    }
+  }
+};
+
+export const deleteProgram = async (req: Request, res: Response) => {
+  const { programId } = req.params;
+  const { client, db } = await connectToDatabase();
+
+  try {
+    const programCollection = db.collection(PROGRAMS_COLLECTION);
+
+    const result = await programCollection.deleteOne({ _id: programId as any });
+
+    if (!result) {
+      res.status(404).json({ status: 404, message: 'Program not found' });
+    } else {
+      res.status(200).json({ status: 200, data: result });
+    }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ status: 500, message: 'Internal server error' });
