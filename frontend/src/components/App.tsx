@@ -14,8 +14,9 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/planner" element={<Planner />} />
-        <Route path="/user/:userId/training" element={<Training />} />
-        <Route path="/user/:userId/workouts" element={<Workouts />} />
+        <Route path="/workouts" element={<Workouts />} />
+        {/* TODO: Add route /planner/programs & /planner/programs/:programId */}
+        <Route path="/workouts/:workoutId" element={<Training />} />
       </Routes>
     </Router>
   )

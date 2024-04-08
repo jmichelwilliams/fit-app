@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { useAuth0 } from '@auth0/auth0-react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -18,31 +18,54 @@ interface Exercise {
 }
 
 interface Program {
-  id: string
   programName: string
   exercises: Exercise[]
 }
 
 const Planner: React.FC = () => {
-  const [programs, setPrograms] = useState<Program[]>([])
+  const [programs, setPrograms] = useState<Program>()
   const [programName, setProgramName] = useState<string>('')
   const [exercises, setExercises] = useState<Exercise[]>([])
+  const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     console.log('Programs:', programs)
   }, [programs])
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault()
-    if (programName.trim() !== '' && exercises.length > 0) {
+    event.persist()
+    try {
+      const accessToken = await getAccessTokenSilently()
+
       const newProgram: Program = {
-        id: '123abc', // TODO: Generate id from backend
         programName,
         exercises
       }
-      setPrograms((prevPrograms) => [...prevPrograms, newProgram])
+
+      setPrograms(newProgram)
       setProgramName('')
       setExercises([])
+
+      // Fetch API with updated state
+      if (user !== null && user !== undefined) {
+        const res = await fetch(`/programs/${user.sub}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: JSON.stringify({ newProgram })
+        })
+        if (res.ok) {
+          console.log('Program saved successfully')
+          setPrograms(undefined)
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error)
     }
   }
 
@@ -97,7 +120,11 @@ const Planner: React.FC = () => {
         </Typography>
       </Box>
       <Box>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={(event) => {
+            void handleSubmit(event)
+          }}
+        >
           <Box
             sx={{
               display: 'flex',

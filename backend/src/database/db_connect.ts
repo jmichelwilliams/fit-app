@@ -1,6 +1,11 @@
 import { MongoClient } from 'mongodb';
+import * as dotenv from 'dotenv';
 
-export const connectToDatabase = async (MONGO_URI: string, DB_NAME: string) => {
+dotenv.config({ path: '../.env' });
+
+const { MONGO_URI, DB_NAME } = process.env;
+
+export const connectToDatabase = async () => {
   try {
     if (!MONGO_URI || !DB_NAME) {
       throw new Error('Environment variables not set');

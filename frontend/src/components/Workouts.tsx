@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import NavigationButton from './NavigationButton'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -21,37 +20,41 @@ interface Program {
 }
 
 const Workouts: React.FC = () => {
-  const { userId } = useParams()
   const [programs, setPrograms] = useState<Program[]>([])
-  const { getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
+    if (user === null || user === undefined) {
+      return
+    }
+
     const fetchUserId = async (): Promise<void> => {
       const accessToken = await getAccessTokenSilently()
 
       try {
-        const res = await fetch(`/user/${userId}/programs`, {
+        const res = await fetch(`/programs/user/${user.sub}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${accessToken}`
           }
         })
-        console.log('res: ', res)
+
         if (!res.ok) {
           throw new Error('Failed to fetch user')
         }
+
         const data = await res.json()
-        console.log(data)
         setPrograms(data.data)
       } catch (error) {
         console.log('error: ', error)
       }
     }
+
     fetchUserId().catch((error) => {
       console.error('Error fetching programs:', error)
     })
-  }, [userId])
+  }, [user, getAccessTokenSilently])
 
   console.log('programs: ', programs)
   return (
