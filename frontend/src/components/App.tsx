@@ -7,6 +7,7 @@ import AddProgram from './AddProgram'
 import Training from './Training'
 import Workouts from './Workouts'
 import GlobalStyle from '../styles/GlobalStyles'
+import ProgramView from './ProgramView'
 
 const App: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const App: React.FC = () => {
         <Route path="/planner" element={<Planner />} />
         <Route path="/planner/addprogram" element={<AddProgram />} />
 
-        <Route path="/programs/:programId" element={'Hello'} />
+        <Route path="/programs/:programId" element={<ProgramView />} />
       </Routes>
     </Router>
   )
