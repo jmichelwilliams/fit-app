@@ -9,7 +9,7 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
-interface Exercise {
+interface LocalExercise {
   exerciseName: string
   sets: number
   reps: number
@@ -17,15 +17,15 @@ interface Exercise {
   weight?: number
 }
 
-interface Program {
+interface LocalProgram {
   programName: string
-  exercises: Exercise[]
+  exercises: LocalExercise[]
 }
 
 const Planner: React.FC = () => {
-  const [programs, setPrograms] = useState<Program>()
+  const [programs, setPrograms] = useState<LocalProgram>()
   const [programName, setProgramName] = useState<string>('')
-  const [exercises, setExercises] = useState<Exercise[]>([])
+  const [exercises, setExercises] = useState<LocalExercise[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Planner: React.FC = () => {
     try {
       const accessToken = await getAccessTokenSilently()
 
-      const newProgram: Program = {
+      const newProgram: LocalProgram = {
         programName,
         exercises
       }
@@ -85,7 +85,7 @@ const Planner: React.FC = () => {
   const handleSelectChange = (
     event: SelectChangeEvent<number | string>,
     index: number,
-    property: keyof Exercise
+    property: keyof LocalExercise
   ): void => {
     const { value } = event.target
     const updatedExercises = [...exercises]
@@ -96,7 +96,7 @@ const Planner: React.FC = () => {
     setExercises(updatedExercises)
   }
   const handleAddExercise = (): void => {
-    const newExercise: Exercise = {
+    const newExercise: LocalExercise = {
       exerciseName: '',
       sets: 1,
       reps: 1,
