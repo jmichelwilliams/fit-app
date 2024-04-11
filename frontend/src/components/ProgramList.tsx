@@ -32,7 +32,7 @@ const ProgramList: React.FC = () => {
         return (
           <Box key={program._id} sx={{ margin: '16px' }}>
             <NavigationButton
-              destination={`/user/${program.createdBy}/training`}
+              destination={`/programs/${program._id}`}
               buttonText={program.programName}
               isBig
             />{' '}

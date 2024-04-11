@@ -1,5 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
+import ProgramList from './ProgramList'
 
 const Planner: React.FC = () => {
   return (
@@ -7,6 +8,7 @@ const Planner: React.FC = () => {
       <Typography variant="h3" align={'center'}>
         My Programs
       </Typography>
+      <ProgramList />
     </div>
   )
 }

@@ -20,6 +20,8 @@ const App: React.FC = () => {
         {/* TODO: Add route /planner/programs & /planner/programs/:programId */}
         <Route path="/planner" element={<Planner />} />
         <Route path="/planner/addprogram" element={<AddProgram />} />
+
+        <Route path="/programs/:programId" element={'Hello'} />
       </Routes>
     </Router>
   )
