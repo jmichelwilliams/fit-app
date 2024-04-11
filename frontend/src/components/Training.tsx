@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import { formatRestTime } from '../utils/formatRestTime'
 
 const Training: React.FC = () => {
   const [completed, setCompleted] = useState<boolean[]>(Array(2).fill(false))
@@ -41,20 +42,6 @@ const Training: React.FC = () => {
     console.log(event.target.value)
   }
 
-  const formatRestTime = (restTime: string): string => {
-    const [minutes, seconds] = restTime
-      .split(':')
-      .map((part: string) => parseInt(part))
-
-    if (minutes > 0 && seconds > 0) {
-      return `${minutes} minutes ${seconds} seconds`
-    } else if (minutes > 0) {
-      return `${minutes} minutes`
-    } else {
-      return `${seconds} seconds`
-    }
-  }
-
   return (
     <Box
       sx={{
@@ -64,10 +51,6 @@ const Training: React.FC = () => {
         margin: '16px auto'
       }}
     >
-      <Typography variant="h3" textAlign="center">
-        Program Title
-      </Typography>
-
       {mockData.map((exercise, index) => {
         return (
           <Box
