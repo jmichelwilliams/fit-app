@@ -50,7 +50,7 @@ const ProgramView: React.FC = () => {
               border: '4px solid black',
               width: '90vw',
               height: 'auto',
-              margin: '16px',
+              margin: '8px auto',
               padding: '8px',
               borderRadius: '16px',
               display: 'flex',
@@ -89,9 +89,8 @@ const ProgramView: React.FC = () => {
                           type="number"
                           size="small"
                           defaultValue={exercise.reps}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
+                          InputProps={{
+                            readOnly: true
                           }}
                           InputLabelProps={{
                             sx: {
@@ -111,9 +110,8 @@ const ProgramView: React.FC = () => {
                           type="number"
                           size="small"
                           defaultValue={exercise.weight}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
+                          InputProps={{
+                            readOnly: true
                           }}
                           InputLabelProps={{
                             sx: {
