@@ -8,7 +8,7 @@ import { formatRestTime } from '../utils/formatRestTime'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 
-const ProgramView: React.FC = () => {
+const ProgramDetails: React.FC = () => {
   const [program, setProgram] = useState<Program | undefined>()
   const { programId } = useParams<{
     programId: string
@@ -142,4 +142,4 @@ const ProgramView: React.FC = () => {
   )
 }
 
-export default ProgramView
+export default ProgramDetails
