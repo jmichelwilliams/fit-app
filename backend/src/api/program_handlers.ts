@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import { connectToDatabase } from '../database/db_connect';
 import { v4 as uuidv4 } from 'uuid';
+import { ObjectId } from 'mongodb';
 
 dotenv.config({ path: '../.env' });
 
@@ -20,7 +21,7 @@ interface Exercise {
 }
 
 interface Program {
-  _id: string;
+  _id: ObjectId;
   programName: string;
   exercises: Exercise[];
   createdBy: string;
@@ -34,7 +35,7 @@ export const getAllProgramsForUser = async (req: Request, res: Response) => {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
 
     const result = await programCollection
-      .find({ createdBy: userId as any })
+      .find({ createdBy: userId })
       .toArray();
 
     if (result.length === 0) {
@@ -68,7 +69,7 @@ export const addProgram = async (req: Request, res: Response) => {
     });
 
     const newProgram: Program = {
-      _id: uuidv4(),
+      _id: new ObjectId(),
       programName,
       exercises: newExercises,
       createdBy: userId,
@@ -93,7 +94,7 @@ export const getProgram = async (req: Request, res: Response) => {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
 
     const result = await programCollection.findOne({
-      _id: programId as any,
+      _id: new ObjectId(programId),
     });
 
     if (result === null) {
@@ -119,11 +120,13 @@ export const updateProgram = async (req: Request, res: Response) => {
   console.log('Program:', req.body);
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
-    const query = { _id: updatedProgram._id };
+    const query = { _id: new ObjectId(updatedProgram._id) };
     const newValue = { $set: updatedProgram };
 
     // Find the program by its programId
-    const program = await programCollection.findOne({ _id: programId as any });
+    const program = await programCollection.findOne({
+      _id: new Object(programId),
+    });
 
     if (!program) {
       return res
@@ -156,7 +159,9 @@ export const deleteProgram = async (req: Request, res: Response) => {
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
 
-    const result = await programCollection.deleteOne({ _id: programId as any });
+    const result = await programCollection.deleteOne({
+      _id: new ObjectId(programId),
+    });
 
     if (!result) {
       res.status(404).json({ status: 404, message: 'Program not found' });
