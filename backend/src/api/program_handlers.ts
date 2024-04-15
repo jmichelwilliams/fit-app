@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import { connectToDatabase } from '../database/db_connect';
-import { v4 as uuidv4 } from 'uuid';
 import { ObjectId } from 'mongodb';
 
 dotenv.config({ path: '../.env' });
@@ -24,18 +23,18 @@ interface Program {
   _id: ObjectId;
   programName: string;
   exercises: Exercise[];
-  createdBy: string;
+  createdBy: ObjectId;
 }
 
 export const getAllProgramsForUser = async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { client, db } = await connectToDatabase();
-
+  const parsedUserId = userId.split('|')[1];
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
 
     const result = await programCollection
-      .find({ createdBy: userId })
+      .find({ createdBy: new ObjectId(parsedUserId) })
       .toArray();
 
     if (result.length === 0) {
@@ -44,7 +43,7 @@ export const getAllProgramsForUser = async (req: Request, res: Response) => {
       res.status(200).json({ status: 200, data: result });
     }
   } catch (error) {
-    console.log('Error', error);
+    console.error('Error occurred:', error);
     res.status(500).json({ status: 500, error: 'Server Error' });
   } finally {
     if (client) {
@@ -57,6 +56,7 @@ export const addProgram = async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { programName, exercises } = req.body.newProgram;
   const { client, db } = await connectToDatabase();
+  const parsedUserId = userId.split('|')[1];
 
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
@@ -64,7 +64,7 @@ export const addProgram = async (req: Request, res: Response) => {
     const newExercises = exercises.map((exercise: Exercise) => {
       return {
         ...exercise,
-        exerciseId: uuidv4(),
+        exerciseId: new ObjectId(),
       };
     });
 
@@ -72,12 +72,13 @@ export const addProgram = async (req: Request, res: Response) => {
       _id: new ObjectId(),
       programName,
       exercises: newExercises,
-      createdBy: userId,
+      createdBy: new ObjectId(parsedUserId),
     };
 
     const result = await programCollection.insertOne(newProgram as any);
     res.status(200).json({ status: 200, data: result });
   } catch (error) {
+    console.error('Error occurred:', error);
     res.status(500).json({ status: 500, error: 'Server error, try again' });
   } finally {
     if (client) {
@@ -112,12 +113,11 @@ export const getProgram = async (req: Request, res: Response) => {
   }
 };
 
-// Work in progress
 export const updateProgram = async (req: Request, res: Response) => {
   const { programId } = req.params;
   const { updatedProgram } = req.body;
   const { client, db } = await connectToDatabase();
-  console.log('Program:', req.body);
+
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
     const query = { _id: new ObjectId(updatedProgram._id) };
@@ -125,7 +125,7 @@ export const updateProgram = async (req: Request, res: Response) => {
 
     // Find the program by its programId
     const program = await programCollection.findOne({
-      _id: new Object(programId),
+      _id: new ObjectId(programId),
     });
 
     if (!program) {
@@ -136,9 +136,7 @@ export const updateProgram = async (req: Request, res: Response) => {
 
     // Update each exercise in the program
     const result = await programCollection.updateOne(query as any, newValue);
-    console.log(result);
 
-    // Return success response
     res
       .status(200)
       .json({ status: 200, message: 'Exercises updated successfully' });
