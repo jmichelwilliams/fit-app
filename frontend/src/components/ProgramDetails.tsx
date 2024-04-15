@@ -1,57 +1,48 @@
-import React, { useState } from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Checkbox from '@mui/material/Checkbox'
-import TextField from '@mui/material/TextField'
-import Grid from '@mui/material/Grid'
+import React, { useEffect, useState } from 'react'
+import { Typography, Box, TextField, Grid } from '@mui/material'
+import type Program from '../types/Program'
+import { useParams } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import { fetchProgram } from '../utils/fetchProgram'
+import { formatRestTime } from '../utils/formatRestTime'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import { formatRestTime } from '../utils/formatRestTime'
 
-const Training: React.FC = () => {
-  const [completed, setCompleted] = useState<boolean[]>(Array(2).fill(false))
-
+const ProgramDetails: React.FC = () => {
+  const [program, setProgram] = useState<Program | undefined>()
+  const { programId } = useParams<{
+    programId: string
+  }>()
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { getAccessTokenSilently } = useAuth0()
 
-  const mockData = [
-    {
-      exerciseName: 'Bench',
-      reps: 3,
-      sets: 4,
-      rest: '1:00',
-      weight: 100
-    },
-    {
-      exerciseName: 'Military Press',
-      reps: 2,
-      sets: 1,
-      rest: '0:30',
-      weight: 50
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        if (programId != null && programId.length > 0) {
+          const accessToken = await getAccessTokenSilently()
+          const fetchedProgram = await fetchProgram(programId, accessToken)
+          setProgram(fetchedProgram)
+        }
+      } catch (error) {
+        console.error('Error fetching program:', error)
+      }
     }
-  ]
 
-  const handleToggle = (index: number): void => {
-    const newCompleted = [...completed]
-    newCompleted[index] = !completed[index]
-    setCompleted(newCompleted)
-  }
+    fetchData().catch((error) => {
+      console.error('Error fetching programs:', error)
+    })
+  }, [programId, getAccessTokenSilently])
 
-  const handleInputChange = (event: { target: { value: any } }): void => {
-    console.log(event.target.value)
-  }
-
+  console.log('program: ', program)
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '16px auto'
-      }}
-    >
-      {mockData.map((exercise, index) => {
+    <div>
+      <Typography variant="h3" textAlign="center">
+        {program?.programName.toUpperCase()}
+      </Typography>
+
+      {program?.exercises.map((exercise, index) => {
         return (
           <Box
             key={`exercise-${index}`}
@@ -59,7 +50,7 @@ const Training: React.FC = () => {
               border: '4px solid black',
               width: '90vw',
               height: 'auto',
-              margin: '16px',
+              margin: '8px auto',
               padding: '8px',
               borderRadius: '16px',
               display: 'flex',
@@ -98,10 +89,8 @@ const Training: React.FC = () => {
                           type="number"
                           size="small"
                           defaultValue={exercise.reps}
-                          onChange={handleInputChange}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
+                          InputProps={{
+                            readOnly: true
                           }}
                           InputLabelProps={{
                             sx: {
@@ -121,13 +110,13 @@ const Training: React.FC = () => {
                           type="number"
                           size="small"
                           defaultValue={exercise.weight}
-                          onChange={handleInputChange}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
+                          InputProps={{
+                            readOnly: true
                           }}
                           InputLabelProps={{
-                            sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' } // Adjust font size based on screen size
+                            sx: {
+                              fontSize: isSmallScreen ? '.95rem' : '1rem'
+                            }
                           }}
                           sx={{
                             width: '90%'
@@ -145,27 +134,12 @@ const Training: React.FC = () => {
                   </Box>
                 )
               })}
-
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={completed[index]}
-                    onChange={() => {
-                      handleToggle(index)
-                    }}
-                    style={{
-                      color: completed[index] ? 'green' : 'initial'
-                    }}
-                  />
-                }
-                label="Completed?"
-              />
             </Box>
           </Box>
         )
       })}
-    </Box>
+    </div>
   )
 }
 
-export default Training
+export default ProgramDetails
