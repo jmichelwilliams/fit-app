@@ -3,7 +3,8 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import ProgramList from './ProgramList'
 
-const Workouts: React.FC = () => {
+const WorkoutList: React.FC = () => {
+  console.log('location.pathname: ', location.pathname)
   return (
     <Box
       sx={{
@@ -22,4 +23,4 @@ const Workouts: React.FC = () => {
   )
 }
 
-export default Workouts
+export default WorkoutList
