@@ -19,14 +19,6 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     navigate(`${destination}`)
   }
 
-  // const truncateButtonText = (text: string): string => {
-  //   if (text.length > 15) {
-  //     return text.substring(0, 12) + '...'
-  //   } else {
-  //     return text
-  //   }
-  // }
-
   return (
     <Button
       variant="contained"
