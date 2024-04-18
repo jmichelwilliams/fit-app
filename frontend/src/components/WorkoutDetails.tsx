@@ -24,11 +24,23 @@ const WorkoutDetails: React.FC = () => {
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
+  // TODO: Need to change the structure of program to this:
+  //   {
+  //     "exerciseName": "Tricep Extension",
+  //     "sets": [
+  //         { "set1": 8 },
+  //         { "set2": 8 },
+  //         { "set3": 8 }
+  //     ],
+  //     "rest": "2:00",
+  //     "weight": 55,
+  //     "exerciseId": "6620319a9f7182ed81315089"
+  // }
+  // That way the user can modify each set
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
 
   const handleToggle = (index: number): void => {
     const newCompleted = [...completed]
-
     newCompleted[index] = !completed[index]
     setCompleted(newCompleted)
   }
@@ -48,7 +60,7 @@ const WorkoutDetails: React.FC = () => {
     }
     setProgram(updatedProgram as Program)
   }
-
+  console.log('program: ', program)
   return (
     <Box
       sx={{
