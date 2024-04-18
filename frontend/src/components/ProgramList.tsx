@@ -8,6 +8,7 @@ import { fetchUserPrograms } from '../utils/fetchUserPrograms'
 const ProgramList: React.FC = () => {
   const [userPrograms, setUserPrograms] = useState<Program[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
+  const workoutMode = location.pathname === '/workouts'
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -25,17 +26,24 @@ const ProgramList: React.FC = () => {
     })
   }, [user, getAccessTokenSilently])
 
-  console.log('programs: ', userPrograms)
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {userPrograms.map((program) => {
         return (
           <Box key={program._id} sx={{ margin: '16px' }}>
-            <NavigationButton
-              destination={`/programs/${program._id}`}
-              buttonText={program.programName}
-              isBig
-            />{' '}
+            {workoutMode ? (
+              <NavigationButton
+                destination={`/workouts/${program._id}`}
+                buttonText={program.programName}
+                isBig
+              />
+            ) : (
+              <NavigationButton
+                destination={`/programs/${program._id}`}
+                buttonText={program.programName}
+                isBig
+              />
+            )}
           </Box>
         )
       })}

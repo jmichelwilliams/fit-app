@@ -4,10 +4,10 @@ import Header from './Header'
 import Homepage from './Homepage'
 import Planner from './Planner'
 import AddProgram from './AddProgram'
-import Training from './Training'
-import Workouts from './Workouts'
+import WorkoutList from './WorkoutList'
 import GlobalStyle from '../styles/GlobalStyles'
 import ProgramDetails from './ProgramDetails'
+import WorkoutDetails from './WorkoutDetails'
 
 const App: React.FC = () => {
   return (
@@ -16,12 +16,10 @@ const App: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/workouts" element={<Workouts />} />
-        <Route path="/workouts/:workoutId" element={<Training />} />
-        {/* TODO: Add route /planner/programs & /planner/programs/:programId */}
+        <Route path="/workouts" element={<WorkoutList />} />
+        <Route path="/workouts/:programId" element={<WorkoutDetails />} />
         <Route path="/planner" element={<Planner />} />
         <Route path="/planner/addprogram" element={<AddProgram />} />
-
         <Route path="/programs/:programId" element={<ProgramDetails />} />
       </Routes>
     </Router>

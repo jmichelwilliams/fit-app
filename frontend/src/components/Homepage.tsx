@@ -57,7 +57,10 @@ const Homepage: React.FC = () => {
             buttonText="Go to Planner"
             destination={'/planner'}
           />
-          <NavigationButton buttonText="Workout" destination={'/training'} />
+          <NavigationButton
+            buttonText="Start Workout"
+            destination={'/workouts'}
+          />
         </Box>
       ) : (
         <Box

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import useFetchProgram from '../hooks/useFetchProgram'
+import { fetchProgram } from '../utils/fetchProgram'
 import { Typography, Box, TextField, Grid } from '@mui/material'
 import type Program from '../types/Program'
 import { useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { fetchProgram } from '../utils/fetchProgram'
+
 import { formatRestTime } from '../utils/formatRestTime'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
@@ -17,25 +19,8 @@ const ProgramDetails: React.FC = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { getAccessTokenSilently } = useAuth0()
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      try {
-        if (programId != null && programId.length > 0) {
-          const accessToken = await getAccessTokenSilently()
-          const fetchedProgram = await fetchProgram(programId, accessToken)
-          setProgram(fetchedProgram)
-        }
-      } catch (error) {
-        console.error('Error fetching program:', error)
-      }
-    }
+  useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
 
-    fetchData().catch((error) => {
-      console.error('Error fetching programs:', error)
-    })
-  }, [programId, getAccessTokenSilently])
-
-  console.log('program: ', program)
   return (
     <div>
       <Typography variant="h3" textAlign="center">
