@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import useFetchProgram from '../hooks/useFetchProgram'
+import type Program from '../types/Program'
 import { useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { fetchProgram } from '../utils/fetchProgram'
+import { formatRestTime } from '../utils/formatRestTime'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Checkbox from '@mui/material/Checkbox'
@@ -11,8 +13,6 @@ import Grid from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { formatRestTime } from '../utils/formatRestTime'
-import type Program from '../types/Program'
 
 const WorkoutDetails: React.FC = () => {
   const [completed, setCompleted] = useState<boolean[]>(Array(2).fill(false))
@@ -28,6 +28,7 @@ const WorkoutDetails: React.FC = () => {
 
   const handleToggle = (index: number): void => {
     const newCompleted = [...completed]
+
     newCompleted[index] = !completed[index]
     setCompleted(newCompleted)
   }
@@ -79,6 +80,7 @@ const WorkoutDetails: React.FC = () => {
               textAlign="center"
               component="label"
               htmlFor={`exercise-${index}`}
+              sx={{ marginBottom: '8px' }}
             >
               {exercise.exerciseName}
             </Typography>
@@ -90,78 +92,95 @@ const WorkoutDetails: React.FC = () => {
                 alignItems: 'center'
               }}
             >
-              {Array.from({ length: exercise.sets }, (_, index) => {
-                return (
-                  <Box key={`set${index + 1}`} sx={{ margin: '8px' }}>
-                    <Typography variant="body1" textAlign="center">
-                      Set: {index + 1}
-                    </Typography>
-                    <Grid container spacing={2} sx={{ paddingLeft: '8px' }}>
-                      <Grid item xs={6}>
-                        <TextField
-                          id={`repsInput-${index}`}
-                          label="reps"
-                          name="reps"
-                          type="number"
-                          size="small"
-                          defaultValue={exercise.reps}
-                          onChange={(
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            handleChange(e, index)
-                          }}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
-                          }}
-                          InputLabelProps={{
-                            sx: {
-                              fontSize: isSmallScreen ? '.95rem' : '1rem',
-                              textAlign: 'center'
-                            }
-                          }}
-                          sx={{
-                            width: '90%'
-                          }}
-                        />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextField
-                          id={`weightInput-${index}`}
-                          label="weight (lbs)"
-                          name="weight"
-                          type="number"
-                          size="small"
-                          defaultValue={exercise.weight}
-                          onChange={(
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            handleChange(e, index)
-                          }}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
-                          }}
-                          InputLabelProps={{
-                            sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' } // Adjust font size based on screen size
-                          }}
-                          sx={{
-                            width: '90%'
-                          }}
-                        />
-                      </Grid>
-                    </Grid>
-                    <Typography
-                      variant="body1"
-                      textAlign="center"
-                      sx={{ marginTop: '8px' }}
+              <TextField
+                id={`weightInput-${index}`}
+                label="weight (lbs)"
+                name="weight"
+                type="number"
+                size="small"
+                defaultValue={exercise.weight}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange(e, index)
+                }}
+                inputProps={{
+                  inputMode: 'numeric',
+                  pattern: '[0-9]*'
+                }}
+                InputLabelProps={{
+                  sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' } // Adjust font size based on screen size
+                }}
+                sx={{
+                  width: '30%'
+                }}
+              />
+              <Box sx={{ display: 'flex' }}>
+                {Array.from({ length: exercise.sets }, (_, index) => {
+                  return (
+                    <Box
+                      key={`set${index + 1}`}
+                      sx={{
+                        display: 'flex',
+                        margin: '8px'
+                      }}
                     >
-                      Rest: {formatRestTime(exercise.rest)}
-                    </Typography>
-                  </Box>
-                )
-              })}
-
+                      <Typography variant="body1" textAlign="center">
+                        Set: {index + 1}
+                      </Typography>
+                      <Grid
+                        container
+                        spacing={2}
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ paddingLeft: '8px' }}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            margin: '8px'
+                          }}
+                        >
+                          <TextField
+                            id={`repsInput-${index}`}
+                            label="reps"
+                            name="reps"
+                            type="number"
+                            size="small"
+                            defaultValue={exercise.reps}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              handleChange(e, index)
+                            }}
+                            inputProps={{
+                              inputMode: 'numeric',
+                              pattern: '[0-9]*'
+                            }}
+                            InputLabelProps={{
+                              sx: {
+                                fontSize: isSmallScreen ? '.95rem' : '1rem',
+                                textAlign: 'center'
+                              }
+                            }}
+                            sx={{
+                              width: '100%'
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  )
+                })}
+              </Box>
+              <Typography
+                variant="body1"
+                textAlign="center"
+                sx={{ marginTop: '8px' }}
+              >
+                Rest: {formatRestTime(exercise.rest)}
+              </Typography>
               <FormControlLabel
                 control={
                   <Checkbox
