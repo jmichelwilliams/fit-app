@@ -132,7 +132,8 @@ const WorkoutDetails: React.FC = () => {
                       key={`set${index + 1}`}
                       sx={{
                         display: 'flex',
-                        margin: '8px'
+                        margin: '8px',
+                        flexDirection: 'column'
                       }}
                     >
                       <Typography variant="body1" textAlign="center">
