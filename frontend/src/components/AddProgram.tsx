@@ -8,11 +8,16 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import RepsSelect from './RepsSelect'
+
+interface LocalSet {
+  setId: number
+  reps: number
+}
 
 interface LocalExercise {
   exerciseName: string
-  sets: number
-  reps: number
+  sets: LocalSet[]
   rest: string
   weight?: number
 }
@@ -89,22 +94,42 @@ const Planner: React.FC = () => {
   ): void => {
     const { value } = event.target
     const updatedExercises = [...exercises]
-    updatedExercises[index] = {
-      ...updatedExercises[index],
-      [property]: value
+
+    if (property === 'sets') {
+      // Update the sets property for the current exercise
+      const numberOfSets = parseInt(value.toString(), 10)
+      const newSets = Array.from({ length: numberOfSets }, (_, i) => ({
+        setId: i + 1,
+        reps:
+          updatedExercises[index].sets.length > 0
+            ? updatedExercises[index].sets[0].reps
+            : 1 // Default to 1 if sets are empty or reps are not defined
+      }))
+
+      updatedExercises[index] = {
+        ...updatedExercises[index],
+        sets: newSets
+      }
+    } else {
+      // Update other properties as usual
+      updatedExercises[index] = {
+        ...updatedExercises[index],
+        [property]: value
+      }
     }
+
     setExercises(updatedExercises)
   }
+
   const handleAddExercise = (): void => {
     const newExercise: LocalExercise = {
       exerciseName: '',
-      sets: 1,
-      reps: 1,
+      sets: [{ setId: 1, reps: 1 }],
       rest: '0:30'
     }
     setExercises([...exercises, newExercise])
   }
-
+  console.log('exercises: ', exercises)
   return (
     <Box
       sx={{
@@ -203,29 +228,11 @@ const Planner: React.FC = () => {
                         )}
                       </Select>
                     </FormControl>
-                    <FormControl>
-                      <InputLabel id="reps-label" sx={{ margin: '8px' }}>
-                        Reps
-                      </InputLabel>
-                      <Select
-                        labelId="reps-label"
-                        id="reps"
-                        label="Reps"
-                        onChange={(e: SelectChangeEvent<number>) => {
-                          handleSelectChange(e, index, 'reps')
-                        }}
-                        defaultValue={1}
-                        sx={{ margin: '8px', width: '80px' }}
-                      >
-                        {Array.from({ length: 15 }, (_, i) => i + 1).map(
-                          (rep) => (
-                            <MenuItem key={rep} value={rep}>
-                              {rep}
-                            </MenuItem>
-                          )
-                        )}
-                      </Select>
-                    </FormControl>
+                    <RepsSelect
+                      index={index}
+                      setExercises={setExercises}
+                      exercises={exercises}
+                    />
                     <FormControl>
                       <InputLabel id="rest-label" sx={{ margin: '8px' }}>
                         Rest
