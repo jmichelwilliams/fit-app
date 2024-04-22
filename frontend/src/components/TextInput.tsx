@@ -1,27 +1,14 @@
 import React from 'react'
 import { TextField } from '@mui/material'
-
-interface LocalSet {
-  setId: number
-  reps: number
-}
-
-interface LocalExercise {
-  exerciseName: string
-  sets: LocalSet[]
-  rest: string
-  weight?: number
-}
+import Exercise from '../types/Exercise'
 
 interface ProgramInputProps {
   index: number
   label: string
   id: string
   name: string
-  setExercises: (
-    callback: (prevState: LocalExercise[]) => LocalExercise[]
-  ) => void
-  exercises: LocalExercise[]
+  setExercises: (callback: (prevState: Exercise[]) => Exercise[]) => void
+  exercises: Exercise[]
   type: string
 }
 const ProgramInput: React.FC<ProgramInputProps> = ({

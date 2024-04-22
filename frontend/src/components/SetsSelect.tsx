@@ -1,25 +1,12 @@
 import React from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import type { SelectChangeEvent } from '@mui/material'
-
-interface LocalExercise {
-  exerciseName: string
-  sets: LocalSet[]
-  rest: string
-  weight?: number
-}
-
-interface LocalSet {
-  setId: number
-  reps: number
-}
+import Exercise from '../types/Exercise'
 
 interface SetsSelectProps {
   index: number
-  setExercises: (
-    callback: (prevState: LocalExercise[]) => LocalExercise[]
-  ) => void
-  exercises: LocalExercise[]
+  setExercises: (callback: (prevState: Exercise[]) => Exercise[]) => void
+  exercises: Exercise[]
 }
 
 const SetsSelect: React.FC<SetsSelectProps> = ({

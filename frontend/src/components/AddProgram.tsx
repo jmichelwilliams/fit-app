@@ -8,28 +8,13 @@ import RepsSelect from './RepsSelect'
 import SetsSelect from './SetsSelect'
 import RestTimeSelect from './RestTimeSelect'
 import TextInput from './TextInput'
-
-interface LocalSet {
-  setId: number
-  reps: number
-}
-
-interface LocalExercise {
-  exerciseName: string
-  sets: LocalSet[]
-  rest: string
-  weight?: number
-}
-
-interface LocalProgram {
-  programName: string
-  exercises: LocalExercise[]
-}
+import Exercise from '../types/Exercise'
+import LocalProgram from '../types/LocalProgram'
 
 const Planner: React.FC = () => {
   const [programs, setPrograms] = useState<LocalProgram>()
   const [programName, setProgramName] = useState<string>('')
-  const [exercises, setExercises] = useState<LocalExercise[]>([])
+  const [exercises, setExercises] = useState<Exercise[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
@@ -73,7 +58,7 @@ const Planner: React.FC = () => {
   }
 
   const handleAddExercise = (): void => {
-    const newExercise: LocalExercise = {
+    const newExercise: Exercise = {
       exerciseName: '',
       sets: [{ setId: 1, reps: 1 }],
       rest: '0:30'

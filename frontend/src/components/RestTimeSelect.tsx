@@ -6,24 +6,12 @@ import {
   MenuItem,
   type SelectChangeEvent
 } from '@mui/material'
-
-interface LocalExercise {
-  exerciseName: string
-  sets: LocalSet[]
-  rest: string
-  weight?: number
-}
-interface LocalSet {
-  setId: number
-  reps: number
-}
+import Exercise from '../types/Exercise'
 
 interface RestSelectProps {
   index: number
-  setExercises: (
-    callback: (prevState: LocalExercise[]) => LocalExercise[]
-  ) => void
-  exercises: LocalExercise[]
+  setExercises: (callback: (prevState: Exercise[]) => Exercise[]) => void
+  exercises: Exercise[]
 }
 const RestTimeSelect: React.FC<RestSelectProps> = ({
   index,
@@ -33,7 +21,7 @@ const RestTimeSelect: React.FC<RestSelectProps> = ({
   const handleSelectChange = (
     event: SelectChangeEvent<number | string>,
     index: number,
-    property: keyof LocalExercise
+    property: keyof Exercise
   ): void => {
     const { value } = event.target
     const updatedExercises = [...exercises]
