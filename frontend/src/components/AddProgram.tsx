@@ -9,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import RepsSelect from './RepsSelect'
+import SetsSelect from './SetsSelect'
 
 interface LocalSet {
   setId: number
@@ -205,7 +206,7 @@ const Planner: React.FC = () => {
                     }}
                   />
                   <Box sx={{ width: '290px' }}>
-                    <FormControl>
+                    {/* <FormControl>
                       <InputLabel id="sets-label" sx={{ margin: '8px' }}>
                         Sets
                       </InputLabel>
@@ -227,7 +228,12 @@ const Planner: React.FC = () => {
                           )
                         )}
                       </Select>
-                    </FormControl>
+                    </FormControl> */}
+                    <SetsSelect
+                      index={index}
+                      setExercises={setExercises}
+                      exercises={exercises}
+                    />
                     <RepsSelect
                       index={index}
                       setExercises={setExercises}
