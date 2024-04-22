@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import RepsSelect from './RepsSelect'
 import SetsSelect from './SetsSelect'
 import RestTimeSelect from './RestTimeSelect'
-import ProgramInput from './ProgramInput'
+import TextInput from './TextInput'
 
 interface LocalSet {
   setId: number
@@ -142,7 +142,7 @@ const Planner: React.FC = () => {
                   <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                     Exercise {index + 1}{' '}
                   </Typography>
-                  <ProgramInput
+                  <TextInput
                     index={index}
                     setExercises={setExercises}
                     exercises={exercises}
@@ -169,7 +169,7 @@ const Planner: React.FC = () => {
                       exercises={exercises}
                     />
                   </Box>
-                  <ProgramInput
+                  <TextInput
                     index={index}
                     setExercises={setExercises}
                     exercises={exercises}
