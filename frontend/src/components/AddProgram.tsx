@@ -96,27 +96,10 @@ const Planner: React.FC = () => {
     const { value } = event.target
     const updatedExercises = [...exercises]
 
-    if (property === 'sets') {
-      // Update the sets property for the current exercise
-      const numberOfSets = parseInt(value.toString(), 10)
-      const newSets = Array.from({ length: numberOfSets }, (_, i) => ({
-        setId: i + 1,
-        reps:
-          updatedExercises[index].sets.length > 0
-            ? updatedExercises[index].sets[0].reps
-            : 1 // Default to 1 if sets are empty or reps are not defined
-      }))
-
-      updatedExercises[index] = {
-        ...updatedExercises[index],
-        sets: newSets
-      }
-    } else {
-      // Update other properties as usual
-      updatedExercises[index] = {
-        ...updatedExercises[index],
-        [property]: value
-      }
+    // Update other properties as usual
+    updatedExercises[index] = {
+      ...updatedExercises[index],
+      [property]: value
     }
 
     setExercises(updatedExercises)
@@ -206,29 +189,6 @@ const Planner: React.FC = () => {
                     }}
                   />
                   <Box sx={{ width: '290px' }}>
-                    {/* <FormControl>
-                      <InputLabel id="sets-label" sx={{ margin: '8px' }}>
-                        Sets
-                      </InputLabel>
-                      <Select
-                        labelId="sets-label"
-                        id="sets"
-                        label="Sets"
-                        onChange={(e: SelectChangeEvent<number>) => {
-                          handleSelectChange(e, index, 'sets')
-                        }}
-                        defaultValue={1}
-                        sx={{ margin: '8px', width: '80px' }}
-                      >
-                        {Array.from({ length: 5 }, (_, i) => i + 1).map(
-                          (set) => (
-                            <MenuItem key={set} value={set}>
-                              {set}
-                            </MenuItem>
-                          )
-                        )}
-                      </Select>
-                    </FormControl> */}
                     <SetsSelect
                       index={index}
                       setExercises={setExercises}
