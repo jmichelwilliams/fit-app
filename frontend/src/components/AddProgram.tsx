@@ -4,12 +4,9 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select, { type SelectChangeEvent } from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
 import RepsSelect from './RepsSelect'
 import SetsSelect from './SetsSelect'
+import RestTimeSelect from './RestTimeSelect'
 
 interface LocalSet {
   setId: number
@@ -55,7 +52,6 @@ const Planner: React.FC = () => {
       setProgramName('')
       setExercises([])
 
-      // Fetch API with updated state
       if (user !== null && user !== undefined) {
         const res = await fetch(`/programs/${user.sub}`, {
           method: 'POST',
@@ -85,23 +81,6 @@ const Planner: React.FC = () => {
       ...updatedExercises[index],
       [name]: name === 'exerciseName' ? value : parseInt(value, 10)
     }
-    setExercises(updatedExercises)
-  }
-
-  const handleSelectChange = (
-    event: SelectChangeEvent<number | string>,
-    index: number,
-    property: keyof LocalExercise
-  ): void => {
-    const { value } = event.target
-    const updatedExercises = [...exercises]
-
-    // Update other properties as usual
-    updatedExercises[index] = {
-      ...updatedExercises[index],
-      [property]: value
-    }
-
     setExercises(updatedExercises)
   }
 
@@ -199,26 +178,11 @@ const Planner: React.FC = () => {
                       setExercises={setExercises}
                       exercises={exercises}
                     />
-                    <FormControl>
-                      <InputLabel id="rest-label" sx={{ margin: '8px' }}>
-                        Rest
-                      </InputLabel>
-                      <Select
-                        labelId="rest-label"
-                        id="rest"
-                        label="Rest"
-                        onChange={(e: SelectChangeEvent<string>) => {
-                          handleSelectChange(e, index, 'rest')
-                        }}
-                        defaultValue={'0:30'}
-                        sx={{ margin: '8px', width: '80px' }}
-                      >
-                        <MenuItem value={'0:30'}>0:30</MenuItem>
-                        <MenuItem value={'1:00'}>1:00</MenuItem>
-                        <MenuItem value={'1:30'}>1:30</MenuItem>
-                        <MenuItem value={'2:00'}>2:00</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <RestTimeSelect
+                      index={index}
+                      setExercises={setExercises}
+                      exercises={exercises}
+                    />
                   </Box>
                   <TextField
                     id={'weight'}
