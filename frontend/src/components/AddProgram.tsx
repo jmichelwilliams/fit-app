@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField'
 import RepsSelect from './RepsSelect'
 import SetsSelect from './SetsSelect'
 import RestTimeSelect from './RestTimeSelect'
+import ProgramInput from './ProgramInput'
 
 interface LocalSet {
   setId: number
@@ -69,19 +70,6 @@ const Planner: React.FC = () => {
     } catch (error) {
       console.error('Error:', error)
     }
-  }
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ): void => {
-    const { name, value } = event.target
-    const updatedExercises = [...exercises]
-    updatedExercises[index] = {
-      ...updatedExercises[index],
-      [name]: name === 'exerciseName' ? value : parseInt(value, 10)
-    }
-    setExercises(updatedExercises)
   }
 
   const handleAddExercise = (): void => {
@@ -154,19 +142,16 @@ const Planner: React.FC = () => {
                   <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                     Exercise {index + 1}{' '}
                   </Typography>
-                  <TextField
-                    id={'exerciseName'}
-                    label="Exercise Name"
+                  <ProgramInput
+                    index={index}
+                    setExercises={setExercises}
+                    exercises={exercises}
+                    id="exerciseName"
                     name="exerciseName"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{
-                      margin: '8px auto',
-                      width: '270px',
-                      maxWidth: '290px'
-                    }}
+                    label="Exercise Name"
+                    type="text"
                   />
+
                   <Box sx={{ width: '290px' }}>
                     <SetsSelect
                       index={index}
@@ -184,19 +169,14 @@ const Planner: React.FC = () => {
                       exercises={exercises}
                     />
                   </Box>
-                  <TextField
-                    id={'weight'}
-                    label="Weight in lbs"
+                  <ProgramInput
+                    index={index}
+                    setExercises={setExercises}
+                    exercises={exercises}
+                    id="weight"
                     name="weight"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
+                    label="Weight in lbs"
                     type="number"
-                    sx={{
-                      margin: '8px auto',
-                      width: '270px',
-                      maxWidth: '290px'
-                    }}
                   />
                 </Box>
               </Box>
