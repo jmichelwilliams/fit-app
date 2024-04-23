@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField } from '@mui/material'
 import Exercise from '../types/Exercise'
 
-interface ProgramInputProps {
+interface TextInputProps {
   index: number
   label: string
   id: string
@@ -11,7 +11,7 @@ interface ProgramInputProps {
   exercises: Exercise[]
   type: string
 }
-const ProgramInput: React.FC<ProgramInputProps> = ({
+const ProgramInput: React.FC<TextInputProps> = ({
   index,
   setExercises,
   exercises,

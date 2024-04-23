@@ -9,10 +9,10 @@ import SetsSelect from './SetsSelect'
 import RestTimeSelect from './RestTimeSelect'
 import TextInput from './TextInput'
 import Exercise from '../types/Exercise'
-import LocalProgram from '../types/LocalProgram'
+import NewProgram from '../types/NewProgram'
 
 const Planner: React.FC = () => {
-  const [programs, setPrograms] = useState<LocalProgram>()
+  const [programs, setPrograms] = useState<NewProgram>()
   const [programName, setProgramName] = useState<string>('')
   const [exercises, setExercises] = useState<Exercise[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
@@ -29,7 +29,7 @@ const Planner: React.FC = () => {
     try {
       const accessToken = await getAccessTokenSilently()
 
-      const newProgram: LocalProgram = {
+      const newProgram: NewProgram = {
         programName,
         exercises
       }
