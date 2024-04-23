@@ -34,7 +34,7 @@ const ProgramInput: React.FC<TextInputProps> = ({
   }
   return (
     <TextField
-      id={id}
+      id={`${id}-${index}`}
       label={label}
       name={name}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

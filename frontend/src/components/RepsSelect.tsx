@@ -41,7 +41,7 @@ const RepsSelect: React.FC<RepsSelectProps> = ({
       <Select
         labelId={`reps-label-${index}`}
         id={`reps-${index}`}
-        label="Sets"
+        label="Reps"
         onChange={(e: SelectChangeEvent<number>) => {
           handleSelectChange(e, index)
         }}

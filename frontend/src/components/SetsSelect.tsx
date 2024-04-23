@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import type { SelectChangeEvent } from '@mui/material'
-import Exercise from '../types/Exercise'
+import type Exercise from '../types/Exercise'
 
 interface SetsSelectProps {
   index: number
@@ -44,7 +44,7 @@ const SetsSelect: React.FC<SetsSelectProps> = ({
       </InputLabel>
       <Select
         labelId="sets-label"
-        id="sets"
+        id={`sets-${index}`}
         label="Sets"
         onChange={(e: SelectChangeEvent<number>) => {
           handleSelectChange(e, index)

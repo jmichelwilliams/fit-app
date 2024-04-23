@@ -41,7 +41,7 @@ const RestTimeSelect: React.FC<RestSelectProps> = ({
       </InputLabel>
       <Select
         labelId="rest-label"
-        id="rest"
+        id={`rest-${index}`}
         label="Rest"
         onChange={(e: SelectChangeEvent<string>) => {
           handleSelectChange(e, index, 'rest')
