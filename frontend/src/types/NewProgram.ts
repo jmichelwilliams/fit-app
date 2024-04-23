@@ -1,8 +1,8 @@
 import Exercise from './Exercise'
 
-interface LocalProgram {
+interface NewProgram {
   programName: string
   exercises: Exercise[]
 }
 
-export default LocalProgram
+export default NewProgram
