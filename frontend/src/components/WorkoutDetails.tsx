@@ -122,7 +122,7 @@ const WorkoutDetails: React.FC = () => {
                   pattern: '[0-9]*'
                 }}
                 InputLabelProps={{
-                  sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' } // Adjust font size based on screen size
+                  sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
                 }}
                 sx={{
                   width: '30%'
