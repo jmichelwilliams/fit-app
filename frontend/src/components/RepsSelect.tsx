@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import type { SelectChangeEvent } from '@mui/material'
-import Exercise from '../types/Exercise'
+import type Exercise from '../types/Exercise'
 
 interface RepsSelectProps {
   index: number
