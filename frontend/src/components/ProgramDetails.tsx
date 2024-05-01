@@ -5,7 +5,6 @@ import { Typography, Box, TextField, Grid } from '@mui/material'
 import type Program from '../types/Program'
 import { useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-
 import { formatRestTime } from '../utils/formatRestTime'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
@@ -28,6 +27,7 @@ const ProgramDetails: React.FC = () => {
       </Typography>
 
       {program?.exercises.map((exercise, index) => {
+        console.log('exercise: ', exercise)
         return (
           <Box
             key={`exercise-${index}`}
@@ -60,7 +60,7 @@ const ProgramDetails: React.FC = () => {
                 alignItems: 'center'
               }}
             >
-              {Array.from({ length: exercise.sets }, (_, index) => {
+              {Array.from({ length: exercise.sets.length }, (_, index) => {
                 return (
                   <Box key={`set${index + 1}`} sx={{ margin: '8px' }}>
                     <Typography variant="body1" textAlign="center">
@@ -73,7 +73,7 @@ const ProgramDetails: React.FC = () => {
                           label="reps"
                           type="number"
                           size="small"
-                          defaultValue={exercise.reps}
+                          defaultValue={exercise.sets[index].reps}
                           InputProps={{
                             readOnly: true
                           }}

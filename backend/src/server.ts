@@ -8,6 +8,11 @@ import {
   getProgram,
   updateProgram,
 } from './api/program_handlers';
+import {
+  getAllWorkoutsForUser,
+  addWorkout,
+  deleteWorkout,
+} from './api/workout_handlers';
 import * as dotenv from 'dotenv';
 import { errorHandler } from './middleware/error_handler';
 
@@ -41,7 +46,9 @@ app.get('/programs/:programId', checkJwt, getProgram);
 app.put('/programs/:programId', checkJwt, updateProgram);
 app.post('/programs/:userId', checkJwt, addProgram);
 app.delete('/programs/:programId', checkJwt, deleteProgram);
-
+app.get('/workouts/:userId', checkJwt, getAllWorkoutsForUser);
+app.post('/workouts/:userId', checkJwt, addWorkout);
+app.delete('/workouts/:workoutId', checkJwt, deleteWorkout);
 // Error Handling Middleware
 app.use(errorHandler);
 

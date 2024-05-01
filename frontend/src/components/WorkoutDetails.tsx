@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useFetchProgram from '../hooks/useFetchProgram'
 import type Program from '../types/Program'
 import { useParams } from 'react-router-dom'
@@ -15,8 +15,9 @@ import useTheme from '@mui/material/styles/useTheme'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 const WorkoutDetails: React.FC = () => {
-  const [completed, setCompleted] = useState<boolean[]>(Array(2).fill(false))
+  const [completed, setCompleted] = useState<boolean[]>([])
   const [program, setProgram] = useState<Program>()
+  const [workoutSession, setWorkoutSession] = useState<Program>()
   const { programId } = useParams<{
     programId: string
   }>()
@@ -24,20 +25,11 @@ const WorkoutDetails: React.FC = () => {
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
-  // TODO: Need to change the structure of program to this:
-  //   {
-  //     "exerciseName": "Tricep Extension",
-  //     "sets": [
-  //         { "set1": 8 },
-  //         { "set2": 8 },
-  //         { "set3": 8 }
-  //     ],
-  //     "rest": "2:00",
-  //     "weight": 55,
-  //     "exerciseId": "6620319a9f7182ed81315089"
-  // }
-  // That way the user can modify each set
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
+
+  useEffect(() => {
+    setWorkoutSession(program)
+  }, [program])
 
   const handleToggle = (index: number): void => {
     const newCompleted = [...completed]
@@ -47,20 +39,31 @@ const WorkoutDetails: React.FC = () => {
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
+    exercise: any
   ): void => {
     const { name, value } = event.target
-    const updatedProgram = { ...program }
 
-    if (updatedProgram.exercises !== undefined) {
-      updatedProgram.exercises[index] = {
-        ...updatedProgram.exercises[index],
-        [name]: name === 'exerciseName' ? value : parseInt(value, 10)
+    if (workoutSession !== undefined) {
+      const updatedWorkout = { ...workoutSession }
+      const updatedExercise = { ...exercise }
+
+      if (name === 'reps') {
+        updatedExercise.sets[index] = {
+          ...updatedExercise.sets[index],
+          reps: parseInt(value)
+        }
       }
+
+      if (name === 'weight') {
+        updatedExercise.weight = parseInt(value, 10)
+      }
+
+      updatedWorkout.exercises[index] = updatedExercise
+      setWorkoutSession(updatedWorkout as Program)
     }
-    setProgram(updatedProgram as Program)
   }
-  console.log('program: ', program)
+  console.log('workoutSession: ', workoutSession)
   return (
     <Box
       sx={{
@@ -112,21 +115,21 @@ const WorkoutDetails: React.FC = () => {
                 size="small"
                 defaultValue={exercise.weight}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  handleChange(e, index)
+                  handleChange(e, index, exercise)
                 }}
                 inputProps={{
                   inputMode: 'numeric',
                   pattern: '[0-9]*'
                 }}
                 InputLabelProps={{
-                  sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' } // Adjust font size based on screen size
+                  sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
                 }}
                 sx={{
                   width: '30%'
                 }}
               />
               <Box sx={{ display: 'flex' }}>
-                {Array.from({ length: exercise.sets }, (_, index) => {
+                {Array.from({ length: exercise.sets.length }, (_, index) => {
                   return (
                     <Box
                       key={`set${index + 1}`}
@@ -161,11 +164,11 @@ const WorkoutDetails: React.FC = () => {
                             name="reps"
                             type="number"
                             size="small"
-                            defaultValue={exercise.reps}
+                            defaultValue={exercise.sets[index].reps}
                             onChange={(
                               e: React.ChangeEvent<HTMLInputElement>
                             ) => {
-                              handleChange(e, index)
+                              handleChange(e, index, exercise)
                             }}
                             inputProps={{
                               inputMode: 'numeric',

@@ -12,5 +12,10 @@ export const errorHandler = (
   next: NextFunction,
 ) => {
   console.error('Error occurred:', err);
-  res.status(err.code).json({ status: err.code, error: err.message });
+  res
+    .status(err.code || 500)
+    .json({
+      status: err.code || 500,
+      error: err.message || 'Internal server error',
+    });
 };

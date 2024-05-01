@@ -10,11 +10,16 @@ const { PROGRAMS_COLLECTION } = process.env;
 if (!PROGRAMS_COLLECTION) {
   throw new Error('PROGRAMS_COLLECTION not defined');
 }
+
+interface Set {
+  setId: number;
+  setNumber: number;
+}
+
 interface Exercise {
   exerciseId: string;
   exerciseName: string;
-  sets: number;
-  reps: number;
+  sets: Set[];
   rest: string;
   weight?: number;
 }

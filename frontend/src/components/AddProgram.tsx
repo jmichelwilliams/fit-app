@@ -4,28 +4,17 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select, { type SelectChangeEvent } from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-
-interface LocalExercise {
-  exerciseName: string
-  sets: number
-  reps: number
-  rest: string
-  weight?: number
-}
-
-interface LocalProgram {
-  programName: string
-  exercises: LocalExercise[]
-}
+import RepsSelect from './RepsSelect'
+import SetsSelect from './SetsSelect'
+import RestTimeSelect from './RestTimeSelect'
+import TextInput from './TextInput'
+import Exercise from '../types/Exercise'
+import NewProgram from '../types/NewProgram'
 
 const Planner: React.FC = () => {
-  const [programs, setPrograms] = useState<LocalProgram>()
+  const [programs, setPrograms] = useState<NewProgram>()
   const [programName, setProgramName] = useState<string>('')
-  const [exercises, setExercises] = useState<LocalExercise[]>([])
+  const [exercises, setExercises] = useState<Exercise[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
@@ -40,7 +29,7 @@ const Planner: React.FC = () => {
     try {
       const accessToken = await getAccessTokenSilently()
 
-      const newProgram: LocalProgram = {
+      const newProgram: NewProgram = {
         programName,
         exercises
       }
@@ -49,7 +38,6 @@ const Planner: React.FC = () => {
       setProgramName('')
       setExercises([])
 
-      // Fetch API with updated state
       if (user !== null && user !== undefined) {
         const res = await fetch(`/programs/${user.sub}`, {
           method: 'POST',
@@ -69,42 +57,15 @@ const Planner: React.FC = () => {
     }
   }
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ): void => {
-    const { name, value } = event.target
-    const updatedExercises = [...exercises]
-    updatedExercises[index] = {
-      ...updatedExercises[index],
-      [name]: name === 'exerciseName' ? value : parseInt(value, 10)
-    }
-    setExercises(updatedExercises)
-  }
-
-  const handleSelectChange = (
-    event: SelectChangeEvent<number | string>,
-    index: number,
-    property: keyof LocalExercise
-  ): void => {
-    const { value } = event.target
-    const updatedExercises = [...exercises]
-    updatedExercises[index] = {
-      ...updatedExercises[index],
-      [property]: value
-    }
-    setExercises(updatedExercises)
-  }
   const handleAddExercise = (): void => {
-    const newExercise: LocalExercise = {
+    const newExercise: Exercise = {
       exerciseName: '',
-      sets: 1,
-      reps: 1,
+      sets: [{ setId: 1, reps: 1 }],
       rest: '0:30'
     }
     setExercises([...exercises, newExercise])
   }
-
+  console.log('exercises: ', exercises)
   return (
     <Box
       sx={{
@@ -166,100 +127,41 @@ const Planner: React.FC = () => {
                   <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                     Exercise {index + 1}{' '}
                   </Typography>
-                  <TextField
-                    id={'exerciseName'}
-                    label="Exercise Name"
+                  <TextInput
+                    index={index}
+                    setExercises={setExercises}
+                    exercises={exercises}
+                    id="exerciseName"
                     name="exerciseName"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
-                    sx={{
-                      margin: '8px auto',
-                      width: '270px',
-                      maxWidth: '290px'
-                    }}
+                    label="Exercise Name"
+                    type="text"
                   />
+
                   <Box sx={{ width: '290px' }}>
-                    <FormControl>
-                      <InputLabel id="sets-label" sx={{ margin: '8px' }}>
-                        Sets
-                      </InputLabel>
-                      <Select
-                        labelId="sets-label"
-                        id="sets"
-                        label="Sets"
-                        onChange={(e: SelectChangeEvent<number>) => {
-                          handleSelectChange(e, index, 'sets')
-                        }}
-                        defaultValue={1}
-                        sx={{ margin: '8px', width: '80px' }}
-                      >
-                        {Array.from({ length: 5 }, (_, i) => i + 1).map(
-                          (set) => (
-                            <MenuItem key={set} value={set}>
-                              {set}
-                            </MenuItem>
-                          )
-                        )}
-                      </Select>
-                    </FormControl>
-                    <FormControl>
-                      <InputLabel id="reps-label" sx={{ margin: '8px' }}>
-                        Reps
-                      </InputLabel>
-                      <Select
-                        labelId="reps-label"
-                        id="reps"
-                        label="Reps"
-                        onChange={(e: SelectChangeEvent<number>) => {
-                          handleSelectChange(e, index, 'reps')
-                        }}
-                        defaultValue={1}
-                        sx={{ margin: '8px', width: '80px' }}
-                      >
-                        {Array.from({ length: 15 }, (_, i) => i + 1).map(
-                          (rep) => (
-                            <MenuItem key={rep} value={rep}>
-                              {rep}
-                            </MenuItem>
-                          )
-                        )}
-                      </Select>
-                    </FormControl>
-                    <FormControl>
-                      <InputLabel id="rest-label" sx={{ margin: '8px' }}>
-                        Rest
-                      </InputLabel>
-                      <Select
-                        labelId="rest-label"
-                        id="rest"
-                        label="Rest"
-                        onChange={(e: SelectChangeEvent<string>) => {
-                          handleSelectChange(e, index, 'rest')
-                        }}
-                        defaultValue={'0:30'}
-                        sx={{ margin: '8px', width: '80px' }}
-                      >
-                        <MenuItem value={'0:30'}>0:30</MenuItem>
-                        <MenuItem value={'1:00'}>1:00</MenuItem>
-                        <MenuItem value={'1:30'}>1:30</MenuItem>
-                        <MenuItem value={'2:00'}>2:00</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <SetsSelect
+                      index={index}
+                      setExercises={setExercises}
+                      exercises={exercises}
+                    />
+                    <RepsSelect
+                      index={index}
+                      setExercises={setExercises}
+                      exercises={exercises}
+                    />
+                    <RestTimeSelect
+                      index={index}
+                      setExercises={setExercises}
+                      exercises={exercises}
+                    />
                   </Box>
-                  <TextField
-                    id={'weight'}
-                    label="Weight in lbs"
+                  <TextInput
+                    index={index}
+                    setExercises={setExercises}
+                    exercises={exercises}
+                    id="weight"
                     name="weight"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleChange(e, index)
-                    }}
+                    label="Weight in lbs"
                     type="number"
-                    sx={{
-                      margin: '8px auto',
-                      width: '270px',
-                      maxWidth: '290px'
-                    }}
                   />
                 </Box>
               </Box>
