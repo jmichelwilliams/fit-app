@@ -2,20 +2,28 @@ import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import Profile from './auth/Profile'
 import { Box } from '@mui/material'
+import BackButton from './BackButton'
+import { useLocation } from 'react-router-dom'
 
 const Header: React.FC = () => {
   const { isAuthenticated } = useAuth0()
+  const location = useLocation()
+  const onHomePage = location.pathname === '/'
+
   return (
     <div>
       {isAuthenticated && (
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end'
+            flexDirection: 'row',
+            justifyContent: 'space-between'
           }}
         >
-          <Profile />
+          {!onHomePage && <BackButton />}
+          <Box sx={{ marginLeft: 'auto' }}>
+            <Profile />
+          </Box>
         </Box>
       )}
     </div>

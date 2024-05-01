@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Box } from '@mui/material'
+// import { Box } from '@mui/material'
 import SwipeableTemporaryDrawer from './SwipeableDrawer'
 
 const Profile: React.FC = () => {
@@ -16,15 +16,9 @@ const Profile: React.FC = () => {
 
   return (
     isAuthenticated && (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-end'
-        }}
-      >
+      <>
         <SwipeableTemporaryDrawer />
-      </Box>
+      </>
     )
   )
 }
