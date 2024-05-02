@@ -15,12 +15,12 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/workouts" element={<WorkoutList />} />
-        <Route path="/workouts/:programId" element={<WorkoutDetails />} />
-        <Route path="/planner" element={<Planner />} />
         <Route path="/planner/addprogram" element={<AddProgram />} />
+        <Route path="/planner" element={<Planner />} />
         <Route path="/programs/:programId" element={<ProgramDetails />} />
+        <Route path="/workouts/:programId" element={<WorkoutDetails />} />
+        <Route path="/workouts" element={<WorkoutList />} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </Router>
   )
