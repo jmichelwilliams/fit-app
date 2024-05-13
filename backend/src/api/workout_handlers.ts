@@ -40,11 +40,13 @@ export const addWorkout = async (req: Request, res: Response) => {
   const parsedUserId = userId.split('|')[1];
 
   const workoutCollection = db.collection(WORKOUTS_COLLECTION);
+  const today = new Date().toLocaleString();
 
   const newWorkoutSession = {
     _id: new ObjectId(),
     workoutSession,
     createdBy: new ObjectId(parsedUserId),
+    today,
   };
 
   const result = await workoutCollection.insertOne(newWorkoutSession as any);
