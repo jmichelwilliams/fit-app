@@ -46,7 +46,7 @@ export const addWorkout = async (req: Request, res: Response) => {
     _id: new ObjectId(),
     workoutSession,
     createdBy: new ObjectId(parsedUserId),
-    today,
+    createdOn: today,
   };
 
   const result = await workoutCollection.insertOne(newWorkoutSession as any);
