@@ -8,6 +8,7 @@ import WorkoutList from './WorkoutList'
 import GlobalStyle from '../styles/GlobalStyles'
 import ProgramDetails from './ProgramDetails'
 import WorkoutDetails from './WorkoutDetails'
+import NotFound from './NotFound'
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Route path="/workouts/:programId" element={<WorkoutDetails />} />
         <Route path="/workouts" element={<WorkoutList />} />
         <Route path="/" element={<Homepage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   )
