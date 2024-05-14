@@ -14,7 +14,7 @@ import Grid from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import FormControlLabel from '@mui/material/FormControlLabel'
-
+import Footer from './Footer'
 const WorkoutDetails: React.FC = () => {
   const [completed, setCompleted] = useState<boolean[]>([])
   const [program, setProgram] = useState<Program>()
@@ -242,14 +242,18 @@ const WorkoutDetails: React.FC = () => {
           </Box>
         )
       })}
-      <Button
-        variant={'contained'}
-        onClick={() => {
-          void handleSubmit()
-        }}
-      >
-        Complete Workout
-      </Button>
+      <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 100 }}>
+        <Footer>
+          <Button
+            variant={'contained'}
+            onClick={() => {
+              void handleSubmit()
+            }}
+          >
+            Complete Workout
+          </Button>
+        </Footer>
+      </Box>
     </Box>
   )
 }
