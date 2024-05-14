@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import useFetchProgram from '../hooks/useFetchProgram'
 import type Program from '../types/Program'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { fetchProgram } from '../utils/fetchProgram'
 import { formatRestTime } from '../utils/formatRestTime'
 import Box from '@mui/material/Box'
+import { Button } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
@@ -21,10 +22,10 @@ const WorkoutDetails: React.FC = () => {
   const { programId } = useParams<{
     programId: string
   }>()
-  const { getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-
+  const navigate = useNavigate()
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
 
   useEffect(() => {
@@ -63,6 +64,32 @@ const WorkoutDetails: React.FC = () => {
       setWorkoutSession(updatedWorkout as Program)
     }
   }
+
+  const handleSubmit = async (): Promise<void> => {
+    try {
+      const accessToken = await getAccessTokenSilently()
+
+      if (user !== null && user !== undefined) {
+        const response = await fetch(`/workouts/${user.sub}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: JSON.stringify({ workoutSession })
+        })
+
+        if (response.ok) {
+          navigate('/workouts')
+        } else {
+          throw new Error('Network response was not ok.')
+        }
+      }
+    } catch (error) {
+      console.error('Error', error)
+    }
+  }
+
   console.log('workoutSession: ', workoutSession)
   return (
     <Box
@@ -215,6 +242,14 @@ const WorkoutDetails: React.FC = () => {
           </Box>
         )
       })}
+      <Button
+        variant={'contained'}
+        onClick={() => {
+          void handleSubmit()
+        }}
+      >
+        Complete Workout
+      </Button>
     </Box>
   )
 }
