@@ -26,11 +26,11 @@ const ProgramDetails: React.FC = () => {
         {program?.programName.toUpperCase()}
       </Typography>
 
-      {program?.exercises.map((exercise, index) => {
+      {program?.exercises.map((exercise, exerciseIndex) => {
         console.log('exercise: ', exercise)
         return (
           <Box
-            key={`exercise-${index}`}
+            key={`${exercise.exerciseName}-${exerciseIndex}`}
             sx={{
               border: '4px solid black',
               width: '90vw',
@@ -47,10 +47,8 @@ const ProgramDetails: React.FC = () => {
               variant="subtitle1"
               fontWeight="bold"
               textAlign="center"
-              component="label"
-              htmlFor={`exercise-${index}`}
             >
-              Exercise {index + 1} - {exercise.exerciseName}
+              Exercise {exerciseIndex + 1} - {exercise.exerciseName}
             </Typography>
             <Box
               sx={{
@@ -60,20 +58,23 @@ const ProgramDetails: React.FC = () => {
                 alignItems: 'center'
               }}
             >
-              {Array.from({ length: exercise.sets.length }, (_, index) => {
+              {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
                 return (
-                  <Box key={`set${index + 1}`} sx={{ margin: '8px' }}>
+                  <Box
+                    key={`set-${exerciseIndex}-${setIndex + 1}`}
+                    sx={{ margin: '8px' }}
+                  >
                     <Typography variant="body1" textAlign="center">
-                      Set: {index + 1}
+                      Set: {setIndex + 1}
                     </Typography>
                     <Grid container spacing={2} sx={{ paddingLeft: '8px' }}>
                       <Grid item xs={6}>
                         <TextField
-                          id={`repsInput-${index}`}
+                          id={`reps-input-${exerciseIndex}-${setIndex}`}
                           label="reps"
                           type="number"
                           size="small"
-                          defaultValue={exercise.sets[index].reps}
+                          defaultValue={exercise.sets[setIndex].reps}
                           InputProps={{
                             readOnly: true
                           }}
@@ -90,7 +91,7 @@ const ProgramDetails: React.FC = () => {
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
-                          id={`weightInput-${index}`}
+                          id={`weightInput-${exerciseIndex}-${setIndex}`}
                           label="weight (lbs)"
                           type="number"
                           size="small"
