@@ -14,7 +14,7 @@ import Grid from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Footer from './Footer'
+
 const WorkoutDetails: React.FC = () => {
   const [completed, setCompleted] = useState<boolean[]>([])
   const [program, setProgram] = useState<Program>()
@@ -100,10 +100,10 @@ const WorkoutDetails: React.FC = () => {
         margin: '16px auto'
       }}
     >
-      {program?.exercises.map((exercise, index) => {
+      {program?.exercises.map((exercise, exerciseIndex) => {
         return (
           <Box
-            key={`exercise-${index}`}
+            key={`exercise-${exerciseIndex}`}
             sx={{
               border: '4px solid black',
               width: '90vw',
@@ -120,8 +120,6 @@ const WorkoutDetails: React.FC = () => {
               variant="subtitle1"
               fontWeight="bold"
               textAlign="center"
-              component="label"
-              htmlFor={`exercise-${index}`}
               sx={{ marginBottom: '8px' }}
             >
               {exercise.exerciseName}
@@ -135,14 +133,14 @@ const WorkoutDetails: React.FC = () => {
               }}
             >
               <TextField
-                id={`weightInput-${index}`}
+                id={`weightInput-${exerciseIndex}`}
                 label="weight (lbs)"
                 name="weight"
                 type="number"
                 size="small"
                 defaultValue={exercise.weight}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  handleChange(e, index, exercise)
+                  handleChange(e, exerciseIndex, exercise)
                 }}
                 inputProps={{
                   inputMode: 'numeric',
@@ -156,10 +154,10 @@ const WorkoutDetails: React.FC = () => {
                 }}
               />
               <Box sx={{ display: 'flex' }}>
-                {Array.from({ length: exercise.sets.length }, (_, index) => {
+                {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
                   return (
                     <Box
-                      key={`set${index + 1}`}
+                      key={`set-${exerciseIndex}-${setIndex + 1}`}
                       sx={{
                         display: 'flex',
                         margin: '8px',
@@ -167,7 +165,7 @@ const WorkoutDetails: React.FC = () => {
                       }}
                     >
                       <Typography variant="body1" textAlign="center">
-                        Set: {index + 1}
+                        Set: {setIndex + 1}
                       </Typography>
                       <Grid
                         container
@@ -186,16 +184,16 @@ const WorkoutDetails: React.FC = () => {
                           }}
                         >
                           <TextField
-                            id={`repsInput-${index}`}
+                            id={`repsInput-${exerciseIndex}-${setIndex + 1}`}
                             label="reps"
                             name="reps"
                             type="number"
                             size="small"
-                            defaultValue={exercise.sets[index].reps}
+                            defaultValue={exercise.sets[setIndex].reps}
                             onChange={(
                               e: React.ChangeEvent<HTMLInputElement>
                             ) => {
-                              handleChange(e, index, exercise)
+                              handleChange(e, setIndex, exercise)
                             }}
                             inputProps={{
                               inputMode: 'numeric',
@@ -227,12 +225,12 @@ const WorkoutDetails: React.FC = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={completed[index]}
+                    checked={completed[exerciseIndex]}
                     onChange={() => {
-                      handleToggle(index)
+                      handleToggle(exerciseIndex)
                     }}
                     style={{
-                      color: completed[index] ? 'green' : 'initial'
+                      color: completed[exerciseIndex] ? 'green' : 'initial'
                     }}
                   />
                 }
@@ -242,18 +240,14 @@ const WorkoutDetails: React.FC = () => {
           </Box>
         )
       })}
-      <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 100 }}>
-        <Footer>
-          <Button
-            variant={'contained'}
-            onClick={() => {
-              void handleSubmit()
-            }}
-          >
-            Complete Workout
-          </Button>
-        </Footer>
-      </Box>
+      <Button
+        variant={'contained'}
+        onClick={() => {
+          void handleSubmit()
+        }}
+      >
+        Complete Workout
+      </Button>
     </Box>
   )
 }
