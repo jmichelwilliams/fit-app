@@ -9,18 +9,33 @@ import GlobalStyle from '../styles/GlobalStyles'
 import ProgramDetails from './ProgramDetails'
 import WorkoutDetails from './WorkoutDetails'
 import NotFound from './NotFound'
-
+import ProtectedRoute from './auth/ProtectedRoute'
 const App: React.FC = () => {
   return (
     <Router>
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path="/planner/addprogram" element={<AddProgram />} />
-        <Route path="/planner" element={<Planner />} />
-        <Route path="/programs/:programId" element={<ProgramDetails />} />
-        <Route path="/workouts/:programId" element={<WorkoutDetails />} />
-        <Route path="/workouts" element={<WorkoutList />} />
+        <Route
+          path="/planner/addprogram"
+          element={<ProtectedRoute element={<AddProgram />} />}
+        />
+        <Route
+          path="/planner"
+          element={<ProtectedRoute element={<Planner />} />}
+        />
+        <Route
+          path="/programs/:programId"
+          element={<ProtectedRoute element={<ProgramDetails />} />}
+        />
+        <Route
+          path="/workouts/:programId"
+          element={<ProtectedRoute element={<WorkoutDetails />} />}
+        />
+        <Route
+          path="/workouts"
+          element={<ProtectedRoute element={<WorkoutList />} />}
+        />
         <Route path="/" element={<Homepage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
