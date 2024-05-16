@@ -225,6 +225,7 @@ const WorkoutDetails: React.FC = () => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    id={`completed-checkbox-${exerciseIndex}`}
                     checked={completed[exerciseIndex]}
                     onChange={() => {
                       handleToggle(exerciseIndex)
