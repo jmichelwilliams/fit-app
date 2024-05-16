@@ -9,7 +9,7 @@ import GlobalStyle from '../styles/GlobalStyles'
 import ProgramDetails from './ProgramDetails'
 import WorkoutDetails from './WorkoutDetails'
 import NotFound from './NotFound'
-import ProtectedRoute from './auth/ProtectedRoutes'
+import ProtectedRoute from './auth/ProtectedRoute'
 const App: React.FC = () => {
   return (
     <Router>
