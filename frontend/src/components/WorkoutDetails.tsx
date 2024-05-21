@@ -90,7 +90,6 @@ const WorkoutDetails: React.FC = () => {
     }
   }
 
-  console.log('workoutSession: ', workoutSession)
   return (
     <Box
       sx={{
@@ -153,7 +152,13 @@ const WorkoutDetails: React.FC = () => {
                   width: '30%'
                 }}
               />
-              <Box sx={{ display: 'flex' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                  flexWrap: 'wrap'
+                }}
+              >
                 {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
                   return (
                     <Box
@@ -161,7 +166,9 @@ const WorkoutDetails: React.FC = () => {
                       sx={{
                         display: 'flex',
                         margin: '8px',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
+                        maxWidth: '80px',
+                        alignItems: 'space-evenly'
                       }}
                     >
                       <Typography variant="body1" textAlign="center">
@@ -226,7 +233,7 @@ const WorkoutDetails: React.FC = () => {
                 control={
                   <Checkbox
                     id={`completed-checkbox-${exerciseIndex}`}
-                    checked={completed[exerciseIndex]}
+                    checked={completed[exerciseIndex] || false}
                     onChange={() => {
                       handleToggle(exerciseIndex)
                     }}
