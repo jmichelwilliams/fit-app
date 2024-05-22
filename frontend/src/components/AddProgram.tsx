@@ -12,14 +12,14 @@ import Exercise from '../types/Exercise'
 import NewProgram from '../types/NewProgram'
 
 const Planner: React.FC = () => {
-  const [programs, setPrograms] = useState<NewProgram>()
+  const [program, setProgram] = useState<NewProgram>()
   const [programName, setProgramName] = useState<string>('')
   const [exercises, setExercises] = useState<Exercise[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    console.log('Programs:', programs)
-  }, [programs])
+    console.log('Programs:', program)
+  }, [program])
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -34,7 +34,7 @@ const Planner: React.FC = () => {
         exercises
       }
 
-      setPrograms(newProgram)
+      setProgram(newProgram)
       setProgramName('')
       setExercises([])
 
@@ -49,7 +49,7 @@ const Planner: React.FC = () => {
         })
         if (res.ok) {
           console.log('Program saved successfully')
-          setPrograms(undefined)
+          setProgram(undefined)
         }
       }
     } catch (error) {
