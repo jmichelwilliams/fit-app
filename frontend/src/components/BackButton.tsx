@@ -22,6 +22,8 @@ const BackButton: React.FC = () => {
       case `/workouts/${id}`:
         navigate('/workouts')
         break
+      default:
+        navigate(-1)
     }
   }
   return (
