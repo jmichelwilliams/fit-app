@@ -36,13 +36,14 @@ const ProgramDetails: React.FC = () => {
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { getAccessTokenSilently } = useAuth0()
+
   const navigate = useNavigate()
 
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
 
   const onSubmit = async (data: any): Promise<void> => {
     const formData = getValues()
-    const additionalData = {
+    const updatedProgram = {
       exercises: formData.exercises.map((exercise: any) => ({
         ...exercise,
         sets: exercise.sets.map((set: any, index: number) => ({
@@ -51,8 +52,6 @@ const ProgramDetails: React.FC = () => {
         }))
       }))
     }
-
-    const updatedProgram = { ...formData, ...additionalData }
 
     try {
       const accessToken = await getAccessTokenSilently()
