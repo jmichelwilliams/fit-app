@@ -266,7 +266,7 @@ const ProgramDetails: React.FC = () => {
         })}
         <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 100 }}>
           <Footer>
-            <Button type="submit">Complete Workout</Button>
+            <Button type="submit">Save Changes</Button>
           </Footer>
         </Box>
       </form>
