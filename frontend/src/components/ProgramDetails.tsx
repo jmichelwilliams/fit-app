@@ -10,8 +10,8 @@ import {
   Grid,
   Select,
   MenuItem,
-  InputLabel,
   FormControl,
+  InputLabel,
   Button
 } from '@mui/material'
 import type Program from '../types/Program'
@@ -129,14 +129,13 @@ const ProgramDetails: React.FC = () => {
                 <Controller
                   name={`exercises[${exerciseIndex}].weight`}
                   control={control}
-                  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/prefer-nullish-coalescing
-                  defaultValue={exercise.weight || ''}
+                  defaultValue={exercise.weight}
                   rules={{
                     required: 'Weight is required',
                     min: { value: 1, message: 'Minimum value is 1' }
                   }}
                   render={({
-                    field: { onChange, onBlur, value, ref },
+                    field: { onChange, value, ref },
                     fieldState: { error }
                   }) => (
                     <TextField
@@ -259,12 +258,17 @@ const ProgramDetails: React.FC = () => {
                   defaultValue={exercise.rest}
                   render={({ field: { onChange, value } }) => (
                     <FormControl>
-                      <InputLabel id="rest-label" sx={{ margin: '8px' }}>
+                      <InputLabel
+                        id={`rest-label-${exerciseIndex}`}
+                        sx={{ margin: '8px' }}
+                      >
                         Rest
                       </InputLabel>
                       <Select
-                        id={`rest[${exerciseIndex}]`}
+                        id={`rest-${exerciseIndex}`}
+                        labelId={`rest-label-${exerciseIndex}`}
                         label="Rest"
+                        name={`restTime[${exerciseIndex}]`}
                         defaultValue={exercise.rest}
                         value={value}
                         sx={{ margin: '8px', width: '80px' }}
