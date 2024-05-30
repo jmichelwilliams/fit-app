@@ -26,14 +26,7 @@ const ProgramDetails: React.FC = () => {
   const { programId } = useParams<{
     programId: string
   }>()
-  const {
-    control,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    formState: { errors },
-    handleSubmit,
-    getValues,
-    setValue
-  } = useForm({
+  const { control, handleSubmit, getValues, setValue } = useForm({
     mode: 'onChange'
   })
   const theme = useTheme()
@@ -216,14 +209,25 @@ const ProgramDetails: React.FC = () => {
                                 name={`exercises[${exerciseIndex}].sets[${setIndex}].reps`}
                                 control={control}
                                 defaultValue={exercise.sets[setIndex].reps}
-                                render={({ field: { onChange, value } }) => (
+                                rules={{
+                                  required: 'Rep is required',
+                                  min: {
+                                    value: 1,
+                                    message: 'Minimum value is 1'
+                                  }
+                                }}
+                                render={({
+                                  field: { onChange, value, ref },
+                                  fieldState: { error }
+                                }) => (
                                   <TextField
                                     id={`repsInput-${exerciseIndex}-${
                                       setIndex + 1
                                     }`}
                                     label="reps"
                                     name="reps"
-                                    value={value}
+                                    value={isNaN(value) ? '' : value}
+                                    inputRef={ref}
                                     type="number"
                                     size="small"
                                     inputProps={{
@@ -231,7 +235,17 @@ const ProgramDetails: React.FC = () => {
                                       pattern: '[0-9]*'
                                     }}
                                     onChange={(e) => {
-                                      onChange(parseInt(e.target.value))
+                                      const val = e.target.value
+                                      setValue(
+                                        `exercises[${exerciseIndex}].reps`,
+                                        val
+                                      )
+                                      onChange(val)
+                                    }}
+                                    onKeyDown={(e) => {
+                                      if (['e', '-', '+'].includes(e.key)) {
+                                        e.preventDefault()
+                                      }
                                     }}
                                     InputLabelProps={{
                                       sx: {
@@ -242,6 +256,10 @@ const ProgramDetails: React.FC = () => {
                                       }
                                     }}
                                     sx={{ width: '100%' }}
+                                    error={!(error == null)}
+                                    helperText={
+                                      error != null ? error.message : null
+                                    }
                                   />
                                 )}
                               />
