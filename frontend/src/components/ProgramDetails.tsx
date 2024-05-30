@@ -80,238 +80,254 @@ const ProgramDetails: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         margin: '16px auto',
-        paddingBottom: '32px'
+        position: 'relative',
+        paddingBottom: '48px',
+        overflowY: 'auto',
+        overflowX: 'hidden'
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h3" textAlign="center">
-          {program?.programName.toUpperCase()}
-        </Typography>
-        {program?.exercises.map((exercise, exerciseIndex) => {
-          return (
-            <Box
-              key={`exercise-${exerciseIndex}`}
-              sx={{
-                border: '4px solid black',
-                width: '90vw',
-                height: 'auto',
-                margin: '16px',
-                padding: '8px',
-                borderRadius: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}
-            >
-              <Typography
-                variant="subtitle1"
-                fontWeight="bold"
-                textAlign="center"
-                sx={{ marginBottom: '8px' }}
-              >
-                {exercise.exerciseName}
-              </Typography>
+      <Box sx={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Typography variant="h3" textAlign="center">
+            {program?.programName.toUpperCase()}
+          </Typography>
+          {program?.exercises.map((exercise, exerciseIndex) => {
+            return (
               <Box
+                key={`exercise-${exerciseIndex}`}
                 sx={{
+                  border: '4px solid black',
+                  width: '90vw',
+                  height: 'auto',
+                  margin: '16px',
+                  padding: '8px',
+                  borderRadius: '16px',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-around',
                   alignItems: 'center'
                 }}
               >
-                <Controller
-                  name={`exercises[${exerciseIndex}].weight`}
-                  control={control}
-                  defaultValue={exercise.weight}
-                  rules={{
-                    required: 'Weight is required',
-                    min: { value: 1, message: 'Minimum value is 1' }
-                  }}
-                  render={({
-                    field: { onChange, value, ref },
-                    fieldState: { error }
-                  }) => (
-                    <TextField
-                      id={`weightInput-${exerciseIndex}`}
-                      label="weight (lbs)"
-                      name={`exercises[${exerciseIndex}].weight`}
-                      type="number"
-                      size="small"
-                      value={isNaN(value) ? '' : value}
-                      onChange={(e) => {
-                        const val = e.target.value
-                        setValue(`exercises[${exerciseIndex}].weight`, val)
-                        onChange(val)
-                      }}
-                      inputRef={ref}
-                      onKeyDown={(e) => {
-                        if (['e', '-', '+'].includes(e.key)) {
-                          e.preventDefault()
-                        }
-                      }}
-                      inputProps={{
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*'
-                      }}
-                      InputLabelProps={{
-                        sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
-                      }}
-                      sx={{
-                        width: '30%'
-                      }}
-                      error={!(error == null)}
-                      helperText={error != null ? error.message : null}
-                    />
-                  )}
-                />
-
+                <Typography
+                  variant="subtitle1"
+                  fontWeight="bold"
+                  textAlign="center"
+                  sx={{ marginBottom: '8px' }}
+                >
+                  {exercise.exerciseName}
+                </Typography>
                 <Box
                   sx={{
                     display: 'flex',
-                    justifyContent: 'space-evenly',
-                    flexWrap: 'wrap'
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                    alignItems: 'center'
                   }}
                 >
-                  {Array.from(
-                    { length: exercise.sets.length },
-                    (_, setIndex) => {
-                      return (
-                        <Box
-                          key={`set-${exerciseIndex}-${setIndex + 1}`}
-                          sx={{
-                            display: 'flex',
-                            margin: '8px',
-                            flexDirection: 'column',
-                            maxWidth: '80px',
-                            alignItems: 'space-evenly'
+                  <Controller
+                    name={`exercises[${exerciseIndex}].weight`}
+                    control={control}
+                    defaultValue={exercise.weight}
+                    rules={{
+                      required: 'Weight is required',
+                      min: { value: 1, message: 'Minimum value is 1' }
+                    }}
+                    render={({
+                      field: { onChange, value, ref },
+                      fieldState: { error }
+                    }) => (
+                      <TextField
+                        id={`weightInput-${exerciseIndex}`}
+                        label="weight (lbs)"
+                        name={`exercises[${exerciseIndex}].weight`}
+                        type="number"
+                        size="small"
+                        value={isNaN(value) ? '' : value}
+                        onChange={(e) => {
+                          const val = e.target.value
+                          setValue(`exercises[${exerciseIndex}].weight`, val)
+                          onChange(val)
+                        }}
+                        inputRef={ref}
+                        onKeyDown={(e) => {
+                          if (['e', '-', '+'].includes(e.key)) {
+                            e.preventDefault()
+                          }
+                        }}
+                        inputProps={{
+                          inputMode: 'numeric',
+                          pattern: '[0-9]*'
+                        }}
+                        InputLabelProps={{
+                          sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
+                        }}
+                        sx={{
+                          width: '30%'
+                        }}
+                        error={!(error == null)}
+                        helperText={error != null ? error.message : null}
+                      />
+                    )}
+                  />
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
+                      flexWrap: 'wrap'
+                    }}
+                  >
+                    {Array.from(
+                      { length: exercise.sets.length },
+                      (_, setIndex) => {
+                        return (
+                          <Box
+                            key={`set-${exerciseIndex}-${setIndex + 1}`}
+                            sx={{
+                              display: 'flex',
+                              margin: '8px',
+                              flexDirection: 'column',
+                              maxWidth: '80px',
+                              alignItems: 'space-evenly'
+                            }}
+                          >
+                            <Typography variant="body1" textAlign="center">
+                              Set: {setIndex + 1}
+                            </Typography>
+                            <Grid
+                              container
+                              spacing={2}
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{ paddingLeft: '8px' }}
+                            >
+                              <Grid
+                                item
+                                xs={12}
+                                sx={{
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  margin: '8px'
+                                }}
+                              >
+                                <Controller
+                                  name={`exercises[${exerciseIndex}].sets[${setIndex}].reps`}
+                                  control={control}
+                                  defaultValue={exercise.sets[setIndex].reps}
+                                  rules={{
+                                    required: 'Rep is required',
+                                    min: {
+                                      value: 1,
+                                      message: 'Minimum value is 1'
+                                    }
+                                  }}
+                                  render={({
+                                    field: { onChange, value, ref },
+                                    fieldState: { error }
+                                  }) => (
+                                    <TextField
+                                      id={`repsInput-${exerciseIndex}-${
+                                        setIndex + 1
+                                      }`}
+                                      label="reps"
+                                      name="reps"
+                                      value={isNaN(value) ? '' : value}
+                                      inputRef={ref}
+                                      type="number"
+                                      size="small"
+                                      inputProps={{
+                                        inputMode: 'numeric',
+                                        pattern: '[0-9]*'
+                                      }}
+                                      onChange={(e) => {
+                                        const val = e.target.value
+                                        setValue(
+                                          `exercises[${exerciseIndex}].reps`,
+                                          val
+                                        )
+                                        onChange(val)
+                                      }}
+                                      onKeyDown={(e) => {
+                                        if (['e', '-', '+'].includes(e.key)) {
+                                          e.preventDefault()
+                                        }
+                                      }}
+                                      InputLabelProps={{
+                                        sx: {
+                                          fontSize: isSmallScreen
+                                            ? '.95rem'
+                                            : '1rem',
+                                          textAlign: 'center'
+                                        }
+                                      }}
+                                      sx={{ width: '100%' }}
+                                      error={!(error == null)}
+                                      helperText={
+                                        error != null ? error.message : null
+                                      }
+                                    />
+                                  )}
+                                />
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        )
+                      }
+                    )}
+                  </Box>
+                  <Controller
+                    name={`exercises[${exerciseIndex}].rest`}
+                    control={control}
+                    defaultValue={exercise.rest}
+                    render={({ field: { onChange, value } }) => (
+                      <FormControl>
+                        <InputLabel
+                          id={`rest-label-${exerciseIndex}`}
+                          sx={{ margin: '8px' }}
+                        >
+                          Rest
+                        </InputLabel>
+                        <Select
+                          id={`rest-${exerciseIndex}`}
+                          labelId={`rest-label-${exerciseIndex}`}
+                          label="Rest"
+                          name={`restTime[${exerciseIndex}]`}
+                          defaultValue={exercise.rest}
+                          value={value}
+                          sx={{ margin: '8px', width: '80px' }}
+                          onChange={(e) => {
+                            onChange(e.target.value)
                           }}
                         >
-                          <Typography variant="body1" textAlign="center">
-                            Set: {setIndex + 1}
-                          </Typography>
-                          <Grid
-                            container
-                            spacing={2}
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{ paddingLeft: '8px' }}
-                          >
-                            <Grid
-                              item
-                              xs={12}
-                              sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                margin: '8px'
-                              }}
-                            >
-                              <Controller
-                                name={`exercises[${exerciseIndex}].sets[${setIndex}].reps`}
-                                control={control}
-                                defaultValue={exercise.sets[setIndex].reps}
-                                rules={{
-                                  required: 'Rep is required',
-                                  min: {
-                                    value: 1,
-                                    message: 'Minimum value is 1'
-                                  }
-                                }}
-                                render={({
-                                  field: { onChange, value, ref },
-                                  fieldState: { error }
-                                }) => (
-                                  <TextField
-                                    id={`repsInput-${exerciseIndex}-${
-                                      setIndex + 1
-                                    }`}
-                                    label="reps"
-                                    name="reps"
-                                    value={isNaN(value) ? '' : value}
-                                    inputRef={ref}
-                                    type="number"
-                                    size="small"
-                                    inputProps={{
-                                      inputMode: 'numeric',
-                                      pattern: '[0-9]*'
-                                    }}
-                                    onChange={(e) => {
-                                      const val = e.target.value
-                                      setValue(
-                                        `exercises[${exerciseIndex}].reps`,
-                                        val
-                                      )
-                                      onChange(val)
-                                    }}
-                                    onKeyDown={(e) => {
-                                      if (['e', '-', '+'].includes(e.key)) {
-                                        e.preventDefault()
-                                      }
-                                    }}
-                                    InputLabelProps={{
-                                      sx: {
-                                        fontSize: isSmallScreen
-                                          ? '.95rem'
-                                          : '1rem',
-                                        textAlign: 'center'
-                                      }
-                                    }}
-                                    sx={{ width: '100%' }}
-                                    error={!(error == null)}
-                                    helperText={
-                                      error != null ? error.message : null
-                                    }
-                                  />
-                                )}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      )
-                    }
-                  )}
+                          <MenuItem value={'0:30'}>0:30</MenuItem>
+                          <MenuItem value={'1:00'}>1:00</MenuItem>
+                          <MenuItem value={'1:30'}>1:30</MenuItem>
+                          <MenuItem value={'2:00'}>2:00</MenuItem>
+                        </Select>
+                      </FormControl>
+                    )}
+                  />
                 </Box>
-                <Controller
-                  name={`exercises[${exerciseIndex}].rest`}
-                  control={control}
-                  defaultValue={exercise.rest}
-                  render={({ field: { onChange, value } }) => (
-                    <FormControl>
-                      <InputLabel
-                        id={`rest-label-${exerciseIndex}`}
-                        sx={{ margin: '8px' }}
-                      >
-                        Rest
-                      </InputLabel>
-                      <Select
-                        id={`rest-${exerciseIndex}`}
-                        labelId={`rest-label-${exerciseIndex}`}
-                        label="Rest"
-                        name={`restTime[${exerciseIndex}]`}
-                        defaultValue={exercise.rest}
-                        value={value}
-                        sx={{ margin: '8px', width: '80px' }}
-                        onChange={(e) => {
-                          onChange(e.target.value)
-                        }}
-                      >
-                        <MenuItem value={'0:30'}>0:30</MenuItem>
-                        <MenuItem value={'1:00'}>1:00</MenuItem>
-                        <MenuItem value={'1:30'}>1:30</MenuItem>
-                        <MenuItem value={'2:00'}>2:00</MenuItem>
-                      </Select>
-                    </FormControl>
-                  )}
-                />
               </Box>
-            </Box>
-          )
-        })}
-        <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 100 }}>
-          <Footer>
-            <Button type="submit">Save Changes</Button>
-          </Footer>
-        </Box>
-      </form>
+            )
+          })}
+        </form>
+      </Box>
+
+      <Box
+        sx={{
+          alignContent: 'flex-end',
+          position: 'sticky',
+          bottom: 0,
+          width: '100%',
+          zIndex: 100
+        }}
+      >
+        <Footer>
+          <Button variant={'contained'} type="submit">
+            Save Changes
+          </Button>
+        </Footer>
+      </Box>
     </Box>
   )
 }
