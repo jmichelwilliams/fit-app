@@ -9,12 +9,20 @@ const Footer: React.FC<FooterProps> = ({ children }) => {
   return (
     <Box
       sx={{
+        position: 'fixed',
+        bottom: '0px',
+        left: '0',
+        right: '0',
+        margin: '0 auto',
         display: 'flex',
         justifyContent: 'center',
-        width: '100%',
+        width: '90vw',
         backgroundColor: '#3c3744',
-        padding: '8px',
-        zIndex: '100'
+        height: '56px',
+        zIndex: '100',
+        border: '3px gray solid',
+        borderRadius: '16px',
+        padding: '8px'
       }}
     >
       {children}

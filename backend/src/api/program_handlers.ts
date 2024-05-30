@@ -108,11 +108,11 @@ export const updateProgram = async (req: Request, res: Response) => {
   const { programId } = req.params;
   const { updatedProgram } = req.body;
   const { client, db } = await connectToDatabase();
-
+  console.log('updatedProgram: ', updatedProgram);
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
-    const query = { _id: new ObjectId(updatedProgram._id) };
-    const newValue = { $set: updatedProgram };
+    const query = { _id: new ObjectId(programId) };
+    const newValue = { $set: { exercises: updatedProgram.exercises } };
 
     // Find the program by its programId
     const program = await programCollection.findOne({
@@ -127,10 +127,12 @@ export const updateProgram = async (req: Request, res: Response) => {
 
     // Update each exercise in the program
     const result = await programCollection.updateOne(query as any, newValue);
-
-    res
-      .status(200)
-      .json({ status: 200, message: 'Exercises updated successfully' });
+    console.log('result: ', result);
+    if (result.modifiedCount > 0 && result.acknowledged == true) {
+      res.status(200).json({ status: 200, result });
+    } else {
+      res.status(400).json({ status: 400, message: 'Workout not updated' });
+    }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ status: 500, message: 'Internal server error' });
