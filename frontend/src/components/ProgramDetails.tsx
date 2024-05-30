@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import useFetchProgram from '../hooks/useFetchProgram'
@@ -37,7 +36,7 @@ const ProgramDetails: React.FC = () => {
 
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
 
-  const onSubmit = async (data: any): Promise<void> => {
+  const onSubmit = async (): Promise<void> => {
     const formData = getValues()
     const updatedProgram = {
       exercises: formData.exercises.map((exercise: any) => ({
