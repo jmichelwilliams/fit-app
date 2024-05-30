@@ -31,8 +31,11 @@ const ProgramDetails: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     formState: { errors },
     handleSubmit,
-    getValues
-  } = useForm()
+    getValues,
+    setValue
+  } = useForm({
+    mode: 'onChange'
+  })
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { getAccessTokenSilently } = useAuth0()
@@ -126,17 +129,33 @@ const ProgramDetails: React.FC = () => {
                 <Controller
                   name={`exercises[${exerciseIndex}].weight`}
                   control={control}
-                  defaultValue={exercise.weight}
-                  render={({ field: { onChange, value } }) => (
+                  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/prefer-nullish-coalescing
+                  defaultValue={exercise.weight || ''}
+                  rules={{
+                    required: 'Weight is required',
+                    min: { value: 1, message: 'Minimum value is 1' }
+                  }}
+                  render={({
+                    field: { onChange, onBlur, value, ref },
+                    fieldState: { error }
+                  }) => (
                     <TextField
                       id={`weightInput-${exerciseIndex}`}
                       label="weight (lbs)"
-                      name="weight"
+                      name={`exercises[${exerciseIndex}].weight`}
                       type="number"
                       size="small"
-                      value={value}
+                      value={isNaN(value) ? '' : value}
                       onChange={(e) => {
-                        onChange(parseInt(e.target.value))
+                        const val = e.target.value
+                        setValue(`exercises[${exerciseIndex}].weight`, val)
+                        onChange(val)
+                      }}
+                      inputRef={ref}
+                      onKeyDown={(e) => {
+                        if (['e', '-', '+'].includes(e.key)) {
+                          e.preventDefault()
+                        }
                       }}
                       inputProps={{
                         inputMode: 'numeric',
@@ -148,6 +167,8 @@ const ProgramDetails: React.FC = () => {
                       sx={{
                         width: '30%'
                       }}
+                      error={!(error == null)}
+                      helperText={error != null ? error.message : null}
                     />
                   )}
                 />
