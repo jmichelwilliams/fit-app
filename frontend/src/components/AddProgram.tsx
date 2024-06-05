@@ -26,22 +26,21 @@ interface ProgramFormInputs {
 
 const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
-  const { control, handleSubmit, getValues, watch } =
-    useForm<ProgramFormInputs>({
-      mode: 'onBlur',
-      defaultValues: {
-        programName: '',
-        exercises: [
-          {
-            exerciseName: '',
-            sets: 1,
-            reps: 1,
-            rest: '0:30',
-            weight: 0
-          }
-        ]
-      }
-    })
+  const { control, handleSubmit, watch } = useForm<ProgramFormInputs>({
+    mode: 'onBlur',
+    defaultValues: {
+      programName: '',
+      exercises: [
+        {
+          exerciseName: '',
+          sets: 1,
+          reps: 1,
+          rest: '0:30',
+          weight: 0
+        }
+      ]
+    }
+  })
 
   const { fields, append } = useFieldArray({
     control,
@@ -58,36 +57,30 @@ const AddProgram: React.FC = () => {
     })
   }
 
-  const onSubmit: SubmitHandler<ProgramFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
     console.log('Form data: ', data)
+    try {
+      const accessToken = await getAccessTokenSilently()
 
-    // TODO: Add a try catch
-    // Add your form submission logic here
+      if (user !== null && user !== undefined) {
+        const res = await fetch(`/programs/${user.sub}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: JSON.stringify({ program: data })
+        })
+
+        if (res.ok) {
+          console.log('Program saved successfully')
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
   }
-  // const onSubmit = async (data: NewProgram): Promise<void> => {
-  //   try {
-  //     const accessToken = await getAccessTokenSilently()
-  //     setProgram(data)
 
-  //     if (user) {
-  //       const res = await fetch(`/programs/${user.sub}`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${accessToken}`
-  //         },
-  //         body: JSON.stringify(data)
-  //       })
-
-  //       if (res.ok) {
-  //         console.log('Program saved successfully')
-  //         setProgram(undefined)
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error)
-  //   }
-  // }
   console.log('watch(): ', watch())
 
   return (

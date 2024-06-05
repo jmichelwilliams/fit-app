@@ -13,15 +13,27 @@ if (!PROGRAMS_COLLECTION) {
 
 interface Set {
   setId: number;
-  setNumber: number;
+  reps: number;
 }
 
 interface Exercise {
-  exerciseId: string;
+  exerciseId: ObjectId;
   exerciseName: string;
   sets: Set[];
   rest: string;
   weight?: number;
+}
+
+interface ExerciseInput {
+  exerciseName: string;
+  sets: number;
+  reps: number;
+  rest: string;
+  weight?: number;
+}
+interface ProgramInput {
+  programName: string;
+  exercises: ExerciseInput[];
 }
 
 interface Program {
@@ -55,25 +67,38 @@ export const getAllProgramsForUser = async (req: Request, res: Response) => {
 
 export const addProgram = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const { programName, exercises } = req.body.newProgram;
+  const { program }: { program: ProgramInput } = req.body;
   const { client, db } = await connectToDatabase();
   const parsedUserId = userId.split('|')[1];
 
   const programCollection = db.collection(PROGRAMS_COLLECTION);
 
-  const newExercises = exercises.map((exercise: Exercise) => {
+  const newExercises = program.exercises.map((exercise: ExerciseInput) => {
+    const reps = exercise.reps;
+
+    const setsArray: Set[] = Array.from(
+      { length: exercise.sets },
+      (_, index) => ({
+        setId: index + 1,
+        reps,
+      }),
+    );
     return {
-      ...exercise,
+      exerciseName: exercise.exerciseName,
+      rest: exercise.rest,
+      weight: exercise.weight,
+      sets: setsArray,
       exerciseId: new ObjectId(),
     };
   });
 
   const newProgram: Program = {
     _id: new ObjectId(),
-    programName,
+    programName: program.programName,
     exercises: newExercises,
     createdBy: new ObjectId(parsedUserId),
   };
+  console.log('newProgram: ', newProgram);
 
   const result = await programCollection.insertOne(newProgram as any);
   res.status(200).json({ status: 200, data: result });
