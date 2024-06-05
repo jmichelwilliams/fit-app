@@ -5,6 +5,7 @@ import {
   useFieldArray,
   type SubmitHandler
 } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -25,6 +26,7 @@ interface ProgramFormInputs {
 
 const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
+  const navigate = useNavigate()
   const { control, handleSubmit } = useForm<ProgramFormInputs>({
     mode: 'onBlur',
     defaultValues: {
@@ -73,6 +75,7 @@ const AddProgram: React.FC = () => {
 
         if (res.ok) {
           console.log('Program saved successfully')
+          navigate('/planner')
         }
       }
     } catch (error) {
