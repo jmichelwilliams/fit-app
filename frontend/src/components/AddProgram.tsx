@@ -7,11 +7,16 @@ import {
 } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import { FormControl, Select, MenuItem, InputLabel } from '@mui/material'
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  TextField,
+  Button,
+  Typography,
+  Box
+} from '@mui/material'
 
 interface ProgramFormInputs {
   programName: string
