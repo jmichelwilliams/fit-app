@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import {
   useForm,
@@ -26,7 +25,7 @@ interface ProgramFormInputs {
 
 const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
-  const { control, handleSubmit, watch } = useForm<ProgramFormInputs>({
+  const { control, handleSubmit } = useForm<ProgramFormInputs>({
     mode: 'onBlur',
     defaultValues: {
       programName: '',
