@@ -81,8 +81,6 @@ const AddProgram: React.FC = () => {
     }
   }
 
-  console.log('watch(): ', watch())
-
   return (
     <Box
       sx={{
