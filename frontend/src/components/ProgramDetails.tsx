@@ -49,6 +49,7 @@ const ProgramDetails: React.FC = () => {
     data
   ): Promise<void> => {
     const updatedProgram = {
+      programName: data.programName,
       exercises: data.exercises.map((exercise: any) => ({
         ...exercise,
         sets: exercise.sets.map((set: any, index: number) => ({

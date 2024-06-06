@@ -137,7 +137,12 @@ export const updateProgram = async (req: Request, res: Response) => {
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
     const query = { _id: new ObjectId(programId) };
-    const newValue = { $set: { exercises: updatedProgram.exercises } };
+    const newValue = {
+      $set: {
+        programName: updatedProgram.programName,
+        exercises: updatedProgram.exercises,
+      },
+    };
 
     // Find the program by its programId
     const program = await programCollection.findOne({
