@@ -82,7 +82,7 @@ const ProgramDetails: React.FC = () => {
       console.error('Error', error)
     }
   }
-  console.log('program: ', program)
+
   return (
     <Box
       sx={{
@@ -135,7 +135,6 @@ const ProgramDetails: React.FC = () => {
               />
             </Box>
             {program.exercises.map((exercise, exerciseIndex) => {
-              console.log('exercise: ', exercise)
               return (
                 <Box
                   key={`exercise-${exerciseIndex}`}
@@ -212,7 +211,7 @@ const ProgramDetails: React.FC = () => {
                           value={value}
                           onBlur={onBlur}
                           onChange={(e) => {
-                            const val = e.target.value
+                            const val = parseInt(e.target.value)
                             onChange(val)
                           }}
                           inputRef={ref}
@@ -308,7 +307,7 @@ const ProgramDetails: React.FC = () => {
                                           pattern: '[0-9]*'
                                         }}
                                         onChange={(e) => {
-                                          const val = e.target.value
+                                          const val = parseInt(e.target.value)
 
                                           onChange(val)
                                         }}
