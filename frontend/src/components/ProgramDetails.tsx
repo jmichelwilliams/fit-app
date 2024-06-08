@@ -82,7 +82,7 @@ const ProgramDetails: React.FC = () => {
       console.error('Error', error)
     }
   }
-
+  console.log('program: ', program)
   return (
     <Box
       sx={{
@@ -135,6 +135,7 @@ const ProgramDetails: React.FC = () => {
               />
             </Box>
             {program.exercises.map((exercise, exerciseIndex) => {
+              console.log('exercise: ', exercise)
               return (
                 <Box
                   key={`exercise-${exerciseIndex}`}
@@ -150,14 +151,38 @@ const ProgramDetails: React.FC = () => {
                     alignItems: 'center'
                   }}
                 >
-                  <Typography
-                    variant="subtitle1"
-                    fontWeight="bold"
-                    textAlign="center"
-                    sx={{ marginBottom: '8px' }}
-                  >
-                    {exercise.exerciseName}
-                  </Typography>
+                  <Controller
+                    name={`exercises.${exerciseIndex}.exerciseName`}
+                    control={control}
+                    defaultValue={exercise.exerciseName}
+                    rules={{
+                      required: 'A name is required',
+                      minLength: { value: 3, message: 'Minimum length is 3' }
+                    }}
+                    render={({
+                      field: { onChange, value, ref, onBlur },
+                      fieldState: { error }
+                    }) => (
+                      <TextField
+                        label="Name of Exercise"
+                        id={`exercises.${exerciseIndex}.exerciseName`}
+                        value={value}
+                        onBlur={onBlur}
+                        inputRef={ref}
+                        onChange={(e) => {
+                          const val = e.target.value
+                          onChange(val)
+                        }}
+                        required
+                        sx={{
+                          width: '85vw',
+                          margin: '8px'
+                        }}
+                        error={!(error == null)}
+                        helperText={error != null ? error.message : null}
+                      />
+                    )}
+                  />
                   <Box
                     sx={{
                       display: 'flex',
@@ -204,7 +229,8 @@ const ProgramDetails: React.FC = () => {
                             sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
                           }}
                           sx={{
-                            width: '30%'
+                            width: '30%',
+                            marginTop: '8px'
                           }}
                           error={!(error == null)}
                           helperText={error != null ? error.message : null}
