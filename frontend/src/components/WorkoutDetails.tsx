@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import useFetchProgram from '../hooks/useFetchProgram'
