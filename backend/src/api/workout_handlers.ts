@@ -38,13 +38,30 @@ export const addWorkout = async (req: Request, res: Response) => {
   const { workoutSession } = req.body;
   const { client, db } = await connectToDatabase();
   const parsedUserId = userId.split('|')[1];
-
   const workoutCollection = db.collection(WORKOUTS_COLLECTION);
   const today = new Date().toLocaleString();
 
+  const formattedExercises = workoutSession.exercises.map((exercise: any) => {
+    const setsArray = Array.from(
+      { length: exercise.sets.length },
+      (_, index) => ({
+        ...exercise.sets[index],
+        setId: index + 1,
+      }),
+    );
+
+    return {
+      weight: exercise.weight,
+      sets: setsArray,
+      completed: exercise.completed,
+      exerciseName: exercise.exerciseName,
+      rest: exercise.rest,
+    };
+  });
+
   const newWorkoutSession = {
     _id: new ObjectId(),
-    workoutSession,
+    exercises: formattedExercises,
     createdBy: new ObjectId(parsedUserId),
     createdOn: today,
   };
