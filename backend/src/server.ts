@@ -1,5 +1,7 @@
 import express, { type Request, type Response } from 'express';
 import morgan from 'morgan';
+import fs from 'fs';
+import https from 'https';
 import { getUserById } from './api/user_handlers';
 import {
   addProgram,
@@ -24,7 +26,7 @@ const app = express();
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const checkJwt = auth({
-  audience: 'http://localhost:8000/user',
+  audience: 'https://localhost:8000/user',
   issuerBaseURL: process.env.AUTH0_DOMAIN,
   tokenSigningAlg: 'RS256',
 });
@@ -32,7 +34,7 @@ const checkJwt = auth({
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://localhost:3000' }));
 
 // Routes
 app.get('/user/:userId', checkJwt, getUserById);
@@ -58,6 +60,11 @@ app.get('*', (req: Request, res: Response) => {
     message: 'This is not what you are looking for!',
   });
 });
-app.listen(8000, () => {
-  console.log('Server is running!');
+const sslOptions = {
+  key: fs.readFileSync('localhost+2-key.pem'),
+  cert: fs.readFileSync('localhost+2.pem'),
+};
+
+https.createServer(sslOptions, app).listen(8000, () => {
+  console.log('HTTPS Server is running on port 8000');
 });
