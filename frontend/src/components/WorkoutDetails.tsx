@@ -86,7 +86,7 @@ const WorkoutDetails: React.FC = () => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         paddingTop: '8px',
-        maxHeight: '80dvh'
+        maxHeight: '78dvh'
       }}
     >
       {' '}
