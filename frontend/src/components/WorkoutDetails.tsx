@@ -89,6 +89,10 @@ const WorkoutDetails: React.FC = () => {
         maxHeight: '80dvh'
       }}
     >
+      {' '}
+      <Typography variant="h3" textAlign="center" sx={{ marginBottom: '8px' }}>
+        {program?.programName}
+      </Typography>
       <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
         {program?.exercises.map((exercise, exerciseIndex) => {
           return (
