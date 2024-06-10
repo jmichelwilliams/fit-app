@@ -89,18 +89,19 @@ const ProgramDetails: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: '16px auto',
+        margin: '0px auto',
         position: 'relative',
-        paddingBottom: '48px',
+        overflowX: 'hidden',
+        overflowY: 'scroll',
         paddingTop: '8px',
-        overflowX: 'hidden'
+        maxHeight: '80dvh'
       }}
     >
       {program == null ? (
         <div>Loading...</div>
       ) : (
-        <Box sx={{ maxHeight: 'calc(95vh - 168px)' }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <Box>
+          <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Controller
                 name="programName"
@@ -375,24 +376,14 @@ const ProgramDetails: React.FC = () => {
                 </Box>
               )
             })}
-            <Box
-              sx={{
-                alignContent: 'flex-end',
-                position: 'sticky',
-                bottom: 0,
-                width: '100%',
-                zIndex: 100
-              }}
-            >
-              <Footer>
-                <Button variant={'contained'} type="submit">
-                  Save Changes
-                </Button>
-              </Footer>
-            </Box>
           </form>
         </Box>
       )}
+      <Footer>
+        <Button variant={'contained'} type="submit" form="program-form">
+          Save Changes
+        </Button>
+      </Footer>
     </Box>
   )
 }
