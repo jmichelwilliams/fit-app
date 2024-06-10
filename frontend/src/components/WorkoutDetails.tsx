@@ -82,11 +82,14 @@ const WorkoutDetails: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: '16px auto',
-        paddingBottom: '32px'
+        margin: '0px auto',
+        overflowX: 'hidden',
+        overflowY: 'scroll',
+        paddingTop: '8px',
+        maxHeight: '80dvh'
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
         {program?.exercises.map((exercise, exerciseIndex) => {
           return (
             <Box
@@ -306,13 +309,12 @@ const WorkoutDetails: React.FC = () => {
             </Box>
           )
         })}
-        <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 100 }}>
-          <Footer>
-            <Button variant={'contained'} type="submit">
-              Complete Workout
-            </Button>
-          </Footer>
-        </Box>
+
+        <Footer>
+          <Button variant={'contained'} type="submit" form="program-form">
+            Complete Workout
+          </Button>
+        </Footer>
       </form>
     </Box>
   )
