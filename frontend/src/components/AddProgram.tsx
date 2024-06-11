@@ -15,7 +15,8 @@ import {
   TextField,
   Button,
   Typography,
-  Box
+  Box,
+  InputAdornment
 } from '@mui/material'
 
 interface ProgramFormInputs {
@@ -294,25 +295,34 @@ const AddProgram: React.FC = () => {
                   <Controller
                     name={`exercises.${exerciseIndex}.weight`}
                     control={control}
-                    defaultValue={exercise.weight}
                     rules={{
                       required: 'Weight is required',
                       min: { value: 1, message: 'Minimum value is 1' }
                     }}
                     render={({
-                      field: { onChange, value, ref },
+                      field: { onChange, value, ref, onBlur },
                       fieldState: { error }
                     }) => (
                       <TextField
                         id={`exercises.${exerciseIndex}.weight`}
-                        label="weight (lbs)"
+                        label="weight"
                         name={`exercises.${exerciseIndex}.weight`}
                         type="number"
                         size="small"
-                        value={isNaN(value) ? '' : value}
+                        value={value}
+                        onBlur={onBlur}
                         onChange={(e) => {
-                          const val = parseInt(e.target.value)
-                          onChange(val)
+                          const val = parseFloat(e.target.value)
+                          if (!isNaN(val)) {
+                            onChange(val)
+                          } else {
+                            onChange('')
+                          }
+                        }}
+                        onFocus={(e) => {
+                          if (parseInt(e.target.value) === 0) {
+                            e.target.value = ''
+                          }
                         }}
                         inputRef={ref}
                         onKeyDown={(e) => {
@@ -320,12 +330,14 @@ const AddProgram: React.FC = () => {
                             e.preventDefault()
                           }
                         }}
-                        inputProps={{
-                          inputMode: 'numeric',
-                          pattern: '[0-9]*'
+                        InputProps={{
+                          inputMode: 'decimal',
+                          endAdornment: (
+                            <InputAdornment position="end">lbs</InputAdornment>
+                          )
                         }}
                         sx={{
-                          width: '85vw',
+                          width: '96px',
                           margin: '8px'
                         }}
                         error={!(error == null)}

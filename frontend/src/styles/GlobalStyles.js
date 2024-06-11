@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 100%;
         font: inherit;
         vertical-align: baseline;
+       
     }
 
     input {
@@ -70,6 +71,9 @@ const GlobalStyle = createGlobalStyle`
     }
 
     /* MUI STYLING */
+    .MuiTypography-body1{
+        color:white 
+    }
     .MuiInputBase-root {
         color: var(--font-color) !important;
     }
@@ -110,6 +114,7 @@ const GlobalStyle = createGlobalStyle`
     input:-webkit-autofill {
         -webkit-text-fill-color: var(--font-color) !important;
     }
+
 `
 
 export default GlobalStyle
