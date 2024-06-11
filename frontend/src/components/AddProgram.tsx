@@ -26,7 +26,7 @@ interface ProgramFormInputs {
     sets: number
     reps: number
     rest: string
-    weight: number
+    weight: string | number
   }>
 }
 
@@ -43,13 +43,13 @@ const AddProgram: React.FC = () => {
           sets: 1,
           reps: 1,
           rest: '0:30',
-          weight: 0
+          weight: ''
         }
       ]
     }
   })
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'exercises'
   })
@@ -60,10 +60,13 @@ const AddProgram: React.FC = () => {
       sets: 1,
       reps: 1,
       rest: '0:30',
-      weight: 0
+      weight: ''
     })
   }
 
+  const handleRemoveExercise = (index: number): void => {
+    remove(index)
+  }
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
     console.log('Form data: ', data)
     try {
@@ -160,9 +163,14 @@ const AddProgram: React.FC = () => {
                     alignItems: 'center'
                   }}
                 >
-                  <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                    Exercise {exerciseIndex + 1}
-                  </Typography>
+                  <Box display="flex" justifyContent="center">
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ textAlign: 'center' }}
+                    >
+                      Exercise {exerciseIndex + 1}
+                    </Typography>
+                  </Box>
                   <Controller
                     name={`exercises.${exerciseIndex}.exerciseName`}
                     control={control}
@@ -313,15 +321,10 @@ const AddProgram: React.FC = () => {
                         onBlur={onBlur}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value)
-                          if (!isNaN(val)) {
+                          if (!isNaN(val) && val !== 0) {
                             onChange(val)
                           } else {
                             onChange('')
-                          }
-                        }}
-                        onFocus={(e) => {
-                          if (parseInt(e.target.value) === 0) {
-                            e.target.value = ''
                           }
                         }}
                         inputRef={ref}
@@ -337,7 +340,7 @@ const AddProgram: React.FC = () => {
                           )
                         }}
                         sx={{
-                          width: '96px',
+                          width: '120px',
                           margin: '8px'
                         }}
                         error={!(error == null)}
@@ -345,6 +348,23 @@ const AddProgram: React.FC = () => {
                       />
                     )}
                   />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      width: '100%'
+                    }}
+                  >
+                    {exerciseIndex >= 1 && (
+                      <Button
+                        onClick={() => {
+                          handleRemoveExercise(exerciseIndex)
+                        }}
+                      >
+                        <span style={{ color: 'red' }}>Remove</span>
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             ))}
