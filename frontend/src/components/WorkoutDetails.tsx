@@ -14,7 +14,8 @@ import {
   TextField,
   Grid,
   useMediaQuery,
-  FormControlLabel
+  FormControlLabel,
+  InputAdornment
 } from '@mui/material'
 import useTheme from '@mui/material/styles/useTheme'
 import Footer from './Footer'
@@ -34,7 +35,7 @@ const WorkoutDetails: React.FC = () => {
     programId: string
   }>()
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
-  const { control, handleSubmit, watch } = useForm<ProgramFormInputs>({
+  const { control, handleSubmit } = useForm<ProgramFormInputs>({
     mode: 'onBlur'
   })
   const navigate = useNavigate()
@@ -75,7 +76,7 @@ const WorkoutDetails: React.FC = () => {
       console.error('Error', error)
     }
   }
-  console.log('watch(): ', watch())
+
   return (
     <Box
       sx={{
@@ -86,7 +87,7 @@ const WorkoutDetails: React.FC = () => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         paddingTop: '8px',
-        maxHeight: '78dvh'
+        maxHeight: '75dvh'
       }}
     >
       {' '}
@@ -111,10 +112,10 @@ const WorkoutDetails: React.FC = () => {
               }}
             >
               <Typography
-                variant="subtitle1"
+                variant="h5"
                 fontWeight="bold"
                 textAlign="center"
-                sx={{ marginBottom: '8px' }}
+                sx={{ marginBottom: '16px' }}
               >
                 {exercise.exerciseName}
               </Typography>
@@ -140,15 +141,19 @@ const WorkoutDetails: React.FC = () => {
                   }) => (
                     <TextField
                       id={`weightInput-${exerciseIndex}`}
-                      label="weight (lbs)"
+                      label="weight"
                       name="weight"
                       type="number"
                       size="small"
                       value={value}
                       onBlur={onBlur}
                       onChange={(e) => {
-                        const val = parseInt(e.target.value)
-                        onChange(val)
+                        const val = parseFloat(e.target.value)
+                        if (!isNaN(val) && val !== 0) {
+                          onChange(val)
+                        } else {
+                          onChange('')
+                        }
                       }}
                       inputRef={ref}
                       onKeyDown={(e) => {
@@ -156,15 +161,18 @@ const WorkoutDetails: React.FC = () => {
                           e.preventDefault()
                         }
                       }}
-                      inputProps={{
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*'
+                      InputProps={{
+                        inputMode: 'decimal',
+                        endAdornment: (
+                          <InputAdornment position="end">lbs</InputAdornment>
+                        )
                       }}
                       InputLabelProps={{
                         sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
                       }}
                       sx={{
-                        width: '30%'
+                        width: '30%',
+                        marginBottom: '8px'
                       }}
                       error={!(error == null)}
                       helperText={error != null ? error.message : null}
@@ -260,7 +268,8 @@ const WorkoutDetails: React.FC = () => {
                                       }
                                     }}
                                     sx={{
-                                      width: '100%'
+                                      width: '100%',
+                                      marginBottom: '8px'
                                     }}
                                     error={!(error == null)}
                                     helperText={
