@@ -62,7 +62,7 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 
   const list = (anchor: Anchor): JSX.Element => (
     <Box
-      sx={{ width: 200 }}
+      sx={{ width: '200px' }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -71,26 +71,30 @@ const SwipeableTemporaryDrawer: React.FC = () => {
         {[
           {
             text: 'Planner',
-            icon: <DashboardIcon />,
+            icon: <DashboardIcon style={{ color: 'var( --font-color)' }} />,
             action: () => {
               handleNavigation('/planner')
             }
           },
           {
             text: 'Workout',
-            icon: <FitnessCenterIcon />,
+            icon: <FitnessCenterIcon style={{ color: 'var( --font-color)' }} />,
             action: () => {
               handleNavigation('/workouts')
             }
           },
           {
             text: 'Profile',
-            icon: <AccountBoxIcon />,
+            icon: <AccountBoxIcon style={{ color: 'var( --font-color)' }} />,
             action: () => {
               handleNavigation('/profile')
             }
           },
-          { text: 'Logout', icon: <LogoutIcon />, action: handleLogout }
+          {
+            text: 'Logout',
+            icon: <LogoutIcon style={{ color: 'var( --font-color)' }} />,
+            action: handleLogout
+          }
         ].map((element: NavigationElement, index: number) => {
           if (element.action == null) {
             return null
@@ -122,6 +126,9 @@ const SwipeableTemporaryDrawer: React.FC = () => {
           open={state.right}
           onClose={toggleDrawer('right', false)}
           onOpen={toggleDrawer('right', true)}
+          PaperProps={{
+            sx: { backgroundColor: 'var( --background-darkercolor)' }
+          }}
         >
           {list('right')}
         </SwipeableDrawer>
