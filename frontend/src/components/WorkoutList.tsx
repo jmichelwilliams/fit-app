@@ -4,7 +4,6 @@ import Box from '@mui/material/Box'
 import ProgramList from './ProgramList'
 
 const WorkoutList: React.FC = () => {
-  console.log('location.pathname: ', location.pathname)
   return (
     <Box
       sx={{
