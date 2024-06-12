@@ -24,8 +24,18 @@ const Header: React.FC = () => {
     >
       {isAuthenticated && (
         <AppBar position="static" color="transparent">
-          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            {!onHomePage && <BackButton />}
+          <Toolbar
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '0px'
+            }}
+          >
+            {!onHomePage && (
+              <Box sx={{ paddingLeft: '8px' }}>
+                <BackButton />
+              </Box>
+            )}
             <Box sx={{ marginLeft: 'auto' }}>
               <Profile />
             </Box>

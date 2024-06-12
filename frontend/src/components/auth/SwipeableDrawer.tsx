@@ -27,7 +27,7 @@ const StyledImg = styled.img`
   height: 50px;
   width: 50px;
   border-radius: 16px;
-  margin-right: 8px;
+  padding: 8px;
 `
 const SwipeableTemporaryDrawer: React.FC = () => {
   const [state, setState] = useState({
