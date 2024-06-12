@@ -4,7 +4,6 @@ import Box from '@mui/material/Box'
 import ProgramList from './ProgramList'
 
 const WorkoutList: React.FC = () => {
-  console.log('location.pathname: ', location.pathname)
   return (
     <Box
       sx={{
@@ -15,9 +14,11 @@ const WorkoutList: React.FC = () => {
         alignItems: 'center'
       }}
     >
-      <Typography variant="h3" textAlign="center">
-        Workouts
-      </Typography>
+      <Box sx={{ margin: '16px 0px' }}>
+        <Typography variant="h3" textAlign="center">
+          Workouts
+        </Typography>
+      </Box>
       <ProgramList />
     </Box>
   )

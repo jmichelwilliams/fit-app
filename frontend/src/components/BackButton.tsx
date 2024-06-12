@@ -28,7 +28,11 @@ const BackButton: React.FC = () => {
   }
   return (
     <>
-      <Button variant="text" onClick={handleBack}>
+      <Button
+        variant="text"
+        onClick={handleBack}
+        sx={{ color: 'var( --font-color)' }}
+      >
         Back
       </Button>
     </>

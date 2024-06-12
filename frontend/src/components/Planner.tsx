@@ -8,7 +8,7 @@ const Planner: React.FC = () => {
     <Box
       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <Box sx={{ marginBottom: '16px' }}>
+      <Box sx={{ margin: '16px 0px' }}>
         <Typography variant="h3" align={'center'}>
           My Programs
         </Typography>

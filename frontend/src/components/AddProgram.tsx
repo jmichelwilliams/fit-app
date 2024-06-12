@@ -15,7 +15,8 @@ import {
   TextField,
   Button,
   Typography,
-  Box
+  Box,
+  InputAdornment
 } from '@mui/material'
 
 interface ProgramFormInputs {
@@ -25,7 +26,7 @@ interface ProgramFormInputs {
     sets: number
     reps: number
     rest: string
-    weight: number
+    weight: string | number
   }>
 }
 
@@ -42,13 +43,13 @@ const AddProgram: React.FC = () => {
           sets: 1,
           reps: 1,
           rest: '0:30',
-          weight: 0
+          weight: ''
         }
       ]
     }
   })
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'exercises'
   })
@@ -59,10 +60,13 @@ const AddProgram: React.FC = () => {
       sets: 1,
       reps: 1,
       rest: '0:30',
-      weight: 0
+      weight: ''
     })
   }
 
+  const handleRemoveExercise = (index: number): void => {
+    remove(index)
+  }
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
     console.log('Form data: ', data)
     try {
@@ -159,9 +163,14 @@ const AddProgram: React.FC = () => {
                     alignItems: 'center'
                   }}
                 >
-                  <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                    Exercise {exerciseIndex + 1}
-                  </Typography>
+                  <Box display="flex" justifyContent="center">
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ textAlign: 'center' }}
+                    >
+                      Exercise {exerciseIndex + 1}
+                    </Typography>
+                  </Box>
                   <Controller
                     name={`exercises.${exerciseIndex}.exerciseName`}
                     control={control}
@@ -294,25 +303,29 @@ const AddProgram: React.FC = () => {
                   <Controller
                     name={`exercises.${exerciseIndex}.weight`}
                     control={control}
-                    defaultValue={exercise.weight}
                     rules={{
                       required: 'Weight is required',
                       min: { value: 1, message: 'Minimum value is 1' }
                     }}
                     render={({
-                      field: { onChange, value, ref },
+                      field: { onChange, value, ref, onBlur },
                       fieldState: { error }
                     }) => (
                       <TextField
                         id={`exercises.${exerciseIndex}.weight`}
-                        label="weight (lbs)"
+                        label="weight"
                         name={`exercises.${exerciseIndex}.weight`}
                         type="number"
                         size="small"
-                        value={isNaN(value) ? '' : value}
+                        value={value}
+                        onBlur={onBlur}
                         onChange={(e) => {
-                          const val = parseInt(e.target.value)
-                          onChange(val)
+                          const val = parseFloat(e.target.value)
+                          if (!isNaN(val) && val !== 0) {
+                            onChange(val)
+                          } else {
+                            onChange('')
+                          }
                         }}
                         inputRef={ref}
                         onKeyDown={(e) => {
@@ -320,12 +333,14 @@ const AddProgram: React.FC = () => {
                             e.preventDefault()
                           }
                         }}
-                        inputProps={{
-                          inputMode: 'numeric',
-                          pattern: '[0-9]*'
+                        InputProps={{
+                          inputMode: 'decimal',
+                          endAdornment: (
+                            <InputAdornment position="end">lbs</InputAdornment>
+                          )
                         }}
                         sx={{
-                          width: '85vw',
+                          width: '120px',
                           margin: '8px'
                         }}
                         error={!(error == null)}
@@ -333,6 +348,23 @@ const AddProgram: React.FC = () => {
                       />
                     )}
                   />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      width: '100%'
+                    }}
+                  >
+                    {exerciseIndex >= 1 && (
+                      <Button
+                        onClick={() => {
+                          handleRemoveExercise(exerciseIndex)
+                        }}
+                      >
+                        <span style={{ color: 'red' }}>Remove</span>
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             ))}

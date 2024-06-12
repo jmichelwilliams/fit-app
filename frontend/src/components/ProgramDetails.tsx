@@ -11,7 +11,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Button
+  Button,
+  InputAdornment
 } from '@mui/material'
 import type Program from '../types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
@@ -94,7 +95,7 @@ const ProgramDetails: React.FC = () => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         paddingTop: '8px',
-        maxHeight: '80dvh'
+        maxHeight: '78dvh'
       }}
     >
       {program == null ? (
@@ -205,15 +206,19 @@ const ProgramDetails: React.FC = () => {
                       }) => (
                         <TextField
                           id={`weightInput-${exerciseIndex}`}
-                          label="weight (lbs)"
+                          label="weight"
                           name={`exercises.${exerciseIndex}.weight`}
                           type="number"
                           size="small"
                           value={value}
                           onBlur={onBlur}
                           onChange={(e) => {
-                            const val = parseInt(e.target.value)
-                            onChange(val)
+                            const val = parseFloat(e.target.value)
+                            if (!isNaN(val) && val !== 0) {
+                              onChange(val)
+                            } else {
+                              onChange('')
+                            }
                           }}
                           inputRef={ref}
                           onKeyDown={(e) => {
@@ -221,15 +226,19 @@ const ProgramDetails: React.FC = () => {
                               e.preventDefault()
                             }
                           }}
-                          inputProps={{
-                            inputMode: 'numeric',
-                            pattern: '[0-9]*'
+                          InputProps={{
+                            inputMode: 'decimal',
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                lbs
+                              </InputAdornment>
+                            )
                           }}
                           InputLabelProps={{
                             sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
                           }}
                           sx={{
-                            width: '30%',
+                            width: '120px',
                             marginTop: '8px'
                           }}
                           error={!(error == null)}

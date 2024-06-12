@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import Header from './Header'
 import Homepage from './Homepage'
 import Planner from './Planner'
 import AddProgram from './AddProgram'
@@ -12,6 +11,7 @@ import WorkoutDetails from './WorkoutDetails'
 import NotFound from './NotFound'
 import ProtectedRoute from './auth/ProtectedRoute'
 import NotMobile from './NotMobile'
+import Header from './Header'
 
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')

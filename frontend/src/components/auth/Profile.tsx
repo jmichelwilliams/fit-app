@@ -1,6 +1,5 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-// import { Box } from '@mui/material'
 import SwipeableTemporaryDrawer from './SwipeableDrawer'
 
 const Profile: React.FC = () => {
