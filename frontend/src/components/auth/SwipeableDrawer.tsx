@@ -39,7 +39,6 @@ const SwipeableTemporaryDrawer: React.FC = () => {
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
-      console.log('event: ', event)
       if (
         event !== undefined &&
         event.type === 'keydown' &&
