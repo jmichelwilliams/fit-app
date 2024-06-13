@@ -39,7 +39,7 @@ const ProgramList: React.FC = () => {
             width: '100%'
           }}
         >
-          <CircularProgress />
+          <CircularProgress size={70} />
         </Box>
       ) : (
         userPrograms.map((program) => (

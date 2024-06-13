@@ -15,7 +15,8 @@ import {
   Grid,
   useMediaQuery,
   FormControlLabel,
-  InputAdornment
+  InputAdornment,
+  CircularProgress
 } from '@mui/material'
 import useTheme from '@mui/material/styles/useTheme'
 import Footer from './Footer'
@@ -90,245 +91,266 @@ const WorkoutDetails: React.FC = () => {
         maxHeight: '75dvh'
       }}
     >
-      {' '}
-      <Typography variant="h3" textAlign="center" sx={{ marginBottom: '8px' }}>
-        {program?.programName}
-      </Typography>
-      <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
-        {program?.exercises.map((exercise, exerciseIndex) => {
-          return (
-            <Box
-              key={`exercise-${exerciseIndex}`}
-              sx={{
-                border: '4px solid black',
-                width: '90vw',
-                height: 'auto',
-                margin: '16px',
-                padding: '8px',
-                borderRadius: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}
-            >
-              <Typography
-                variant="h5"
-                fontWeight="bold"
-                textAlign="center"
-                sx={{ marginBottom: '16px' }}
-              >
-                {exercise.exerciseName}
-              </Typography>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  alignItems: 'center'
-                }}
-              >
-                <Controller
-                  name={`exercises.${exerciseIndex}.weight`}
-                  control={control}
-                  defaultValue={exercise.weight}
-                  rules={{
-                    required: 'Weight is required',
-                    min: { value: 1, message: 'Minimum value is 1' }
-                  }}
-                  render={({
-                    field: { onChange, value, ref, onBlur },
-                    fieldState: { error }
-                  }) => (
-                    <TextField
-                      id={`weightInput-${exerciseIndex}`}
-                      label="weight"
-                      name="weight"
-                      type="number"
-                      size="small"
-                      value={value}
-                      onBlur={onBlur}
-                      onChange={(e) => {
-                        const val = parseFloat(e.target.value)
-                        if (!isNaN(val) && val !== 0) {
-                          onChange(val)
-                        } else {
-                          onChange('')
-                        }
-                      }}
-                      inputRef={ref}
-                      onKeyDown={(e) => {
-                        if (['e', '-', '+'].includes(e.key)) {
-                          e.preventDefault()
-                        }
-                      }}
-                      InputProps={{
-                        inputMode: 'decimal',
-                        endAdornment: (
-                          <InputAdornment position="end">lbs</InputAdornment>
-                        )
-                      }}
-                      InputLabelProps={{
-                        sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
-                      }}
-                      sx={{
-                        width: '30%',
-                        marginBottom: '8px'
-                      }}
-                      error={!(error == null)}
-                      helperText={error != null ? error.message : null}
-                    />
-                  )}
-                />
+      {program == null ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+            width: '100%'
+          }}
+        >
+          <CircularProgress size={70} />
+        </Box>
+      ) : (
+        <Box>
+          <Typography
+            variant="h3"
+            textAlign="center"
+            sx={{ marginBottom: '8px' }}
+          >
+            {program?.programName}
+          </Typography>
+          <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
+            {program?.exercises.map((exercise, exerciseIndex) => {
+              return (
                 <Box
+                  key={`exercise-${exerciseIndex}`}
                   sx={{
+                    border: '4px solid black',
+                    width: '90vw',
+                    height: 'auto',
+                    margin: '16px',
+                    padding: '8px',
+                    borderRadius: '16px',
                     display: 'flex',
-                    justifyContent: 'space-evenly',
-                    flexWrap: 'wrap'
+                    flexDirection: 'column',
+                    alignItems: 'center'
                   }}
                 >
-                  {Array.from(
-                    { length: exercise.sets.length },
-                    (_, setIndex) => {
-                      return (
-                        <Box
-                          key={`set-${exerciseIndex}-${setIndex + 1}`}
-                          sx={{
-                            display: 'flex',
-                            margin: '8px',
-                            flexDirection: 'column',
-                            maxWidth: '80px',
-                            alignItems: 'space-evenly'
-                          }}
-                        >
-                          <Typography variant="body1" textAlign="center">
-                            Set: {setIndex + 1}
-                          </Typography>
-                          <Grid
-                            container
-                            spacing={2}
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{ paddingLeft: '8px' }}
-                          >
-                            <Grid
-                              item
-                              xs={12}
-                              sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                margin: '8px'
-                              }}
-                            >
-                              <Controller
-                                name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
-                                control={control}
-                                defaultValue={exercise.sets[setIndex].reps}
-                                rules={{
-                                  required: 'Rep is required',
-                                  min: {
-                                    value: 1,
-                                    message: 'Minimum value is 1'
-                                  }
-                                }}
-                                render={({
-                                  field: { onChange, value, ref, onBlur },
-                                  fieldState: { error }
-                                }) => (
-                                  <TextField
-                                    id={`repsInput-${exerciseIndex}-${
-                                      setIndex + 1
-                                    }`}
-                                    label="reps"
-                                    name="reps"
-                                    type="number"
-                                    size="small"
-                                    value={isNaN(value) ? '' : value}
-                                    inputRef={ref}
-                                    onBlur={onBlur}
-                                    onChange={(e) => {
-                                      const val = parseInt(e.target.value)
-
-                                      onChange(val)
-                                    }}
-                                    onKeyDown={(e) => {
-                                      if (['e', '-', '+'].includes(e.key)) {
-                                        e.preventDefault()
-                                      }
-                                    }}
-                                    inputProps={{
-                                      inputMode: 'numeric',
-                                      pattern: '[0-9]*'
-                                    }}
-                                    InputLabelProps={{
-                                      sx: {
-                                        fontSize: isSmallScreen
-                                          ? '.95rem'
-                                          : '1rem',
-                                        textAlign: 'center'
-                                      }
-                                    }}
-                                    sx={{
-                                      width: '100%',
-                                      marginBottom: '8px'
-                                    }}
-                                    error={!(error == null)}
-                                    helperText={
-                                      error != null ? error.message : null
-                                    }
-                                  />
-                                )}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      )
-                    }
-                  )}
-                </Box>
-                <Typography
-                  variant="body1"
-                  textAlign="center"
-                  sx={{ marginTop: '8px' }}
-                >
-                  Rest: {formatRestTime(exercise.rest)}
-                </Typography>
-                <Controller
-                  name={`exercises.${exerciseIndex}.completed`}
-                  control={control}
-                  defaultValue={false}
-                  render={({ field: { onChange, value, ref } }) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          id={`completed-checkbox-${exerciseIndex}`}
-                          checked={value || false}
-                          onChange={() => {
-                            if (!value) {
-                              onChange(true)
+                  <Typography
+                    variant="h5"
+                    fontWeight="bold"
+                    textAlign="center"
+                    sx={{ marginBottom: '16px' }}
+                  >
+                    {exercise.exerciseName}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-around',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Controller
+                      name={`exercises.${exerciseIndex}.weight`}
+                      control={control}
+                      defaultValue={exercise.weight}
+                      rules={{
+                        required: 'Weight is required',
+                        min: { value: 1, message: 'Minimum value is 1' }
+                      }}
+                      render={({
+                        field: { onChange, value, ref, onBlur },
+                        fieldState: { error }
+                      }) => (
+                        <TextField
+                          id={`weightInput-${exerciseIndex}`}
+                          label="weight"
+                          name="weight"
+                          type="number"
+                          size="small"
+                          value={value}
+                          onBlur={onBlur}
+                          onChange={(e) => {
+                            const val = parseFloat(e.target.value)
+                            if (!isNaN(val) && val !== 0) {
+                              onChange(val)
                             } else {
-                              onChange(false)
+                              onChange('')
                             }
                           }}
-                          style={{
-                            color: value ? 'green' : 'initial'
+                          inputRef={ref}
+                          onKeyDown={(e) => {
+                            if (['e', '-', '+'].includes(e.key)) {
+                              e.preventDefault()
+                            }
                           }}
+                          InputProps={{
+                            inputMode: 'decimal',
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                lbs
+                              </InputAdornment>
+                            )
+                          }}
+                          InputLabelProps={{
+                            sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
+                          }}
+                          sx={{
+                            width: '30%',
+                            marginBottom: '8px'
+                          }}
+                          error={!(error == null)}
+                          helperText={error != null ? error.message : null}
                         />
-                      }
-                      label="Completed?"
+                      )}
                     />
-                  )}
-                />
-              </Box>
-            </Box>
-          )
-        })}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexWrap: 'wrap'
+                      }}
+                    >
+                      {Array.from(
+                        { length: exercise.sets.length },
+                        (_, setIndex) => {
+                          return (
+                            <Box
+                              key={`set-${exerciseIndex}-${setIndex + 1}`}
+                              sx={{
+                                display: 'flex',
+                                margin: '8px',
+                                flexDirection: 'column',
+                                maxWidth: '80px',
+                                alignItems: 'space-evenly'
+                              }}
+                            >
+                              <Typography variant="body1" textAlign="center">
+                                Set: {setIndex + 1}
+                              </Typography>
+                              <Grid
+                                container
+                                spacing={2}
+                                justifyContent="center"
+                                alignItems="center"
+                                sx={{ paddingLeft: '8px' }}
+                              >
+                                <Grid
+                                  item
+                                  xs={12}
+                                  sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    margin: '8px'
+                                  }}
+                                >
+                                  <Controller
+                                    name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
+                                    control={control}
+                                    defaultValue={exercise.sets[setIndex].reps}
+                                    rules={{
+                                      required: 'Rep is required',
+                                      min: {
+                                        value: 1,
+                                        message: 'Minimum value is 1'
+                                      }
+                                    }}
+                                    render={({
+                                      field: { onChange, value, ref, onBlur },
+                                      fieldState: { error }
+                                    }) => (
+                                      <TextField
+                                        id={`repsInput-${exerciseIndex}-${
+                                          setIndex + 1
+                                        }`}
+                                        label="reps"
+                                        name="reps"
+                                        type="number"
+                                        size="small"
+                                        value={isNaN(value) ? '' : value}
+                                        inputRef={ref}
+                                        onBlur={onBlur}
+                                        onChange={(e) => {
+                                          const val = parseInt(e.target.value)
 
-        <Footer>
-          <Button variant={'contained'} type="submit" form="program-form">
-            Complete Workout
-          </Button>
-        </Footer>
-      </form>
+                                          onChange(val)
+                                        }}
+                                        onKeyDown={(e) => {
+                                          if (['e', '-', '+'].includes(e.key)) {
+                                            e.preventDefault()
+                                          }
+                                        }}
+                                        inputProps={{
+                                          inputMode: 'numeric',
+                                          pattern: '[0-9]*'
+                                        }}
+                                        InputLabelProps={{
+                                          sx: {
+                                            fontSize: isSmallScreen
+                                              ? '.95rem'
+                                              : '1rem',
+                                            textAlign: 'center'
+                                          }
+                                        }}
+                                        sx={{
+                                          width: '100%',
+                                          marginBottom: '8px'
+                                        }}
+                                        error={!(error == null)}
+                                        helperText={
+                                          error != null ? error.message : null
+                                        }
+                                      />
+                                    )}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          )
+                        }
+                      )}
+                    </Box>
+                    <Typography
+                      variant="body1"
+                      textAlign="center"
+                      sx={{ marginTop: '8px' }}
+                    >
+                      Rest: {formatRestTime(exercise.rest)}
+                    </Typography>
+                    <Controller
+                      name={`exercises.${exerciseIndex}.completed`}
+                      control={control}
+                      defaultValue={false}
+                      render={({ field: { onChange, value, ref } }) => (
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              id={`completed-checkbox-${exerciseIndex}`}
+                              checked={value || false}
+                              onChange={() => {
+                                if (!value) {
+                                  onChange(true)
+                                } else {
+                                  onChange(false)
+                                }
+                              }}
+                              style={{
+                                color: value ? 'green' : 'initial'
+                              }}
+                            />
+                          }
+                          label="Completed?"
+                        />
+                      )}
+                    />
+                  </Box>
+                </Box>
+              )
+            })}
+
+            <Footer>
+              <Button variant={'contained'} type="submit" form="program-form">
+                Complete Workout
+              </Button>
+            </Footer>
+          </form>
+        </Box>
+      )}
     </Box>
   )
 }
