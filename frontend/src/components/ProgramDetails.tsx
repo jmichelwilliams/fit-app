@@ -12,7 +12,8 @@ import {
   FormControl,
   InputLabel,
   Button,
-  InputAdornment
+  InputAdornment,
+  CircularProgress
 } from '@mui/material'
 import type Program from '../types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
@@ -99,7 +100,17 @@ const ProgramDetails: React.FC = () => {
       }}
     >
       {program == null ? (
-        <div>Loading...</div>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+            width: '100%'
+          }}
+        >
+          <CircularProgress />
+        </Box>
       ) : (
         <Box>
           <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
