@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
         --background-color: #14213d;
         --button-color: #fca311;
         --font-color: #ffffff;
+        --textinput-color:#fca311
     }
     html, body, div, span, applet, object, iframe,
     blockquote, pre,
@@ -101,6 +102,7 @@ const GlobalStyle = createGlobalStyle`
     #root > div.MuiBox-root.css-1shb3wy > div:nth-child(2) > form > div > div.MuiBox-root.css-0 > div > div.MuiFormControl-root.MuiTextField-root.css-11xq223-MuiFormControl-root-MuiTextField-root > div > div > p{
         color: rgb(252,163,17);
     }
+
     .MuiBox-root{
         border-color:#e5e5e5
     }
