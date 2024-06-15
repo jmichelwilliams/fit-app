@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './components/App'
 import { Auth0Provider } from '@auth0/auth0-react'
+import theme from './theme'
+import { ThemeProvider } from '@mui/material/styles'
 
 const audience = process.env.REACT_APP_AUTH_USER_AUDIENCE
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -15,6 +17,8 @@ root.render(
     }}
     cacheLocation="localstorage"
   >
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Auth0Provider>
 )

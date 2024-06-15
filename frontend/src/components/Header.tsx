@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -23,7 +22,11 @@ const Header: React.FC = () => {
       }}
     >
       {isAuthenticated && (
-        <AppBar position="static" color="transparent">
+        <AppBar
+          position="static"
+          color="transparent"
+          sx={{ borderBottom: '4px solid rgb(252,163,17)' }}
+        >
           <Toolbar
             sx={{
               display: 'flex',

@@ -68,7 +68,6 @@ const AddProgram: React.FC = () => {
     remove(index)
   }
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
-    console.log('Form data: ', data)
     try {
       const accessToken = await getAccessTokenSilently()
 
@@ -355,15 +354,17 @@ const AddProgram: React.FC = () => {
                       width: '100%'
                     }}
                   >
-                    {exerciseIndex >= 1 && (
-                      <Button
-                        onClick={() => {
-                          handleRemoveExercise(exerciseIndex)
-                        }}
-                      >
-                        <span style={{ color: 'red' }}>Remove</span>
-                      </Button>
-                    )}
+                    <Button
+                      variant="outlined"
+                      color="warning"
+                      disabled={fields.length <= 1}
+                      onClick={() => {
+                        handleRemoveExercise(exerciseIndex)
+                      }}
+                      sx={{ margin: '8px' }}
+                    >
+                      Remove Exercise
+                    </Button>
                   </Box>
                 </Box>
               </Box>
@@ -377,14 +378,27 @@ const AddProgram: React.FC = () => {
                 }}
                 onClick={handleAddExercise}
               >
-                Add Exercise
+                {' '}
+                <Typography
+                  variant="button"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                >
+                  Add Exercise
+                </Typography>
               </Button>
               <Button
                 variant="contained"
                 type="submit"
                 sx={{ backgroundColor: 'var(--button-color)' }}
               >
-                Save Program
+                <Typography
+                  variant="button"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                >
+                  Save Program
+                </Typography>
               </Button>
             </Box>
           </Box>

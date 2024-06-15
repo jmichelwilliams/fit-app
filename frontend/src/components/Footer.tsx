@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({ children }) => {
         display: 'flex',
         justifyContent: 'center',
         width: '90vw',
-        backgroundColor: '#3c3744',
+        backgroundColor: 'var(--background-color)',
         height: '56px',
         zIndex: '100',
         border: '3px gray solid',

@@ -29,7 +29,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
         backgroundColor: 'var(--button-color)'
       }}
     >
-      <Typography variant="body1" overflow="hidden" textOverflow="ellipsis">
+      <Typography variant="button" overflow="hidden" textOverflow="ellipsis">
         {buttonText}
       </Typography>
     </Button>
