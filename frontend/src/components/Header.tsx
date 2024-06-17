@@ -21,7 +21,9 @@ const Header: React.FC = () => {
         marginBottom: '8px'
       }}
     >
-      {isAuthenticated && (
+      {!isAuthenticated ? (
+        <Box sx={{ height: '80px', width: '100%' }}> </Box>
+      ) : (
         <AppBar
           position="static"
           color="transparent"

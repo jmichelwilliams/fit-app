@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import Button from '@mui/material/Button'
+import { Typography, Button } from '@mui/material'
 
 interface LoginButtonProps {
   buttonText: string
@@ -27,10 +27,16 @@ const LoginButton: React.FC<LoginButtonProps> = ({ buttonText, isSmall }) => {
       sx={{
         height: isSmall ? '36px' : '60px',
         width: '150px',
-        marginRight: '8px'
+        marginRight: '8px',
+        backgroundColor: 'var(--button-color)',
+        '&:hover': {
+          backgroundColor: 'var(--button-color)'
+        }
       }}
     >
-      {buttonText}
+      <Typography variant="button" overflow="hidden" textOverflow="ellipsis">
+        {buttonText}
+      </Typography>
     </Button>
   )
 }
