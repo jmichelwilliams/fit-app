@@ -115,7 +115,13 @@ const AddProgram: React.FC = () => {
               margin: '16px auto'
             }}
           >
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                height: '100px'
+              }}
+            >
               <Controller
                 name="programName"
                 control={control}
@@ -144,6 +150,9 @@ const AddProgram: React.FC = () => {
                     }}
                     error={!(error == null)}
                     helperText={error != null ? error.message : null}
+                    FormHelperTextProps={{
+                      sx: { height: '2em' }
+                    }}
                   />
                 )}
               />
