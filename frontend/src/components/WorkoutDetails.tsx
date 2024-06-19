@@ -118,7 +118,7 @@ const WorkoutDetails: React.FC = () => {
                 <Box
                   key={`exercise-${exerciseIndex}`}
                   sx={{
-                    border: '4px solid black',
+                    border: '2px solid black',
                     width: '90vw',
                     height: 'auto',
                     margin: '16px',
@@ -145,60 +145,72 @@ const WorkoutDetails: React.FC = () => {
                       alignItems: 'center'
                     }}
                   >
-                    <Controller
-                      name={`exercises.${exerciseIndex}.weight`}
-                      control={control}
-                      defaultValue={exercise.weight}
-                      rules={{
-                        required: 'Weight is required',
-                        min: { value: 1, message: 'Minimum value is 1' }
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        height: '60px'
                       }}
-                      render={({
-                        field: { onChange, value, ref, onBlur },
-                        fieldState: { error }
-                      }) => (
-                        <TextField
-                          id={`weightInput-${exerciseIndex}`}
-                          label="weight"
-                          name="weight"
-                          type="number"
-                          size="small"
-                          value={value}
-                          onBlur={onBlur}
-                          onChange={(e) => {
-                            const val = parseFloat(e.target.value)
-                            if (!isNaN(val) && val !== 0) {
-                              onChange(val)
-                            } else {
-                              onChange('')
-                            }
-                          }}
-                          inputRef={ref}
-                          onKeyDown={(e) => {
-                            if (['e', '-', '+'].includes(e.key)) {
-                              e.preventDefault()
-                            }
-                          }}
-                          InputProps={{
-                            inputMode: 'decimal',
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                lbs
-                              </InputAdornment>
-                            )
-                          }}
-                          InputLabelProps={{
-                            sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
-                          }}
-                          sx={{
-                            width: '30%',
-                            marginBottom: '8px'
-                          }}
-                          error={!(error == null)}
-                          helperText={error != null ? error.message : null}
-                        />
-                      )}
-                    />
+                    >
+                      <Controller
+                        name={`exercises.${exerciseIndex}.weight`}
+                        control={control}
+                        defaultValue={exercise.weight}
+                        rules={{
+                          required: 'Weight is required',
+                          min: { value: 1, message: 'Minimum value is 1' }
+                        }}
+                        render={({
+                          field: { onChange, value, ref, onBlur },
+                          fieldState: { error }
+                        }) => (
+                          <TextField
+                            id={`weightInput-${exerciseIndex}`}
+                            label="weight"
+                            name="weight"
+                            type="number"
+                            size="small"
+                            value={value}
+                            onBlur={onBlur}
+                            onChange={(e) => {
+                              const val = parseFloat(e.target.value)
+                              if (!isNaN(val) && val !== 0) {
+                                onChange(val)
+                              } else {
+                                onChange('')
+                              }
+                            }}
+                            inputRef={ref}
+                            onKeyDown={(e) => {
+                              if (['e', '-', '+'].includes(e.key)) {
+                                e.preventDefault()
+                              }
+                            }}
+                            inputProps={{
+                              inputMode: 'decimal',
+                              pattern: '[0-9]*'
+                            }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  lbs
+                                </InputAdornment>
+                              )
+                            }}
+                            InputLabelProps={{
+                              sx: {
+                                fontSize: isSmallScreen ? '.95rem' : '1rem'
+                              }
+                            }}
+                            sx={{
+                              width: '120px'
+                            }}
+                            error={!(error == null)}
+                            helperText={error != null ? error.message : null}
+                          />
+                        )}
+                      />
+                    </Box>
                     <Box
                       sx={{
                         display: 'flex',
@@ -239,65 +251,81 @@ const WorkoutDetails: React.FC = () => {
                                     margin: '8px'
                                   }}
                                 >
-                                  <Controller
-                                    name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
-                                    control={control}
-                                    defaultValue={exercise.sets[setIndex].reps}
-                                    rules={{
-                                      required: 'Rep is required',
-                                      min: {
-                                        value: 1,
-                                        message: 'Minimum value is 1'
-                                      }
+                                  <Box
+                                    sx={{
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      height: '60px'
                                     }}
-                                    render={({
-                                      field: { onChange, value, ref, onBlur },
-                                      fieldState: { error }
-                                    }) => (
-                                      <TextField
-                                        id={`repsInput-${exerciseIndex}-${
-                                          setIndex + 1
-                                        }`}
-                                        label="reps"
-                                        name="reps"
-                                        type="number"
-                                        size="small"
-                                        value={isNaN(value) ? '' : value}
-                                        inputRef={ref}
-                                        onBlur={onBlur}
-                                        onChange={(e) => {
-                                          const val = parseInt(e.target.value)
-
-                                          onChange(val)
-                                        }}
-                                        onKeyDown={(e) => {
-                                          if (['e', '-', '+'].includes(e.key)) {
-                                            e.preventDefault()
-                                          }
-                                        }}
-                                        inputProps={{
-                                          inputMode: 'numeric',
-                                          pattern: '[0-9]*'
-                                        }}
-                                        InputLabelProps={{
-                                          sx: {
-                                            fontSize: isSmallScreen
-                                              ? '.95rem'
-                                              : '1rem',
-                                            textAlign: 'center'
-                                          }
-                                        }}
-                                        sx={{
-                                          width: '100%',
-                                          marginBottom: '8px'
-                                        }}
-                                        error={!(error == null)}
-                                        helperText={
-                                          error != null ? error.message : null
+                                  >
+                                    <Controller
+                                      name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
+                                      control={control}
+                                      defaultValue={
+                                        exercise.sets[setIndex].reps
+                                      }
+                                      rules={{
+                                        required: 'Rep is required',
+                                        min: {
+                                          value: 1,
+                                          message: 'Minimum value is 1'
                                         }
-                                      />
-                                    )}
-                                  />
+                                      }}
+                                      render={({
+                                        field: { onChange, value, ref, onBlur },
+                                        fieldState: { error }
+                                      }) => (
+                                        <TextField
+                                          id={`repsInput-${exerciseIndex}-${
+                                            setIndex + 1
+                                          }`}
+                                          label="reps"
+                                          name="reps"
+                                          type="number"
+                                          size="small"
+                                          value={isNaN(value) ? '' : value}
+                                          inputRef={ref}
+                                          onBlur={onBlur}
+                                          onChange={(e) => {
+                                            const val = parseInt(e.target.value)
+
+                                            if (!isNaN(val) && val !== 0) {
+                                              onChange(val)
+                                            } else {
+                                              onChange('')
+                                            }
+                                          }}
+                                          onKeyDown={(e) => {
+                                            if (
+                                              ['e', '-', '+'].includes(e.key)
+                                            ) {
+                                              e.preventDefault()
+                                            }
+                                          }}
+                                          inputProps={{
+                                            inputMode: 'numeric',
+                                            pattern: '[0-9]*'
+                                          }}
+                                          InputLabelProps={{
+                                            sx: {
+                                              fontSize: isSmallScreen
+                                                ? '.95rem'
+                                                : '1rem',
+                                              textAlign: 'center'
+                                            }
+                                          }}
+                                          sx={{
+                                            width: '70px',
+                                            marginBottom: '8px'
+                                          }}
+                                          error={!(error == null)}
+                                          helperText={
+                                            error != null ? error.message : null
+                                          }
+                                        />
+                                      )}
+                                    />
+                                  </Box>
                                 </Grid>
                               </Grid>
                             </Box>
