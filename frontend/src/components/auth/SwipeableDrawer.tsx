@@ -126,7 +126,7 @@ const SwipeableTemporaryDrawer: React.FC = () => {
           onClose={toggleDrawer('right', false)}
           onOpen={toggleDrawer('right', true)}
           PaperProps={{
-            sx: { backgroundColor: 'var( --background-darkercolor)' }
+            sx: { backgroundColor: 'var( --background-color)' }
           }}
         >
           {list('right')}

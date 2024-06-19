@@ -96,7 +96,7 @@ const ProgramDetails: React.FC = () => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         paddingTop: '8px',
-        maxHeight: '78dvh'
+        maxHeight: '75dvh'
       }}
     >
       {program == null ? (
@@ -115,47 +115,55 @@ const ProgramDetails: React.FC = () => {
         <Box>
           <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Controller
-                name="programName"
-                control={control}
-                defaultValue={program.programName}
-                rules={{
-                  required: 'A name is required',
-                  minLength: { value: 3, message: 'Minimum length is 3' }
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  height: '90px'
                 }}
-                render={({
-                  field: { onChange, ref, onBlur, value },
-                  fieldState: { error }
-                }) => (
-                  <TextField
-                    label="Name of Program"
-                    id={`program.programName`}
-                    onBlur={onBlur}
-                    value={value}
-                    inputRef={ref}
-                    onChange={(e) => {
-                      const val = e.target.value
-                      onChange(val)
-                    }}
-                    required
-                    sx={{
-                      width: '95vw'
-                    }}
-                    error={!(error == null)}
-                    helperText={error != null ? error.message : null}
-                  />
-                )}
-              />
+              >
+                <Controller
+                  name="programName"
+                  control={control}
+                  defaultValue={program.programName}
+                  rules={{
+                    required: 'A name is required',
+                    minLength: { value: 3, message: 'Minimum length is 3' }
+                  }}
+                  render={({
+                    field: { onChange, ref, onBlur, value },
+                    fieldState: { error }
+                  }) => (
+                    <TextField
+                      label="Name of Program"
+                      id={`program.programName`}
+                      onBlur={onBlur}
+                      value={value}
+                      inputRef={ref}
+                      onChange={(e) => {
+                        const val = e.target.value
+                        onChange(val)
+                      }}
+                      required
+                      sx={{
+                        width: '95vw'
+                      }}
+                      error={!(error == null)}
+                      helperText={error != null ? error.message : null}
+                    />
+                  )}
+                />
+              </Box>
             </Box>
             {program.exercises.map((exercise, exerciseIndex) => {
               return (
                 <Box
                   key={`exercise-${exerciseIndex}`}
                   sx={{
-                    border: '4px solid black',
+                    border: '2px solid black',
                     width: '90vw',
                     height: 'auto',
-                    margin: '16px',
+                    marginBottom: '16px',
                     padding: '8px',
                     borderRadius: '16px',
                     display: 'flex',
@@ -163,38 +171,46 @@ const ProgramDetails: React.FC = () => {
                     alignItems: 'center'
                   }}
                 >
-                  <Controller
-                    name={`exercises.${exerciseIndex}.exerciseName`}
-                    control={control}
-                    defaultValue={exercise.exerciseName}
-                    rules={{
-                      required: 'A name is required',
-                      minLength: { value: 3, message: 'Minimum length is 3' }
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      height: '90px'
                     }}
-                    render={({
-                      field: { onChange, value, ref, onBlur },
-                      fieldState: { error }
-                    }) => (
-                      <TextField
-                        label="Name of Exercise"
-                        id={`exercises.${exerciseIndex}.exerciseName`}
-                        value={value}
-                        onBlur={onBlur}
-                        inputRef={ref}
-                        onChange={(e) => {
-                          const val = e.target.value
-                          onChange(val)
-                        }}
-                        required
-                        sx={{
-                          width: '85vw',
-                          margin: '8px'
-                        }}
-                        error={!(error == null)}
-                        helperText={error != null ? error.message : null}
-                      />
-                    )}
-                  />
+                  >
+                    <Controller
+                      name={`exercises.${exerciseIndex}.exerciseName`}
+                      control={control}
+                      defaultValue={exercise.exerciseName}
+                      rules={{
+                        required: 'A name is required',
+                        minLength: { value: 3, message: 'Minimum length is 3' }
+                      }}
+                      render={({
+                        field: { onChange, value, ref, onBlur },
+                        fieldState: { error }
+                      }) => (
+                        <TextField
+                          label="Name of Exercise"
+                          id={`exercises.${exerciseIndex}.exerciseName`}
+                          value={value}
+                          onBlur={onBlur}
+                          inputRef={ref}
+                          onChange={(e) => {
+                            const val = e.target.value
+                            onChange(val)
+                          }}
+                          required
+                          sx={{
+                            width: '85vw',
+                            margin: '8px'
+                          }}
+                          error={!(error == null)}
+                          helperText={error != null ? error.message : null}
+                        />
+                      )}
+                    />
+                  </Box>
                   <Box
                     sx={{
                       display: 'flex',
@@ -203,60 +219,73 @@ const ProgramDetails: React.FC = () => {
                       alignItems: 'center'
                     }}
                   >
-                    <Controller
-                      name={`exercises.${exerciseIndex}.weight`}
-                      control={control}
-                      defaultValue={exercise.weight}
-                      rules={{
-                        required: 'Weight is required',
-                        min: { value: 1, message: 'Minimum value is 1' }
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        height: '70px'
                       }}
-                      render={({
-                        field: { onChange, value, ref, onBlur },
-                        fieldState: { error }
-                      }) => (
-                        <TextField
-                          id={`weightInput-${exerciseIndex}`}
-                          label="weight"
-                          name={`exercises.${exerciseIndex}.weight`}
-                          type="number"
-                          size="small"
-                          value={value}
-                          onBlur={onBlur}
-                          onChange={(e) => {
-                            const val = parseFloat(e.target.value)
-                            if (!isNaN(val) && val !== 0) {
-                              onChange(val)
-                            } else {
-                              onChange('')
-                            }
-                          }}
-                          inputRef={ref}
-                          onKeyDown={(e) => {
-                            if (['e', '-', '+'].includes(e.key)) {
-                              e.preventDefault()
-                            }
-                          }}
-                          InputProps={{
-                            inputMode: 'decimal',
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                lbs
-                              </InputAdornment>
-                            )
-                          }}
-                          InputLabelProps={{
-                            sx: { fontSize: isSmallScreen ? '.95rem' : '1rem' }
-                          }}
-                          sx={{
-                            width: '120px',
-                            marginTop: '8px'
-                          }}
-                          error={!(error == null)}
-                          helperText={error != null ? error.message : null}
-                        />
-                      )}
-                    />
+                    >
+                      <Controller
+                        name={`exercises.${exerciseIndex}.weight`}
+                        control={control}
+                        defaultValue={exercise.weight}
+                        rules={{
+                          required: 'Weight is required',
+                          min: { value: 1, message: 'Minimum value is 1' }
+                        }}
+                        render={({
+                          field: { onChange, value, ref, onBlur },
+                          fieldState: { error }
+                        }) => (
+                          <TextField
+                            id={`weightInput-${exerciseIndex}`}
+                            label="weight"
+                            name={`exercises.${exerciseIndex}.weight`}
+                            type="number"
+                            size="small"
+                            value={value}
+                            onBlur={onBlur}
+                            onChange={(e) => {
+                              const val = parseFloat(e.target.value)
+                              if (!isNaN(val) && val !== 0) {
+                                onChange(val)
+                              } else {
+                                onChange('')
+                              }
+                            }}
+                            inputRef={ref}
+                            onKeyDown={(e) => {
+                              if (['e', '-', '+'].includes(e.key)) {
+                                e.preventDefault()
+                              }
+                            }}
+                            inputProps={{
+                              inputMode: 'decimal',
+                              pattern: '[0-9]*'
+                            }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  lbs
+                                </InputAdornment>
+                              )
+                            }}
+                            InputLabelProps={{
+                              sx: {
+                                fontSize: isSmallScreen ? '.95rem' : '1rem'
+                              }
+                            }}
+                            sx={{
+                              width: '120px',
+                              marginTop: '8px'
+                            }}
+                            error={!(error == null)}
+                            helperText={error != null ? error.message : null}
+                          />
+                        )}
+                      />
+                    </Box>
                     <Box
                       sx={{
                         display: 'flex',
@@ -278,7 +307,11 @@ const ProgramDetails: React.FC = () => {
                                 alignItems: 'space-evenly'
                               }}
                             >
-                              <Typography variant="body1" textAlign="center">
+                              <Typography
+                                variant="body1"
+                                textAlign="center"
+                                sx={{ color: 'white !important' }}
+                              >
                                 Set: {setIndex + 1}
                               </Typography>
                               <Grid
@@ -329,7 +362,6 @@ const ProgramDetails: React.FC = () => {
                                         }}
                                         onChange={(e) => {
                                           const val = parseInt(e.target.value)
-
                                           onChange(val)
                                         }}
                                         onKeyDown={(e) => {
@@ -400,7 +432,17 @@ const ProgramDetails: React.FC = () => {
         </Box>
       )}
       <Footer>
-        <Button variant={'contained'} type="submit" form="program-form">
+        <Button
+          variant={'contained'}
+          type="submit"
+          form="program-form"
+          sx={{
+            backgroundColor: 'green',
+            '&:hover': {
+              backgroundColor: 'var(--button-color)'
+            }
+          }}
+        >
           Save Changes
         </Button>
       </Footer>

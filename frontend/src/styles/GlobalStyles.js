@@ -5,16 +5,13 @@ const GlobalStyle = createGlobalStyle`
         v2.0 | 20110126
         License: none (public domain)
     */
+
     :root {
-        --margin-line: #941c5a;
-        --lines: #1d97b8;
-        --background-color: #fbfff1;
-        --button-color: #3066be;
-        --font-color: #b4c5e4;
-        --background-darkercolor: #3c3744;
-        --title-color: #3066be;
+        --background-color: #14213d;
+        --button-color: #fca311;
+        --font-color: #ffffff;
+        --textinput-color:#fca311
     }
-    
     html, body, div, span, applet, object, iframe,
     blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -50,9 +47,12 @@ const GlobalStyle = createGlobalStyle`
     }
     body, textarea {
         line-height: 1;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Oswald', sans-serif;
+         font-optical-sizing: auto;
+        font-weight: 400;
+         font-style: normal;
         color: var(--font-color);
-        background-color: var(--background-darkercolor);
+        background-color: var(--background-color);
     }
     ol, ul {
         list-style: none;
@@ -71,48 +71,57 @@ const GlobalStyle = createGlobalStyle`
     }
 
     /* MUI STYLING */
-    .MuiTypography-body1{
-        color:white 
-    }
+
+    /* font color */
     .MuiInputBase-root {
-        color: var(--font-color) !important;
+        color: rgb(252,163,17);
     }
-    .MuiInputBase-root.Mui-focused {
-        color: var(--font-color);
+    
+    /* border */
+    .MuiOutlinedInput-notchedOutline {
+        border-color: white
     }
-    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-        border-color: white;
+      /* border when focused */
+      .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: white; 
     }
-    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: white;
-    }
-    .MuiInputBase-root-MuiOutlinedInput-root {
-        color: var(--font-color);
-    }
-    .MuiInputBase-root.Mui-disabled {
-        color: var(--font-color);
-    }   
+    /* disabled button color */
+    /* .MuiButton-root.Mui-disabled {
+        color:white
+    }    */
+    /* Input label color */
     .MuiInputLabel-outlined {
-        color: white !important;
+        color: white
     }
+    /* Label when focused */
     .MuiInputLabel-outlined.Mui-focused {
-        color: white;
+        color: rgb(252,163,17);
     }
-    .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
-        color: white;
+  
+    /* Adorment color */
+    /* #root > div.MuiBox-root.css-1shb3wy > div:nth-child(2) > form > div > div.MuiBox-root.css-0 > div > div.MuiFormControl-root.MuiTextField-root.css-11xq223-MuiFormControl-root-MuiTextField-root > div > div > p{
+        color: rgb(252,163,17);
     }
-    input:-internal-autofill-selected {
-        background-color: var(--background-darkercolor) !important;
+    #root > div.MuiBox-root.css-1shb3wy > div:nth-child(2) > form > div > div.MuiBox-root.css-0 > div > div:nth-child(4) > div > div > div > p{
+        color: rgb(252,163,17)
+    } */
+
+    .MuiBox-root{
+        border-color:#e5e5e5
+    }
+    .MuiTypography-root{
+        color: rgb(252,163,17)
+    }
+
+  input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset !important;
+        -webkit-text-fill-color: black !important;
+    }  
+     input:-webkit-autofill:focus {
+        -webkit-text-fill-color: black !important;
     }
     input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0 1000px var(--background-darkercolor) inset !important;
-        -webkit-text-fill-color: var(--font-color) !important;
-    }
-    input:-webkit-autofill:focus {
-        -webkit-text-fill-color: var(--font-color) !important;
-    }
-    input:-webkit-autofill {
-        -webkit-text-fill-color: var(--font-color) !important;
+        -webkit-text-fill-color: black !important;
     }
 
 `

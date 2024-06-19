@@ -26,10 +26,13 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
       sx={{
         height: isBig ? '150px' : '60px',
         width: '150px',
-        backgroundColor: 'var(--button-color)'
+        backgroundColor: 'var(--button-color)',
+        '&:hover': {
+          backgroundColor: 'var(--button-color)'
+        }
       }}
     >
-      <Typography variant="body1" overflow="hidden" textOverflow="ellipsis">
+      <Typography variant="button" overflow="hidden" textOverflow="ellipsis">
         {buttonText}
       </Typography>
     </Button>
