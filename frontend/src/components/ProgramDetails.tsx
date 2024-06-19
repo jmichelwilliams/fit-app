@@ -96,7 +96,7 @@ const ProgramDetails: React.FC = () => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         paddingTop: '8px',
-        maxHeight: '78dvh'
+        maxHeight: '75dvh'
       }}
     >
       {program == null ? (
@@ -160,7 +160,7 @@ const ProgramDetails: React.FC = () => {
                 <Box
                   key={`exercise-${exerciseIndex}`}
                   sx={{
-                    border: '4px solid black',
+                    border: '2px solid black',
                     width: '90vw',
                     height: 'auto',
                     marginBottom: '16px',
