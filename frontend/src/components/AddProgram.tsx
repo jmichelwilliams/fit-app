@@ -442,7 +442,12 @@ const AddProgram: React.FC = () => {
               <Button
                 variant="contained"
                 type="submit"
-                sx={{ backgroundColor: 'var(--button-color)' }}
+                sx={{
+                  backgroundColor: 'var(--button-color)',
+                  '&:hover': {
+                    backgroundColor: 'var(--button-color)'
+                  }
+                }}
               >
                 <Typography
                   variant="button"

@@ -113,7 +113,16 @@ const GlobalStyle = createGlobalStyle`
         color: rgb(252,163,17)
     }
 
-
+  input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset !important;
+        -webkit-text-fill-color: black !important;
+    }  
+     input:-webkit-autofill:focus {
+        -webkit-text-fill-color: black !important;
+    }
+    input:-webkit-autofill {
+        -webkit-text-fill-color: black !important;
+    }
 
 `
 
