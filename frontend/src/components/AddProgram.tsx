@@ -377,13 +377,13 @@ const AddProgram: React.FC = () => {
                               e.preventDefault()
                             }
                           }}
-                          InputProps={{
+                          inputProps={{
                             inputMode: 'decimal',
+                            pattern: '[0-9]*'
+                          }}
+                          InputProps={{
                             endAdornment: (
-                              <InputAdornment
-                                position="end"
-                                className="orange-adorment"
-                              >
+                              <InputAdornment position="end">
                                 lbs
                               </InputAdornment>
                             )
