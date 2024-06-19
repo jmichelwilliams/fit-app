@@ -99,23 +99,21 @@ const GlobalStyle = createGlobalStyle`
     }
   
     /* Adorment color */
-    #root > div.MuiBox-root.css-1shb3wy > div:nth-child(2) > form > div > div.MuiBox-root.css-0 > div > div.MuiFormControl-root.MuiTextField-root.css-11xq223-MuiFormControl-root-MuiTextField-root > div > div > p{
+    /* #root > div.MuiBox-root.css-1shb3wy > div:nth-child(2) > form > div > div.MuiBox-root.css-0 > div > div.MuiFormControl-root.MuiTextField-root.css-11xq223-MuiFormControl-root-MuiTextField-root > div > div > p{
         color: rgb(252,163,17);
     }
+    #root > div.MuiBox-root.css-1shb3wy > div:nth-child(2) > form > div > div.MuiBox-root.css-0 > div > div:nth-child(4) > div > div > div > p{
+        color: rgb(252,163,17)
+    } */
 
     .MuiBox-root{
         border-color:#e5e5e5
     }
-    input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset !important;
-        -webkit-text-fill-color: var(--font-color) !important;
-    } 
-     input:-webkit-autofill:focus {
-        -webkit-text-fill-color: var(--font-color) !important;
+    .MuiTypography-root{
+        color: rgb(252,163,17)
     }
-    input:-webkit-autofill {
-        -webkit-text-fill-color: var(--font-color) !important;
-    }
+
+
 
 `
 

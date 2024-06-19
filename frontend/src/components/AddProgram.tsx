@@ -244,7 +244,11 @@ const AddProgram: React.FC = () => {
                             >
                               {Array.from({ length: 5 }, (_, i) => i + 1).map(
                                 (set) => (
-                                  <MenuItem key={set} value={set}>
+                                  <MenuItem
+                                    key={set}
+                                    value={set}
+                                    sx={{ color: 'black' }}
+                                  >
                                     {set}
                                   </MenuItem>
                                 )
@@ -277,7 +281,11 @@ const AddProgram: React.FC = () => {
                             >
                               {Array.from({ length: 15 }, (_, i) => i + 1).map(
                                 (rep) => (
-                                  <MenuItem key={rep} value={rep}>
+                                  <MenuItem
+                                    key={rep}
+                                    value={rep}
+                                    sx={{ color: 'black' }}
+                                  >
                                     {rep}
                                   </MenuItem>
                                 )
@@ -302,16 +310,27 @@ const AddProgram: React.FC = () => {
                               labelId={`rest-label-${exerciseIndex}`}
                               label="Rest"
                               value={value}
-                              sx={{ margin: '8px', width: '80px' }}
+                              sx={{
+                                margin: '8px',
+                                width: '80px'
+                              }}
                               onChange={(e) => {
                                 const restTime = e.target.value
                                 onChange(restTime)
                               }}
                             >
-                              <MenuItem value={'0:30'}>0:30</MenuItem>
-                              <MenuItem value={'1:00'}>1:00</MenuItem>
-                              <MenuItem value={'1:30'}>1:30</MenuItem>
-                              <MenuItem value={'2:00'}>2:00</MenuItem>
+                              <MenuItem value={'0:30'} sx={{ color: 'black' }}>
+                                0:30
+                              </MenuItem>
+                              <MenuItem value={'1:00'} sx={{ color: 'black' }}>
+                                1:00
+                              </MenuItem>
+                              <MenuItem value={'1:30'} sx={{ color: 'black' }}>
+                                1:30
+                              </MenuItem>
+                              <MenuItem value={'2:00'} sx={{ color: 'black' }}>
+                                2:00
+                              </MenuItem>
                             </Select>
                           </FormControl>
                         )}
@@ -361,7 +380,10 @@ const AddProgram: React.FC = () => {
                           InputProps={{
                             inputMode: 'decimal',
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment
+                                position="end"
+                                className="orange-adorment"
+                              >
                                 lbs
                               </InputAdornment>
                             )
