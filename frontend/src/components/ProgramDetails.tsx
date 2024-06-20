@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import useFetchProgram from '../hooks/useFetchProgram'
@@ -13,7 +14,12 @@ import {
   InputLabel,
   Button,
   InputAdornment,
-  CircularProgress
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
 } from '@mui/material'
 import type Program from '../types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
@@ -34,6 +40,7 @@ interface ProgramFormInputs {
 
 const ProgramDetails: React.FC = () => {
   const [program, setProgram] = useState<Program | undefined>()
+  const [open, setOpen] = useState(false)
   const { getAccessTokenSilently } = useAuth0()
   const { programId } = useParams<{
     programId: string
@@ -84,7 +91,37 @@ const ProgramDetails: React.FC = () => {
       console.error('Error', error)
     }
   }
+  const handleClickOpen = (): void => {
+    setOpen(true)
+  }
 
+  const handleClose = (): void => {
+    setOpen(false)
+  }
+
+  const handleDeleteConfirm = async (): Promise<void> => {
+    try {
+      const accessToken = await getAccessTokenSilently()
+
+      if (program !== null && program !== undefined) {
+        const response = await fetch(`/programs/${program._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+
+        if (response.ok) {
+          navigate('/planner')
+        } else {
+          throw new Error('Network response was not ok.')
+        }
+      }
+    } catch (error) {
+      console.error('Error', error)
+    }
+  }
   return (
     <Box
       sx={{
@@ -433,19 +470,43 @@ const ProgramDetails: React.FC = () => {
                 variant={'contained'}
                 type="submit"
                 form="program-form"
-                sx={{
-                  backgroundColor: 'green',
-                  '&:hover': {
-                    backgroundColor: 'var(--button-color)'
-                  }
-                }}
+                color="success"
+                sx={{ marginRight: '16px' }}
               >
                 Save Changes
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={handleClickOpen}
+              >
+                Delete Program
               </Button>
             </Footer>
           </form>
         </Box>
       )}
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{ sx: { backgroundColor: 'var(--background-color)' } }}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ color: 'white !important' }}>
+            Are you sure you want to delete this program?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} sx={{ color: 'rgb(252,163,17)' }}>
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
