@@ -372,7 +372,12 @@ const WorkoutDetails: React.FC = () => {
             })}
 
             <Footer>
-              <Button variant={'contained'} type="submit" form="program-form">
+              <Button
+                variant={'contained'}
+                type="submit"
+                form="program-form"
+                sx={{ backgroundColor: 'green' }}
+              >
                 Complete Workout
               </Button>
             </Footer>
