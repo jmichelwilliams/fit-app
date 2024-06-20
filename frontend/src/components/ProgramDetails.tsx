@@ -428,24 +428,24 @@ const ProgramDetails: React.FC = () => {
                 </Box>
               )
             })}
+            <Footer>
+              <Button
+                variant={'contained'}
+                type="submit"
+                form="program-form"
+                sx={{
+                  backgroundColor: 'green',
+                  '&:hover': {
+                    backgroundColor: 'var(--button-color)'
+                  }
+                }}
+              >
+                Save Changes
+              </Button>
+            </Footer>
           </form>
         </Box>
       )}
-      <Footer>
-        <Button
-          variant={'contained'}
-          type="submit"
-          form="program-form"
-          sx={{
-            backgroundColor: 'green',
-            '&:hover': {
-              backgroundColor: 'var(--button-color)'
-            }
-          }}
-        >
-          Save Changes
-        </Button>
-      </Footer>
     </Box>
   )
 }
