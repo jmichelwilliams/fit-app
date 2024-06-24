@@ -63,6 +63,7 @@ export const addWorkout = async (req: Request, res: Response) => {
     _id: new ObjectId(),
     exercises: formattedExercises,
     createdBy: new ObjectId(parsedUserId),
+    programName: workoutSession.programName,
     createdOn: today,
   };
 

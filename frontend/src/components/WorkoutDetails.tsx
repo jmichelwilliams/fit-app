@@ -42,7 +42,7 @@ const WorkoutDetails: React.FC = () => {
   const navigate = useNavigate()
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-
+  console.log('program: ', program)
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (
     data
   ): Promise<void> => {
@@ -51,6 +51,7 @@ const WorkoutDetails: React.FC = () => {
 
       const completeData = {
         ...data,
+        programName: program?.programName,
         exercises: data.exercises.map((exercise, index) => ({
           ...exercise,
           exerciseName: program?.exercises[index].exerciseName,
