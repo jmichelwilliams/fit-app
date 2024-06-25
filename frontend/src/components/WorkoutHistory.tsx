@@ -11,16 +11,23 @@ import {
   TableHead,
   TableRow,
   Paper,
-  CircularProgress
+  CircularProgress,
+  TableSortLabel
 } from '@mui/material'
 
 interface Workout {
   _id: string
   createdOn: string
+  programName: string
 }
+
+type Order = 'asc' | 'desc'
+
 const WorkoutHistory: React.FC = () => {
-  const [workoutHistory, setWorkoutHistory] = useState()
+  const [workoutHistory, setWorkoutHistory] = useState<Workout[] | null>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [order, setOrder] = useState<Order>('asc')
+  const [orderBy, setOrderBy] = useState<keyof Workout>('programName')
   const { user, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
@@ -47,8 +54,32 @@ const WorkoutHistory: React.FC = () => {
     }
     void fetchData()
   }, [user, getAccessTokenSilently])
-
   console.log('workoutHistory: ', workoutHistory)
+  const handleRequestSort = (property: keyof Workout): void => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
+
+  const sortedWorkouts =
+    workoutHistory != null
+      ? workoutHistory.slice().sort((a, b) => {
+          if (orderBy === 'createdOn') {
+            const dateA = new Date(a[orderBy]).getTime()
+            const dateB = new Date(b[orderBy]).getTime()
+            return order === 'asc' ? dateA - dateB : dateB - dateA
+          } else {
+            return order === 'asc'
+              ? a[orderBy] < b[orderBy]
+                ? -1
+                : 1
+              : a[orderBy] > b[orderBy]
+                ? -1
+                : 1
+          }
+        })
+      : []
+
   return (
     <Box
       sx={{
@@ -82,11 +113,38 @@ const WorkoutHistory: React.FC = () => {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Program</TableCell>
-                  <TableCell>Date Completed</TableCell>
+                  <TableCell>
+                    <TableSortLabel
+                      active={orderBy === 'programName'}
+                      direction={orderBy === 'programName' ? order : 'asc'}
+                      onClick={() => {
+                        handleRequestSort('programName')
+                      }}
+                    >
+                      Program
+                    </TableSortLabel>
+                  </TableCell>
+                  <TableCell>
+                    <TableSortLabel
+                      active={orderBy === 'createdOn'}
+                      direction={orderBy === 'createdOn' ? order : 'asc'}
+                      onClick={() => {
+                        handleRequestSort('createdOn')
+                      }}
+                    >
+                      Date Completed
+                    </TableSortLabel>
+                  </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody></TableBody>
+              <TableBody>
+                {sortedWorkouts?.map((workout) => (
+                  <TableRow key={workout._id}>
+                    <TableCell>{workout.programName}</TableCell>
+                    <TableCell>{workout.createdOn}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
             </Table>
           </TableContainer>
         </Box>
