@@ -185,7 +185,7 @@ const WorkoutHistory: React.FC = () => {
                           }}
                         >
                           {open[workout._id] ? (
-                            <KeyboardArrowUpIcon color="success" />
+                            <KeyboardArrowUpIcon />
                           ) : (
                             <KeyboardArrowDownIcon />
                           )}
