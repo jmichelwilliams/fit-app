@@ -145,6 +145,11 @@ const WorkoutHistory: React.FC = () => {
                       onClick={() => {
                         handleRequestSort('programName')
                       }}
+                      sx={{
+                        '&.Mui-active': {
+                          color: 'rgb(252,163,17)'
+                        }
+                      }}
                     >
                       Program
                     </TableSortLabel>
@@ -155,6 +160,11 @@ const WorkoutHistory: React.FC = () => {
                       direction={orderBy === 'createdOn' ? order : 'asc'}
                       onClick={() => {
                         handleRequestSort('createdOn')
+                      }}
+                      sx={{
+                        '&.Mui-active': {
+                          color: 'rgb(252,163,17)'
+                        }
                       }}
                     >
                       Date Completed
@@ -175,7 +185,7 @@ const WorkoutHistory: React.FC = () => {
                           }}
                         >
                           {open[workout._id] ? (
-                            <KeyboardArrowUpIcon />
+                            <KeyboardArrowUpIcon color="success" />
                           ) : (
                             <KeyboardArrowDownIcon />
                           )}

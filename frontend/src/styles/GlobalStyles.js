@@ -112,6 +112,27 @@ const GlobalStyle = createGlobalStyle`
     .MuiTypography-root{
         color: rgb(252,163,17)
     }
+    .MuiTable-root{
+        background-color:var(--background-color);
+        
+      
+        
+    }
+    .MuiTableCell-root {
+    border-bottom: 1px rgb(252,163,17) solid;
+    border-top: 1px rgb(252,163,17) solid;
+   
+}
+    .MuiTableCell-body{
+    color:white;
+   
+    }
+    .MuiSvgIcon-root{
+    color:white !important
+    }
+    .MuiTableCell-head{
+    color: rgb(252,163,17)
+    }
 
   input:-webkit-autofill {
         -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset !important;
