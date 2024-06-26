@@ -112,15 +112,15 @@ const GlobalStyle = createGlobalStyle`
     .MuiTypography-root{
         color: rgb(252,163,17)
     }
+
+
+    /* Table Styling */
     .MuiTable-root{
         background-color:var(--background-color);
-        
-      
-        
     }
     .MuiTableCell-root {
-    border-bottom: 1px rgb(252,163,17) solid;
-    border-top: 1px rgb(252,163,17) solid;
+    border-bottom: 2px rgb(252,163,17) solid;
+    border-top: 2px rgb(252,163,17) solid;
    
 }
     .MuiTableCell-body{
