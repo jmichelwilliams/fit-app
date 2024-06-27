@@ -119,8 +119,9 @@ const GlobalStyle = createGlobalStyle`
         background-color:var(--background-color);
     }
     .MuiTableCell-root {
-    border-bottom: 2px rgb(252,163,17) solid;
-    border-top: 2px rgb(252,163,17) solid;
+    border-bottom-color: rgb(252,163,17);
+    border-top-color: rgb(252,163,17);
+    padding:6px 16px
    
 }
     .MuiTableCell-body{
@@ -134,6 +135,16 @@ const GlobalStyle = createGlobalStyle`
     color: rgb(252,163,17)
     }
 
+    .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+        border: none;
+        background-color:var(--background-color)
+        
+    }
+
+    .tablehead-row{
+        background-color:rgb(252,163,17);
+        color:black
+    }
   input:-webkit-autofill {
         -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset !important;
         -webkit-text-fill-color: black !important;

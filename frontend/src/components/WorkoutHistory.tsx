@@ -176,7 +176,7 @@ const WorkoutHistory: React.FC = () => {
                 {sortedWorkouts.map((workout) => (
                   <React.Fragment key={workout._id}>
                     <TableRow>
-                      <TableCell>
+                      <TableCell style={{ width: '10%' }}>
                         <IconButton
                           aria-label="expand row"
                           size="small"
@@ -215,43 +215,55 @@ const WorkoutHistory: React.FC = () => {
                               <TableHead>
                                 <TableRow>
                                   <TableCell
+                                    className="tablehead-row"
                                     style={{
-                                      paddingRight: 8
+                                      paddingLeft: 21,
+                                      width: '30%'
                                     }}
                                   >
                                     Exercise
                                   </TableCell>
                                   <TableCell
+                                    className="tablehead-row"
                                     style={{
-                                      paddingRight: 8
+                                      paddingRight: 8,
+                                      width: '15%'
                                     }}
                                   >
                                     Weight
                                   </TableCell>
                                   <TableCell
+                                    className="tablehead-row"
                                     style={{
-                                      paddingRight: 8
+                                      paddingRight: 8,
+                                      width: '15%'
                                     }}
                                   >
                                     Reps
                                   </TableCell>
                                   <TableCell
+                                    className="tablehead-row"
                                     style={{
-                                      paddingRight: 8
+                                      paddingRight: 8,
+                                      width: '10%'
                                     }}
                                   >
                                     Sets
                                   </TableCell>
                                   <TableCell
+                                    className="tablehead-row"
                                     style={{
-                                      paddingRight: 8
+                                      paddingRight: 8,
+                                      width: '20%'
                                     }}
                                   >
                                     Rest
                                   </TableCell>
                                   <TableCell
+                                    className="tablehead-row"
                                     style={{
-                                      paddingRight: 0
+                                      paddingRight: 0,
+                                      width: '10%'
                                     }}
                                   >
                                     <FaCheck />
@@ -261,13 +273,25 @@ const WorkoutHistory: React.FC = () => {
                               <TableBody>
                                 {workout.exercises.map((exercise) => (
                                   <TableRow key={exercise.exerciseName}>
-                                    <TableCell>
-                                      {exercise.exerciseName}
-                                    </TableCell>
-                                    <TableCell>{exercise.weight}</TableCell>
                                     <TableCell
                                       style={{
-                                        padding: 4
+                                        textAlign: 'center'
+                                      }}
+                                    >
+                                      {exercise.exerciseName}
+                                    </TableCell>
+                                    <TableCell
+                                      style={{
+                                        paddingLeft: 21,
+                                        textAlign: 'center'
+                                      }}
+                                    >
+                                      {exercise.weight}
+                                    </TableCell>
+                                    <TableCell
+                                      style={{
+                                        textAlign: 'center',
+                                        padding: '2px 0px 2px 0px'
                                       }}
                                     >
                                       {exercise.sets.map((set) => (
@@ -276,7 +300,7 @@ const WorkoutHistory: React.FC = () => {
                                         >{`Set ${set.setId}: ${set.reps}`}</div>
                                       ))}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell style={{ paddingLeft: 25 }}>
                                       {exercise.sets.length}
                                     </TableCell>
                                     <TableCell>{exercise.rest}</TableCell>
