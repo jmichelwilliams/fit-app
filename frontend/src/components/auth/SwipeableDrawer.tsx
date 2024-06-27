@@ -83,10 +83,10 @@ const SwipeableTemporaryDrawer: React.FC = () => {
             }
           },
           {
-            text: 'Profile',
+            text: 'Workout History',
             icon: <AccountBoxIcon style={{ color: 'var( --font-color)' }} />,
             action: () => {
-              handleNavigation('/profile')
+              handleNavigation('/Workouts/History')
             }
           },
           {

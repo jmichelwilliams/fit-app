@@ -12,6 +12,7 @@ import NotFound from './NotFound'
 import ProtectedRoute from './auth/ProtectedRoute'
 import NotMobile from './NotMobile'
 import Header from './Header'
+import WorkoutHistory from './WorkoutHistory'
 
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')
@@ -49,6 +50,10 @@ const App: React.FC = () => {
         <Route
           path="/workouts"
           element={<ProtectedRoute element={<WorkoutList />} />}
+        />
+        <Route
+          path="/workouts/history"
+          element={<ProtectedRoute element={<WorkoutHistory />} />}
         />
         <Route path="/" element={<Homepage />} />
         <Route path="*" element={<NotFound />} />
