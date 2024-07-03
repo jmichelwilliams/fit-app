@@ -67,6 +67,7 @@ const AddProgram: React.FC = () => {
   const handleRemoveExercise = (index: number): void => {
     remove(index)
   }
+
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
     try {
       const accessToken = await getAccessTokenSilently()

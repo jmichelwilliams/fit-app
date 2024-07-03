@@ -4,15 +4,15 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import Homepage from './Homepage'
 import Planner from './Planner'
 import AddProgram from './AddProgram'
-import WorkoutList from './WorkoutList'
+import WorkoutList from './workout/WorkoutList'
 import GlobalStyle from '../styles/GlobalStyles'
 import ProgramDetails from './ProgramDetails'
-import WorkoutDetails from './WorkoutDetails'
+import WorkoutDetails from './workout/WorkoutDetails'
 import NotFound from './NotFound'
 import ProtectedRoute from './auth/ProtectedRoute'
 import NotMobile from './NotMobile'
 import Header from './Header'
-import WorkoutHistory from './WorkoutHistory'
+import WorkoutHistory from './workout/WorkoutHistory'
 
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')
