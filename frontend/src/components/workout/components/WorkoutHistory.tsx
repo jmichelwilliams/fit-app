@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import type Workout from '../../types/Workout'
+import type Workout from '../../../types/Workout'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Box,
@@ -14,10 +14,10 @@ import {
   CircularProgress,
   TableSortLabel
 } from '@mui/material'
-import { WorkoutHistoryTableRow } from './components'
+import { WorkoutHistoryTableRow } from '.'
 type Order = 'asc' | 'desc'
 
-const WorkoutHistory: React.FC = () => {
+export const WorkoutHistory: React.FC = () => {
   const [workoutHistory, setWorkoutHistory] = useState<Workout[] | null>([])
   const [isLoading, setIsLoading] = useState(false)
   const [order, setOrder] = useState<Order>('desc')
@@ -169,5 +169,3 @@ const WorkoutHistory: React.FC = () => {
     </Box>
   )
 }
-
-export default WorkoutHistory

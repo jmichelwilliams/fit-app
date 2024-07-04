@@ -1,9 +1,9 @@
 import React from 'react'
 import { Typography, Box } from '@mui/material'
-import { ProgramList } from './components'
-import { NavigationButton } from '../common/components'
+import { ProgramList } from '.'
+import { NavigationButton } from '../../common/components'
 
-const Planner: React.FC = () => {
+export const Planner: React.FC = () => {
   return (
     <Box
       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
@@ -23,5 +23,3 @@ const Planner: React.FC = () => {
     </Box>
   )
 }
-
-export default Planner
