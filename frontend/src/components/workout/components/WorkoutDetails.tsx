@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
-import useFetchProgram from '../../hooks/useFetchProgram'
-import type Program from '../../types/Program'
+import useFetchProgram from '../../../hooks/useFetchProgram'
+import type Program from '../../../types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { fetchProgram } from '../../utils/fetchProgram'
-import { formatRestTime } from '../../utils/formatRestTime'
+import { fetchProgram } from '../../../utils/fetchProgram'
+import { formatRestTime } from '../../../utils/formatRestTime'
 import Box from '@mui/material/Box'
 import {
   Button,
@@ -19,7 +19,7 @@ import {
   CircularProgress
 } from '@mui/material'
 import useTheme from '@mui/material/styles/useTheme'
-import Footer from '../Footer'
+import Footer from '../../Footer'
 
 interface ProgramFormInputs {
   exercises: Array<{
@@ -29,7 +29,7 @@ interface ProgramFormInputs {
     completed: boolean
   }>
 }
-const WorkoutDetails: React.FC = () => {
+export const WorkoutDetails: React.FC = () => {
   const [program, setProgram] = useState<Program>()
   const { user, getAccessTokenSilently } = useAuth0()
   const { programId } = useParams<{
@@ -388,5 +388,3 @@ const WorkoutDetails: React.FC = () => {
     </Box>
   )
 }
-
-export default WorkoutDetails

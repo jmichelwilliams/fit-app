@@ -9,7 +9,7 @@ import {
   TableBody,
   Table
 } from '@mui/material'
-import type Workout from '../../types/Workout'
+import type Workout from '../../../types/Workout'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { FaCheck } from 'react-icons/fa'
@@ -19,7 +19,7 @@ interface WorkoutHistoryTableRowProps {
   open: Record<string, boolean>
   handleToggle: (id: string) => void
 }
-const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
+export const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
   workout,
   open,
   handleToggle
@@ -163,5 +163,3 @@ const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
     </React.Fragment>
   )
 }
-
-export default WorkoutHistoryTableRow

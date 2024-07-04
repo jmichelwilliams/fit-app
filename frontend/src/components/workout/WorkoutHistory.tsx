@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import type Workout from '../../types/Workout'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Box,
@@ -13,9 +14,7 @@ import {
   CircularProgress,
   TableSortLabel
 } from '@mui/material'
-import type Workout from '../../types/Workout'
-import WorkoutHistoryTableRow from './WorkoutHistoryTableRow'
-
+import { WorkoutHistoryTableRow } from './components'
 type Order = 'asc' | 'desc'
 
 const WorkoutHistory: React.FC = () => {

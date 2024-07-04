@@ -1,9 +1,9 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import ProgramList from '../ProgramList'
+import { ProgramList } from '../../program/components'
 
-const WorkoutList: React.FC = () => {
+export const WorkoutList: React.FC = () => {
   return (
     <Box
       sx={{
@@ -23,5 +23,3 @@ const WorkoutList: React.FC = () => {
     </Box>
   )
 }
-
-export default WorkoutList

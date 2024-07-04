@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
-import useFetchProgram from '../hooks/useFetchProgram'
-import { fetchProgram } from '../utils/fetchProgram'
+import useFetchProgram from '../../../hooks/useFetchProgram'
+import { fetchProgram } from '../../../utils/fetchProgram'
 import {
   Typography,
   Box,
@@ -21,12 +21,12 @@ import {
   DialogContentText,
   DialogTitle
 } from '@mui/material'
-import type Program from '../types/Program'
+import type Program from '../../../types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
-import Footer from './Footer'
+import Footer from '../../Footer'
 
 interface ProgramFormInputs {
   programName: string
@@ -38,7 +38,7 @@ interface ProgramFormInputs {
   }>
 }
 
-const ProgramDetails: React.FC = () => {
+export const ProgramDetails: React.FC = () => {
   const [program, setProgram] = useState<Program | undefined>()
   const [open, setOpen] = useState(false)
   const { getAccessTokenSilently } = useAuth0()
@@ -510,5 +510,3 @@ const ProgramDetails: React.FC = () => {
     </Box>
   )
 }
-
-export default ProgramDetails

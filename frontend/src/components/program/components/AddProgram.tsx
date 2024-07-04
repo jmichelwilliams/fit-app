@@ -30,7 +30,7 @@ interface ProgramFormInputs {
   }>
 }
 
-const AddProgram: React.FC = () => {
+export const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
   const { control, handleSubmit } = useForm<ProgramFormInputs>({
@@ -465,5 +465,3 @@ const AddProgram: React.FC = () => {
     </Box>
   )
 }
-
-export default AddProgram

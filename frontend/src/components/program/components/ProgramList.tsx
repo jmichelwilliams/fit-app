@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import type Program from '../types/Program'
+import type Program from '../../../types/Program'
 import { Box } from '@mui/material'
-import NavigationButton from './NavigationButton'
+import NavigationButton from '../../NavigationButton'
 import { useAuth0 } from '@auth0/auth0-react'
-import { fetchUserPrograms } from '../utils/fetchUserPrograms'
+import { fetchUserPrograms } from '../../../utils/fetchUserPrograms'
 import CircularProgress from '@mui/material/CircularProgress'
 
-const ProgramList: React.FC = () => {
+export const ProgramList: React.FC = () => {
   const [userPrograms, setUserPrograms] = useState<Program[]>([])
   const [loading, setLoading] = useState(true)
   const { user, getAccessTokenSilently } = useAuth0()
@@ -63,5 +63,3 @@ const ProgramList: React.FC = () => {
     </Box>
   )
 }
-
-export default ProgramList
