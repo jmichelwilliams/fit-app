@@ -8,7 +8,7 @@ import { fetchProgram } from '../../../utils/fetchProgram'
 import Box from '@mui/material/Box'
 import { Button, Typography, CircularProgress } from '@mui/material'
 import { Footer } from '../../common'
-import { WorkoutDetailsForm } from './'
+import { WorkoutDetailsForm } from '.'
 
 interface ProgramFormInputs {
   exercises: Array<{

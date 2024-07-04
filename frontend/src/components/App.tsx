@@ -2,14 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Homepage from './pages/Homepage'
-import { ProgramDetails } from './program/components'
-import {
-  WorkoutList,
-  WorkoutDetails,
-  WorkoutHistory
-} from './workout/components'
+import { ProgramDetails } from './pages/programDetails/ProgramDetails'
+import { WorkoutDetails } from './pages/workoutDetails'
+import { WorkoutHistory } from './pages/workoutHistory'
 import { AddProgram } from './pages/AddProgram'
-import { Planner } from './pages/planner'
+import { Planner, WorkoutList } from './pages/planner'
 import GlobalStyle from '../styles/GlobalStyles'
 import NotFound from './pages/NotFound'
 import { ProtectedRoute } from './auth/components'
