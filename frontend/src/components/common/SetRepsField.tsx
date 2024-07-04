@@ -81,23 +81,28 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
                 id={`repsInput-${exerciseIndex}-${setIndex + 1}`}
                 label="reps"
                 name="reps"
+                type="number"
+                size="small"
                 value={isNaN(value) ? '' : value}
                 inputRef={ref}
                 onBlur={onBlur}
-                type="number"
-                size="small"
-                inputProps={{
-                  inputMode: 'numeric',
-                  pattern: '[0-9]*'
-                }}
                 onChange={(e) => {
                   const val = parseInt(e.target.value)
-                  onChange(val)
+
+                  if (!isNaN(val) && val !== 0) {
+                    onChange(val)
+                  } else {
+                    onChange('')
+                  }
                 }}
                 onKeyDown={(e) => {
                   if (['e', '-', '+'].includes(e.key)) {
                     e.preventDefault()
                   }
+                }}
+                inputProps={{
+                  inputMode: 'numeric',
+                  pattern: '[0-9]*'
                 }}
                 InputLabelProps={{
                   sx: {
@@ -105,7 +110,10 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
                     textAlign: 'center'
                   }
                 }}
-                sx={{ width: '100%' }}
+                sx={{
+                  width: '70px',
+                  marginBottom: '8px'
+                }}
                 error={!(error == null)}
                 helperText={error != null ? error.message : null}
               />
