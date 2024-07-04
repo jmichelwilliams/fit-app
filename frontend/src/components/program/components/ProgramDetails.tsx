@@ -26,7 +26,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
-import Footer from '../../Footer'
+import { Footer } from '../../common/components'
 
 interface ProgramFormInputs {
   programName: string

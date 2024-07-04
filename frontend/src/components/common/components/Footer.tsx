@@ -5,7 +5,7 @@ import { Box } from '@mui/material'
 interface FooterProps {
   children: ReactNode
 }
-const Footer: React.FC<FooterProps> = ({ children }) => {
+export const Footer: React.FC<FooterProps> = ({ children }) => {
   return (
     <Box
       sx={{
@@ -29,5 +29,3 @@ const Footer: React.FC<FooterProps> = ({ children }) => {
     </Box>
   )
 }
-
-export default Footer

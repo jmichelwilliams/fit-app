@@ -3,11 +3,11 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import { useLocation } from 'react-router-dom'
-import BackButton from './BackButton'
+import { BackButton } from './'
 import { useAuth0 } from '@auth0/auth0-react'
-import Profile from './auth/Profile'
+import Profile from '../../auth/Profile'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const { isAuthenticated } = useAuth0()
   const location = useLocation()
   const onHomePage = location.pathname === '/'
@@ -50,5 +50,3 @@ const Header: React.FC = () => {
     </Box>
   )
 }
-
-export default Header

@@ -1,5 +1,5 @@
 import React from 'react'
-import NavigationButton from './NavigationButton'
+import NavigationButton from './common/components/NavigationButton'
 import { Box, Typography } from '@mui/material'
 import { FiXCircle } from 'react-icons/fi'
 const NotFound: React.FC = () => {

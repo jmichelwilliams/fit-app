@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import NavigationButton from './NavigationButton'
+import NavigationButton from './common/components/NavigationButton'
 import LoginButton from './auth/LoginButton'
 import Typography from '@mui/material/Typography'
 import { GiMuscleUp } from 'react-icons/gi'

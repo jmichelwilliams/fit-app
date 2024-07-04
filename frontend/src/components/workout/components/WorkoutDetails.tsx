@@ -19,7 +19,7 @@ import {
   CircularProgress
 } from '@mui/material'
 import useTheme from '@mui/material/styles/useTheme'
-import Footer from '../../Footer'
+import { Footer } from '../../common/components'
 
 interface ProgramFormInputs {
   exercises: Array<{

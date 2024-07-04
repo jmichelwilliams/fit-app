@@ -9,7 +9,7 @@ import GlobalStyle from '../styles/GlobalStyles'
 import NotFound from './NotFound'
 import ProtectedRoute from './auth/ProtectedRoute'
 import NotMobile from './NotMobile'
-import Header from './Header'
+import { Header } from './common/components'
 import WorkoutHistory from './workout/WorkoutHistory'
 
 const App: React.FC = () => {

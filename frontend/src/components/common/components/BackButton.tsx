@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-const BackButton: React.FC = () => {
+export const BackButton: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -38,5 +38,3 @@ const BackButton: React.FC = () => {
     </>
   )
 }
-
-export default BackButton

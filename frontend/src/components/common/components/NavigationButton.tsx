@@ -8,7 +8,7 @@ interface NavigationButtonProps {
   destination: string
   isBig?: boolean
 }
-const NavigationButton: React.FC<NavigationButtonProps> = ({
+export const NavigationButton: React.FC<NavigationButtonProps> = ({
   buttonText,
   destination,
   isBig = false
@@ -38,5 +38,3 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     </Button>
   )
 }
-
-export default NavigationButton
