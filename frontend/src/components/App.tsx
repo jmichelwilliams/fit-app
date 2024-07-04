@@ -10,7 +10,7 @@ import {
 } from './workout/components'
 import GlobalStyle from '../styles/GlobalStyles'
 import NotFound from './pages/NotFound'
-import ProtectedRoute from './auth/ProtectedRoute'
+import { ProtectedRoute } from './auth/components'
 import NotMobile from './pages/NotMobile'
 import { Header } from './common/components'
 

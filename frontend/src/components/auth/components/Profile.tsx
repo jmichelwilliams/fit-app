@@ -1,8 +1,8 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Drawer } from '../common/components'
+import { Drawer } from '../../common/components'
 
-const Profile: React.FC = () => {
+export const Profile: React.FC = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
 
   if (isLoading) {
@@ -21,5 +21,3 @@ const Profile: React.FC = () => {
     )
   )
 }
-
-export default Profile

@@ -2,6 +2,7 @@ import React from 'react'
 import { NavigationButton } from '../common/components'
 import { Box, Typography } from '@mui/material'
 import { FiXCircle } from 'react-icons/fi'
+
 const NotFound: React.FC = () => {
   return (
     <Box

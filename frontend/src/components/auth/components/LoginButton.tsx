@@ -6,8 +6,11 @@ interface LoginButtonProps {
   buttonText: string
   isSmall: boolean
 }
-// Component that renders a login button
-const LoginButton: React.FC<LoginButtonProps> = ({ buttonText, isSmall }) => {
+
+export const LoginButton: React.FC<LoginButtonProps> = ({
+  buttonText,
+  isSmall
+}) => {
   const { loginWithRedirect, isLoading } = useAuth0()
 
   const handleLogin = (): void => {
@@ -40,5 +43,3 @@ const LoginButton: React.FC<LoginButtonProps> = ({ buttonText, isSmall }) => {
     </Button>
   )
 }
-
-export default LoginButton

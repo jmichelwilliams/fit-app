@@ -2,8 +2,7 @@ import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Button } from '@mui/material'
 
-// Component that renders a log out button
-const LogoutButton: React.FC = () => {
+export const LogoutButton: React.FC = () => {
   const { logout } = useAuth0()
 
   const handleLogout = (): void => {
@@ -22,5 +21,3 @@ const LogoutButton: React.FC = () => {
     </Button>
   )
 }
-
-export default LogoutButton
