@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { fetchProgram } from '../../../utils/fetchProgram'
 import Box from '@mui/material/Box'
 import { Button, Typography, CircularProgress } from '@mui/material'
-import { Footer } from '../../common/components'
+import { Footer } from '../../common'
 import { WorkoutDetailsForm } from './'
 
 interface ProgramFormInputs {

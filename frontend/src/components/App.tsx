@@ -2,18 +2,19 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Homepage from './pages/Homepage'
-import { ProgramDetails, Planner } from './program/components'
+import { ProgramDetails } from './program/components'
 import {
   WorkoutList,
   WorkoutDetails,
   WorkoutHistory
 } from './workout/components'
 import { AddProgram } from './pages/AddProgram'
+import { Planner } from './pages/planner'
 import GlobalStyle from '../styles/GlobalStyles'
 import NotFound from './pages/NotFound'
 import { ProtectedRoute } from './auth/components'
 import NotMobile from './pages/NotMobile'
-import { Header } from './common/components'
+import { Header } from './common'
 
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')

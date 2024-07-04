@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { ProgramList } from '../../program/components'
+import { ProgramList } from '../../pages/planner'
 
 export const WorkoutList: React.FC = () => {
   return (

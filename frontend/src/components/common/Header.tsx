@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import { useLocation } from 'react-router-dom'
 import { BackButton } from './'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Profile } from '../../auth/components'
+import { Profile } from '../auth/components'
 
 export const Header: React.FC = () => {
   const { isAuthenticated } = useAuth0()

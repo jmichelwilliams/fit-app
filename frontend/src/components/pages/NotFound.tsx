@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavigationButton } from '../common/components'
+import { NavigationButton } from '../common'
 import { Box, Typography } from '@mui/material'
 import { FiXCircle } from 'react-icons/fi'
 

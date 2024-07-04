@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Box } from '@mui/material'
-import { ProgramList } from '.'
-import { NavigationButton } from '../../common/components'
+import { ProgramList } from './'
+import { NavigationButton } from '../../common'
 
 export const Planner: React.FC = () => {
   return (
