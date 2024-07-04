@@ -29,7 +29,7 @@ const StyledImg = styled.img`
   border-radius: 16px;
   padding: 8px;
 `
-const SwipeableTemporaryDrawer: React.FC = () => {
+export const Drawer: React.FC = () => {
   const [state, setState] = useState({
     right: false
   })
@@ -135,5 +135,3 @@ const SwipeableTemporaryDrawer: React.FC = () => {
     </div>
   )
 }
-
-export default SwipeableTemporaryDrawer
