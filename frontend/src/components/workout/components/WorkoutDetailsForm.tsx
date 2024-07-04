@@ -55,6 +55,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
       >
         {exercise.exerciseName}
       </Typography>
+      {/* Weight */}
       <Box
         sx={{
           display: 'flex',
@@ -127,6 +128,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
             )}
           />
         </Box>
+        {/* Sets */}
         <Box
           sx={{
             display: 'flex',
@@ -236,6 +238,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
             )
           })}
         </Box>
+        {/* Rest */}
         <Typography
           variant="body1"
           textAlign="center"
@@ -243,6 +246,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
         >
           Rest: {formatRestTime(exercise.rest)}
         </Typography>
+        {/* Completed */}
         <Controller
           name={`exercises.${exerciseIndex}.completed`}
           control={control}
