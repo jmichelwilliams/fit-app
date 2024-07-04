@@ -1,6 +1,6 @@
 import React from 'react'
 import { formatRestTime } from '../../../utils/formatRestTime'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import {
   Box,
   Typography,
@@ -22,15 +22,17 @@ interface WorkoutDetailsFormProps {
     completed: boolean
   }
   exerciseIndex: number
+  control: any
 }
 
 export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
   exerciseIndex,
-  exercise
+  exercise,
+  control
 }) => {
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-  const { control } = useForm()
+
   return (
     <Box
       sx={{

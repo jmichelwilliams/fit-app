@@ -17,8 +17,6 @@ interface ProgramFormInputs {
     weight: number
     completed: boolean
   }>
-  exerciseIndex: number
-  control: any
 }
 
 export const WorkoutDetails: React.FC = () => {
@@ -28,7 +26,7 @@ export const WorkoutDetails: React.FC = () => {
     programId: string
   }>()
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
-  const { handleSubmit } = useForm<ProgramFormInputs>({
+  const { control, handleSubmit } = useForm<ProgramFormInputs>({
     mode: 'onBlur'
   })
   const navigate = useNavigate()
@@ -110,6 +108,7 @@ export const WorkoutDetails: React.FC = () => {
                   key={`exercise-${exerciseIndex}`}
                   exerciseIndex={exerciseIndex}
                   exercise={exercise}
+                  control={control}
                 />
               )
             })}
