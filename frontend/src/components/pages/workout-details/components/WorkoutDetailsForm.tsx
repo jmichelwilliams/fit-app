@@ -6,11 +6,11 @@ import {
   Typography,
   Checkbox,
   TextField,
-  Grid,
   useMediaQuery,
   FormControlLabel,
   InputAdornment
 } from '@mui/material'
+import { SetRepsField } from 'components/common/SetRepsField'
 import useTheme from '@mui/material/styles/useTheme'
 
 interface WorkoutDetailsFormProps {
@@ -133,108 +133,19 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
           sx={{
             display: 'flex',
             justifyContent: 'space-evenly',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            height: '130px'
           }}
         >
           {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
             return (
-              <Box
+              <SetRepsField
                 key={`set-${exerciseIndex}-${setIndex + 1}`}
-                sx={{
-                  display: 'flex',
-                  margin: '8px',
-                  flexDirection: 'column',
-                  maxWidth: '80px',
-                  alignItems: 'space-evenly'
-                }}
-              >
-                <Typography variant="body1" textAlign="center">
-                  Set: {setIndex + 1}
-                </Typography>
-                <Grid
-                  container
-                  spacing={2}
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{ paddingLeft: '8px' }}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      margin: '8px'
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        height: '60px'
-                      }}
-                    >
-                      <Controller
-                        name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
-                        control={control}
-                        defaultValue={exercise.sets[setIndex].reps}
-                        rules={{
-                          required: 'Rep is required',
-                          min: {
-                            value: 1,
-                            message: 'Minimum value is 1'
-                          }
-                        }}
-                        render={({
-                          field: { onChange, value, ref, onBlur },
-                          fieldState: { error }
-                        }) => (
-                          <TextField
-                            id={`repsInput-${exerciseIndex}-${setIndex + 1}`}
-                            label="reps"
-                            name="reps"
-                            type="number"
-                            size="small"
-                            value={isNaN(value) ? '' : value}
-                            inputRef={ref}
-                            onBlur={onBlur}
-                            onChange={(e) => {
-                              const val = parseInt(e.target.value)
-
-                              if (!isNaN(val) && val !== 0) {
-                                onChange(val)
-                              } else {
-                                onChange('')
-                              }
-                            }}
-                            onKeyDown={(e) => {
-                              if (['e', '-', '+'].includes(e.key)) {
-                                e.preventDefault()
-                              }
-                            }}
-                            inputProps={{
-                              inputMode: 'numeric',
-                              pattern: '[0-9]*'
-                            }}
-                            InputLabelProps={{
-                              sx: {
-                                fontSize: isSmallScreen ? '.95rem' : '1rem',
-                                textAlign: 'center'
-                              }
-                            }}
-                            sx={{
-                              width: '70px',
-                              marginBottom: '8px'
-                            }}
-                            error={!(error == null)}
-                            helperText={error != null ? error.message : null}
-                          />
-                        )}
-                      />
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Box>
+                control={control}
+                exercise={exercise}
+                exerciseIndex={exerciseIndex}
+                setIndex={setIndex}
+              />
             )
           })}
         </Box>
@@ -258,7 +169,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
                   id={`completed-checkbox-${exerciseIndex}`}
                   checked={value}
                   onChange={() => {
-                    if (value == null) {
+                    if (value === false) {
                       onChange(true)
                     } else {
                       onChange(false)
