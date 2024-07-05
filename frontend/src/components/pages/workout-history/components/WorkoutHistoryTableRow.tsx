@@ -9,10 +9,11 @@ import {
   TableBody,
   Table
 } from '@mui/material'
-import type Workout from '../../../../types/Workout'
+import type { Workout } from 'types/Workout'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { FaCheck } from 'react-icons/fa'
+import { Exercise } from 'types/Exercise'
 
 interface WorkoutHistoryTableRowProps {
   workout: Workout
@@ -118,7 +119,7 @@ export const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {workout.exercises.map((exercise) => (
+                  {workout.exercises.map((exercise: Exercise) => (
                     <TableRow key={exercise.exerciseName}>
                       <TableCell
                         style={{

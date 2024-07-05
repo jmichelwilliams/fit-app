@@ -1,8 +1,6 @@
-import Exercise from './Exercise'
+import { Exercise } from './Exercise'
 
-interface NewProgram {
+export interface NewProgram {
   programName: string
   exercises: Exercise[]
 }
-
-export default NewProgram

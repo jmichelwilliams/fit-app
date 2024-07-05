@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type Program from '../../../../types/Program'
+import type { Program } from 'types/Program'
 import { Box } from '@mui/material'
 import { NavigationButton } from '../../../common'
 import { useAuth0 } from '@auth0/auth0-react'
