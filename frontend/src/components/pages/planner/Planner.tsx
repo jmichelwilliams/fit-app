@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography, Box } from '@mui/material'
-import { ProgramList } from './'
+import { ProgramList } from './components'
 import { NavigationButton } from '../../common'
 
 export const Planner: React.FC = () => {

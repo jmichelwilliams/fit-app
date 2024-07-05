@@ -1,12 +1,12 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import { NavigationButton } from '../common'
-import { LoginButton } from '../auth/components'
+import { NavigationButton } from '../../common'
+import { LoginButton } from '../../auth/components'
 import Typography from '@mui/material/Typography'
 import { GiMuscleUp } from 'react-icons/gi'
 import { useAuth0 } from '@auth0/auth0-react'
 
-const Homepage: React.FC = () => {
+export const Homepage: React.FC = () => {
   const { isAuthenticated } = useAuth0()
 
   return (
@@ -78,5 +78,3 @@ const Homepage: React.FC = () => {
     </Box>
   )
 }
-
-export default Homepage

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { IoPhonePortraitOutline } from 'react-icons/io5'
 
-const NotMobile: React.FC = () => {
+export const NotMobile: React.FC = () => {
   return (
     <Box
       sx={{
@@ -23,5 +23,3 @@ const NotMobile: React.FC = () => {
     </Box>
   )
 }
-
-export default NotMobile

@@ -14,7 +14,7 @@ import {
   CircularProgress,
   TableSortLabel
 } from '@mui/material'
-import { WorkoutHistoryTableRow } from './'
+import { WorkoutHistoryTableRow } from './components'
 type Order = 'asc' | 'desc'
 
 export const WorkoutHistory: React.FC = () => {

@@ -11,7 +11,7 @@ import {
   InputAdornment
 } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import { SetRepsField } from '../../common/SetRepsField'
+import { SetRepsField } from '../../../common/SetRepsField'
 
 interface ExerciseFieldProps {
   exercise: {

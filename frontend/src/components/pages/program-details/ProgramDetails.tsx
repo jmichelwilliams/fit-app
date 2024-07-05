@@ -7,8 +7,8 @@ import type Program from '../../../types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Footer } from '../../common'
-import { ConfirmDeleteDialog } from './ConfirmDeleteDialog'
-import { ExerciseFields } from './ExerciseFields'
+import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog'
+import { ExerciseFields } from './components/ExerciseFields'
 
 interface ProgramFormInputs {
   programName: string
