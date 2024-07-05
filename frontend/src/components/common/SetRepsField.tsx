@@ -48,18 +48,17 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
       </Typography>
       <Grid
         container
-        spacing={2}
+        spacing={3}
         justifyContent="center"
         alignItems="center"
-        sx={{ paddingLeft: '8px' }}
+        sx={{ paddingLeft: '2px' }}
       >
         <Grid
           item
           xs={12}
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            margin: '8px'
+            marginTop: '8px',
+            height: '80px'
           }}
         >
           <Controller
@@ -112,7 +111,12 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
                 }}
                 sx={{
                   width: '70px',
-                  marginBottom: '8px'
+                  marginBottom: '8px',
+                  '& .MuiFormHelperText-root': {
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    margin: '4px 0px'
+                  }
                 }}
                 error={!(error == null)}
                 helperText={error != null ? error.message : null}
