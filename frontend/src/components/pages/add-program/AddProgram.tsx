@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Button, Typography, Box } from '@mui/material'
 import { ProgramNameField } from 'components/common'
-import { ExerciseInputFields } from './components/ExerciseInputFields'
+import { ExerciseInputFields } from './components'
 
 interface ProgramFormInputs {
   programName: string
