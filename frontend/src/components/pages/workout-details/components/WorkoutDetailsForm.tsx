@@ -134,7 +134,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
             display: 'flex',
             justifyContent: 'space-evenly',
             flexWrap: 'wrap',
-            height: '130px'
+            height: 'auto'
           }}
         >
           {Array.from({ length: exercise.sets.length }, (_, setIndex) => {

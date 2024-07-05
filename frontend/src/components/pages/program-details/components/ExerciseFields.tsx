@@ -165,7 +165,7 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
             display: 'flex',
             justifyContent: 'space-evenly',
             flexWrap: 'wrap',
-            height: '140px'
+            height: 'auto'
           }}
         >
           {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
