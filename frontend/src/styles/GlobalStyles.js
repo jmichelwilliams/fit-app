@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
         --button-color: #fca311;
         --font-color: #ffffff;
         --textinput-color:#fca311
+      
     }
     html, body, div, span, applet, object, iframe,
     blockquote, pre,
@@ -31,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 100%;
         font: inherit;
         vertical-align: baseline;
-       
+     
     }
 
     input {
