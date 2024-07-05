@@ -1,10 +1,8 @@
-import type Exercise from './Exercise'
+import type { Exercise } from './Exercise'
 
-interface Program {
+export interface Program {
   _id: string
   programName: string
   exercises: Exercise[]
   createdBy: string
 }
-
-export default Program

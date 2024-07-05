@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import type Program from '../types/Program'
+import type { Program } from 'types/Program'
 
-const useFetchProgram = (
+export const useFetchProgram = (
   programId: string | null | undefined,
   getAccessTokenSilently: () => Promise<string>,
   fetchProgram: (programId: string, accessToken: string) => Promise<Program>,
@@ -25,4 +25,3 @@ const useFetchProgram = (
     })
   }, [programId, getAccessTokenSilently])
 }
-export default useFetchProgram

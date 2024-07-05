@@ -1,10 +1,9 @@
-import Set from './Set'
+import { Set } from './Set'
 
-interface Exercise {
+export interface Exercise {
   exerciseName: string
   sets: Set[]
   rest: string
-  weight?: number
+  weight: number
+  completed: boolean
 }
-
-export default Exercise

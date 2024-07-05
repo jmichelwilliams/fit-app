@@ -1,4 +1,4 @@
-import type Program from '../types/Program'
+import type { Program } from 'types/Program'
 
 export const fetchUserPrograms = async (
   userId: string | undefined,
