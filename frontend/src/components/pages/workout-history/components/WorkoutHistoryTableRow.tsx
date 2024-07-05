@@ -9,7 +9,7 @@ import {
   TableBody,
   Table
 } from '@mui/material'
-import type { Workout } from 'types/Workout'
+import type Workout from 'types/Workout'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { FaCheck } from 'react-icons/fa'
@@ -142,14 +142,14 @@ export const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
                           padding: '2px 0px 2px 0px'
                         }}
                       >
-                        {exercise.sets.map((set) => (
+                        {exercise.sets?.map((set) => (
                           <div
                             key={set.setId}
                           >{`Set ${set.setId}: ${set.reps}`}</div>
                         ))}
                       </TableCell>
                       <TableCell style={{ paddingLeft: 25 }}>
-                        {exercise.sets.length}
+                        {exercise.sets?.length}
                       </TableCell>
                       <TableCell>{exercise.rest}</TableCell>
                       <TableCell>{exercise.completed ? 'Yes' : 'No'}</TableCell>

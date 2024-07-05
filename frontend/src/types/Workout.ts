@@ -1,4 +1,4 @@
-export interface Workout {
+interface Workout {
   _id: string
   createdOn: string
   programName: string
@@ -13,3 +13,5 @@ export interface Workout {
     rest: string
   }>
 }
+
+export default Workout
