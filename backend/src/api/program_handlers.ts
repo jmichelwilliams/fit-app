@@ -133,7 +133,7 @@ export const updateProgram = async (req: Request, res: Response) => {
   const { programId } = req.params;
   const { updatedProgram } = req.body;
   const { client, db } = await connectToDatabase();
-  console.log('updatedProgram: ', updatedProgram);
+
   try {
     const programCollection = db.collection(PROGRAMS_COLLECTION);
     const query = { _id: new ObjectId(programId) };
@@ -145,9 +145,7 @@ export const updateProgram = async (req: Request, res: Response) => {
     };
 
     // Find the program by its programId
-    const program = await programCollection.findOne({
-      _id: new ObjectId(programId),
-    });
+    const program = await programCollection.findOne(query);
 
     if (!program) {
       return res
@@ -155,9 +153,19 @@ export const updateProgram = async (req: Request, res: Response) => {
         .json({ status: 404, message: 'Program not found' });
     }
 
+    const hasChanges =
+      program.programName !== updatedProgram.programName ||
+      JSON.stringify(program.exercises) !==
+        JSON.stringify(updatedProgram.exercises);
+
+    if (!hasChanges) {
+      return res
+        .status(200)
+        .json({ status: 200, message: 'No changes detected' });
+    }
     // Update each exercise in the program
     const result = await programCollection.updateOne(query as any, newValue);
-    console.log('result: ', result);
+
     if (result.modifiedCount > 0 && result.acknowledged == true) {
       res.status(200).json({ status: 200, result });
     } else {
