@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Button, Typography, Box } from '@mui/material'
 import { ProgramNameField } from 'components/common'
 import { ExerciseInputFields } from './components'
+import { useSnackbar } from 'context/SnackbarContext'
 
 interface ProgramFormInputs {
   programName: string
@@ -20,6 +21,7 @@ interface ProgramFormInputs {
 export const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
+  const { showMessage } = useSnackbar()
   const { control, handleSubmit } = useForm<ProgramFormInputs>({
     mode: 'onBlur',
     defaultValues: {
@@ -70,11 +72,12 @@ export const AddProgram: React.FC = () => {
         })
 
         if (res.ok) {
-          console.log('Program saved successfully')
+          showMessage('Program saved successfully', 'success')
           navigate('/planner')
         }
       }
     } catch (error) {
+      showMessage('Failed to save program, please try again', 'error')
       console.error('Error:', error)
     }
   }

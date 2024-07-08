@@ -9,6 +9,7 @@ import Box from '@mui/material/Box'
 import { Button, Typography, CircularProgress } from '@mui/material'
 import { Footer } from '../../common'
 import { WorkoutDetailsForm } from './components'
+import { useSnackbar } from 'context/SnackbarContext'
 
 interface ProgramFormInputs {
   exercises: Array<{
@@ -30,6 +31,7 @@ export const WorkoutDetails: React.FC = () => {
     mode: 'onBlur'
   })
   const navigate = useNavigate()
+  const { showMessage } = useSnackbar()
 
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (
     data
@@ -57,8 +59,10 @@ export const WorkoutDetails: React.FC = () => {
         })
 
         if (response.ok) {
+          showMessage('Workout completed successfully', 'success')
           navigate('/workouts')
         } else {
+          showMessage('Failed to save workout, please try again', 'error')
           throw new Error('Network response was not ok.')
         }
       }

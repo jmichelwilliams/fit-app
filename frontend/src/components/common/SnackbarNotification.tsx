@@ -14,7 +14,6 @@ export const SnackbarNotification: React.FC = () => {
         autoHideDuration={5000}
         open={open}
         onClose={closeSnackbar}
-        sx={{ zIndex: 1300 }}
       >
         <Alert severity={severity} variant="filled" sx={{ width: '100%' }}>
           {message}
