@@ -10,7 +10,7 @@ export const SnackbarNotification: React.FC = () => {
   return (
     <Box sx={{ width: 500 }}>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={5000}
         open={open}
         onClose={closeSnackbar}
