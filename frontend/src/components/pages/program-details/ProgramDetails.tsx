@@ -29,7 +29,11 @@ export const ProgramDetails: React.FC = () => {
     programId: string
   }>()
   useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
-  const { control, handleSubmit } = useForm<ProgramFormInputs>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty }
+  } = useForm<ProgramFormInputs>({
     mode: 'onBlur'
   })
   const { showMessage } = useSnackbar()
@@ -63,9 +67,15 @@ export const ProgramDetails: React.FC = () => {
           body: JSON.stringify({ updatedProgram })
         })
 
-        if (response.ok) {
-          showMessage('Program updated successfully', 'success')
-          navigate('/planner')
+        const result = await response.json()
+        if (result.status === 200) {
+          if (result.message === 'No changes detected') {
+            showMessage('No changes were made to the program', 'info')
+            navigate('/planner')
+          } else {
+            showMessage('Program updated successfully', 'success')
+            navigate('/planner')
+          }
         } else {
           showMessage('Program not updated, please try again', 'error')
           throw new Error('Network response was not ok.')
@@ -195,6 +205,7 @@ export const ProgramDetails: React.FC = () => {
                 form="program-form"
                 color="success"
                 sx={{ marginRight: '16px' }}
+                disabled={!isDirty}
               >
                 Save Changes
               </Button>
