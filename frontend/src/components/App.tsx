@@ -13,6 +13,7 @@ import { NotFound } from './pages/not-found'
 import { ProtectedRoute } from './auth/components'
 import { NotMobile } from './pages/not-mobile'
 import { Header } from './common'
+import { SnackbarNotification } from './common/SnackbarNotification'
 
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')
@@ -29,6 +30,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <GlobalStyle />
+      <SnackbarNotification />
       <Header />
       <Routes>
         <Route

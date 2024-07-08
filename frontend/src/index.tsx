@@ -4,6 +4,7 @@ import App from './components/App'
 import { Auth0Provider } from '@auth0/auth0-react'
 import theme from './theme'
 import { ThemeProvider } from '@mui/material/styles'
+import { SnackbarProvider } from './context/SnackbarContext'
 
 const audience = process.env.REACT_APP_AUTH_USER_AUDIENCE
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -17,8 +18,10 @@ root.render(
     }}
     cacheLocation="localstorage"
   >
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <SnackbarProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </SnackbarProvider>
   </Auth0Provider>
 )

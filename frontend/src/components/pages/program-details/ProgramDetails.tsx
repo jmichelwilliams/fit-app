@@ -9,6 +9,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Footer } from '../../common'
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog'
 import { ExerciseFields } from './components/ExerciseFields'
+import { useSnackbar } from 'context/SnackbarContext'
 
 interface ProgramFormInputs {
   programName: string
@@ -31,6 +32,7 @@ export const ProgramDetails: React.FC = () => {
   const { control, handleSubmit } = useForm<ProgramFormInputs>({
     mode: 'onBlur'
   })
+  const { showMessage } = useSnackbar()
 
   const navigate = useNavigate()
 
@@ -62,8 +64,10 @@ export const ProgramDetails: React.FC = () => {
         })
 
         if (response.ok) {
+          showMessage('Program updated successfully', 'success')
           navigate('/planner')
         } else {
+          showMessage('Program not updated, please try again', 'error')
           throw new Error('Network response was not ok.')
         }
       }
@@ -93,8 +97,10 @@ export const ProgramDetails: React.FC = () => {
         })
 
         if (response.ok) {
+          showMessage('Program deleted successfully', 'success')
           navigate('/planner')
         } else {
+          showMessage('Failed to delete program, please try again', 'error')
           throw new Error('Network response was not ok.')
         }
       }

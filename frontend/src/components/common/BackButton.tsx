@@ -19,6 +19,9 @@ export const BackButton: React.FC = () => {
       case '/workouts':
         navigate('/')
         break
+      case '/workouts/history':
+        navigate('/')
+        break
       case `/workouts/${id}`:
         navigate('/workouts')
         break

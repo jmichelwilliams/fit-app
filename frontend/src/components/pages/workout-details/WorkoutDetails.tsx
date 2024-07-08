@@ -4,11 +4,11 @@ import { useFetchProgram } from 'hooks/useFetchProgram'
 import type { Program } from 'types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { fetchProgram } from '../../../utils/fetchProgram'
-import Box from '@mui/material/Box'
-import { Button, Typography, CircularProgress } from '@mui/material'
+import { fetchProgram } from 'utils/fetchProgram'
+import { Box, Button, Typography, CircularProgress } from '@mui/material'
 import { Footer } from '../../common'
 import { WorkoutDetailsForm } from './components'
+import { useSnackbar } from 'context/SnackbarContext'
 
 interface ProgramFormInputs {
   exercises: Array<{
@@ -30,6 +30,7 @@ export const WorkoutDetails: React.FC = () => {
     mode: 'onBlur'
   })
   const navigate = useNavigate()
+  const { showMessage } = useSnackbar()
 
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (
     data
@@ -57,8 +58,10 @@ export const WorkoutDetails: React.FC = () => {
         })
 
         if (response.ok) {
+          showMessage('Workout completed successfully', 'success')
           navigate('/workouts')
         } else {
+          showMessage('Failed to save workout, please try again', 'error')
           throw new Error('Network response was not ok.')
         }
       }
