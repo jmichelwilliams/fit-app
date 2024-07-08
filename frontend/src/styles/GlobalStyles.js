@@ -87,9 +87,10 @@ const GlobalStyle = createGlobalStyle`
         border-color: white; 
     }
     /* disabled button color */
-    /* .MuiButton-root.Mui-disabled {
-        color:white
-    }    */
+    .MuiButton-root.Mui-disabled {
+        color:gray;
+        border-color:gray
+    }   
     /* Input label color */
     .MuiInputLabel-outlined {
         color: white
