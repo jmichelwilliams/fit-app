@@ -98,7 +98,6 @@ export const addProgram = async (req: Request, res: Response) => {
     exercises: newExercises,
     createdBy: new ObjectId(parsedUserId),
   };
-  console.log('newProgram: ', newProgram);
 
   const result = await programCollection.insertOne(newProgram as any);
   res.status(200).json({ status: 200, data: result });
