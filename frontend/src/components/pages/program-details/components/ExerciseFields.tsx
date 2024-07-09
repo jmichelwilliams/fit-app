@@ -203,6 +203,13 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
                 onChange={(e) => {
                   onChange(e.target.value)
                 }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      bgcolor: 'black'
+                    }
+                  }
+                }}
               >
                 <MenuItem value={'0:30'}>0:30</MenuItem>
                 <MenuItem value={'1:00'}>1:00</MenuItem>
