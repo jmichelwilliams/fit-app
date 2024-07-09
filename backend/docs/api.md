@@ -4,15 +4,14 @@
 
 ### MVP1
 
-| Endpoint                            | Method   | Description                                 |
-| ----------------------------------- | -------- | ------------------------------------------- |
-| `/login`                            | `POST`   | Login user                                  |
-| `/user/:userId`                     | `GET`    | Get user by id                              |
-| `/user/:userId/programs`            | `GET`    | Get all programs for user                   |
-| `/user/:userId/programs`            | `POST`   | Add a program to a user                     |
-| `/user/:userId/programs/:programId` | `GET`    | Get specific program for specific user      |
-| `/user/:userId/programs/:programId` | `PATCH`  | Update specific program for specific user   |
-| `/user/:userId/programs/:programId` | `DELETE` | Delete specific program for specific user   |
-| `/user/:userId/workouts`            | `GET`    | Get all workouts for a specific user        |
-| `/user/:userId/workouts/:workoutId` | `GET`    | Get specific workout from a user            |
-| `/user/:userId/workouts`            | `POST`   | Add a new workout to the workouts of a user |
+| Endpoint                 | Method   | Description                     |
+| ------------------------ | -------- | ------------------------------- |
+| `/programs/user/:userId` | `GET`    | Get all programs for user       |
+| `/programs/:programId`   | `GET`    | Get a specific program          |
+| `/programs/:programId`   | `PUT`    | Modify a program                |
+| `/programs/:userId`      | `POST`   | Add a program                   |
+| `/programs/:programId`   | `DELETE` | Delete a program                |
+| `/workouts/:userId`      | `GET`    | Get all workouts for a user     |
+| `/workouts/:userId`      | `POST`   | Add a workout to user's profile |
+| `/workouts/:userId`      | `GET`    | Get all workouts for a user     |
+| `/workouts/:workoutId`   | `DELETE` | Delete a workout for a user     |
