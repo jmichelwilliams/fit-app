@@ -176,19 +176,18 @@ export const ExerciseInputFields: React.FC<ExerciseInputFieldsProps> = ({
                     const restTime = e.target.value
                     onChange(restTime)
                   }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        bgcolor: 'black'
+                      }
+                    }
+                  }}
                 >
-                  <MenuItem value={'0:30'} sx={{ color: 'black' }}>
-                    0:30
-                  </MenuItem>
-                  <MenuItem value={'1:00'} sx={{ color: 'black' }}>
-                    1:00
-                  </MenuItem>
-                  <MenuItem value={'1:30'} sx={{ color: 'black' }}>
-                    1:30
-                  </MenuItem>
-                  <MenuItem value={'2:00'} sx={{ color: 'black' }}>
-                    2:00
-                  </MenuItem>
+                  <MenuItem value={'0:30'}>0:30</MenuItem>
+                  <MenuItem value={'1:00'}>1:00</MenuItem>
+                  <MenuItem value={'1:30'}>1:30</MenuItem>
+                  <MenuItem value={'2:00'}>2:00</MenuItem>
                 </Select>
               </FormControl>
             )}
