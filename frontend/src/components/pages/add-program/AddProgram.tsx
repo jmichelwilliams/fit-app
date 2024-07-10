@@ -6,6 +6,7 @@ import { Button, Typography, Box } from '@mui/material'
 import { ProgramNameField } from 'components/common'
 import { ExerciseInputFields } from './components'
 import { useSnackbar } from 'context/SnackbarContext'
+import BACKEND_URL from '../../../constants'
 
 interface ProgramFormInputs {
   programName: string
@@ -62,7 +63,7 @@ export const AddProgram: React.FC = () => {
       const accessToken = await getAccessTokenSilently()
 
       if (user !== null && user !== undefined) {
-        const res = await fetch(`/programs/${user.sub}`, {
+        const res = await fetch(`${BACKEND_URL}/programs/${user.sub}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

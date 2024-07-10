@@ -15,6 +15,8 @@ import {
   TableSortLabel
 } from '@mui/material'
 import { WorkoutHistoryTableRow } from './components'
+import BACKEND_URL from '../../../constants'
+
 type Order = 'asc' | 'desc'
 
 export const WorkoutHistory: React.FC = () => {
@@ -31,7 +33,7 @@ export const WorkoutHistory: React.FC = () => {
         setIsLoading(true)
         if (user !== null && user !== undefined) {
           const accessToken = await getAccessTokenSilently()
-          const res = await fetch(`/workouts/${user.sub}`, {
+          const res = await fetch(`${BACKEND_URL}/workouts/${user.sub}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

@@ -9,6 +9,7 @@ import { Box, Button, Typography, CircularProgress } from '@mui/material'
 import { Footer } from '../../common'
 import { WorkoutDetailsForm } from './components'
 import { useSnackbar } from 'context/SnackbarContext'
+import BACKEND_URL from '../../../constants'
 
 interface ProgramFormInputs {
   exercises: Array<{
@@ -48,7 +49,7 @@ export const WorkoutDetails: React.FC = () => {
         }))
       }
       if (user !== null && user !== undefined) {
-        const response = await fetch(`/workouts/${user.sub}`, {
+        const response = await fetch(`${BACKEND_URL}/workouts/${user.sub}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

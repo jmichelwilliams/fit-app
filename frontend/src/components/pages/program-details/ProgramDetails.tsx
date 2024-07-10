@@ -10,6 +10,7 @@ import { Footer } from '../../common'
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog'
 import { ExerciseFields } from './components/ExerciseFields'
 import { useSnackbar } from 'context/SnackbarContext'
+import BACKEND_URL from '../../../constants'
 
 interface ProgramFormInputs {
   programName: string
@@ -58,7 +59,7 @@ export const ProgramDetails: React.FC = () => {
       const accessToken = await getAccessTokenSilently()
 
       if (program !== null && program !== undefined) {
-        const response = await fetch(`/programs/${program._id}`, {
+        const response = await fetch(`${BACKEND_URL}/programs/${program._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -98,7 +99,7 @@ export const ProgramDetails: React.FC = () => {
       const accessToken = await getAccessTokenSilently()
 
       if (program !== null && program !== undefined) {
-        const response = await fetch(`/programs/${program._id}`, {
+        const response = await fetch(`${BACKEND_URL}/programs/${program._id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

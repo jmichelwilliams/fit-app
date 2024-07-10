@@ -1,10 +1,11 @@
+import BACKEND_URL from '../constants'
 import type { Program } from 'types/Program'
 
 export const fetchProgram = async (
   programId: string,
   accessToken: string
 ): Promise<Program> => {
-  const res = await fetch(`/programs/${programId}`, {
+  const res = await fetch(`${BACKEND_URL}/programs/${programId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
