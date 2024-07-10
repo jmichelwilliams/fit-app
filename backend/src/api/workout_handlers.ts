@@ -35,11 +35,11 @@ export const getAllWorkoutsForUser = async (req: Request, res: Response) => {
 
 export const addWorkout = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const { workoutSession } = req.body;
+  const { workoutSession, timezone } = req.body;
   const { client, db } = await connectToDatabase();
   const parsedUserId = userId.split('|')[1];
   const workoutCollection = db.collection(WORKOUTS_COLLECTION);
-  const today = new Date().toLocaleString();
+  const today = new Date().toLocaleString('en-US', { timeZone: timezone });
 
   const formattedExercises = workoutSession.exercises.map((exercise: any) => {
     const setsArray = Array.from(

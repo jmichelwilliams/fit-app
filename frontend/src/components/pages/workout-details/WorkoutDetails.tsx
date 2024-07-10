@@ -38,6 +38,7 @@ export const WorkoutDetails: React.FC = () => {
   ): Promise<void> => {
     try {
       const accessToken = await getAccessTokenSilently()
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
       const completeData = {
         ...data,
@@ -55,7 +56,7 @@ export const WorkoutDetails: React.FC = () => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${accessToken}`
           },
-          body: JSON.stringify({ workoutSession: completeData })
+          body: JSON.stringify({ workoutSession: completeData, timezone })
         })
 
         if (response.ok) {
