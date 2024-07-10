@@ -31,7 +31,11 @@ const checkJwt = auth({
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(cors({ origin: 'https://localhost:3000' }));
+app.use(
+  cors({
+    origin: ['https://localhost:3000', 'https://fit-app-weld.vercel.app/'],
+  }),
+);
 
 // Routes
 app.get('/programs/user/:userId', checkJwt, getAllProgramsForUser);
