@@ -16,9 +16,9 @@
     "uuid": "^9.0.1"
   },
   "scripts": {
-    "start": "node ./dist/server.js",
-    "dev:backend": "nodemon ./dist/server.js",
-    "build": "tsc"
+    "start": "cd backend && npm start",
+    "install": "cd backend && npm install",
+    "heroku-postbuild": "cd backend && npm run build"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
