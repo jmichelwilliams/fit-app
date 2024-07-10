@@ -37,7 +37,6 @@ app.use(express.static('public'));
 app.use(cors({ origin: 'https://localhost:3000' }));
 
 // Routes
-app.get('/user/:userId', checkJwt, getUserById);
 app.get(
   '/programs/user/:userId',
   checkJwt,
