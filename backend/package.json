@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "./dist/server.js",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
