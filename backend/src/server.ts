@@ -1,8 +1,6 @@
 import express, { type Request, type Response } from 'express';
 import morgan from 'morgan';
-import fs from 'fs';
-import https from 'https';
-import { getUserById } from './api/user_handlers';
+import * as dotenv from 'dotenv';
 import {
   addProgram,
   deleteProgram,
@@ -15,18 +13,17 @@ import {
   addWorkout,
   deleteWorkout,
 } from './api/workout_handlers';
-import * as dotenv from 'dotenv';
 import { errorHandler } from './middleware/error_handler';
 
+// Configure environment variables
 dotenv.config({ path: '../.env' });
 
 const cors = require('cors');
-
 const app = express();
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const checkJwt = auth({
-  audience: 'https://localhost:8000/user',
+  audience: 'https://fitapp/users',
   issuerBaseURL: process.env.AUTH0_DOMAIN,
   tokenSigningAlg: 'RS256',
 });
@@ -37,12 +34,7 @@ app.use(express.static('public'));
 app.use(cors({ origin: 'https://localhost:3000' }));
 
 // Routes
-app.get(
-  '/programs/user/:userId',
-  checkJwt,
-
-  getAllProgramsForUser,
-);
+app.get('/programs/user/:userId', checkJwt, getAllProgramsForUser);
 app.get('/programs/:programId', checkJwt, getProgram);
 app.put('/programs/:programId', checkJwt, updateProgram);
 app.post('/programs/:userId', checkJwt, addProgram);
@@ -59,11 +51,7 @@ app.get('*', (req: Request, res: Response) => {
     message: 'This is not what you are looking for!',
   });
 });
-const sslOptions = {
-  key: fs.readFileSync('localhost+2-key.pem'),
-  cert: fs.readFileSync('localhost+2.pem'),
-};
 
-https.createServer(sslOptions, app).listen(8000, () => {
-  console.log('HTTPS Server is running on port 8000');
+app.listen(process.env.PORT || 8000, () => {
+  console.log(`Server is running on port ${process.env.PORT || 8000}`);
 });
