@@ -17,8 +17,7 @@
   },
   "scripts": {
     "start": "node ./dist/server.js",
-    "dev:backend": "nodemon ./dist/server.js",
-     "build": "tsc"
+    "dev:backend": "nodemon ./dist/server.js"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
