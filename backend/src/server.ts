@@ -23,7 +23,7 @@ const app = express();
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const checkJwt = auth({
-  audience: 'https://localhost:8000/user',
+  audience: 'https://fitapp/users',
   issuerBaseURL: process.env.AUTH0_DOMAIN,
   tokenSigningAlg: 'RS256',
 });
