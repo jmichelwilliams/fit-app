@@ -13,7 +13,7 @@ import { type Workout } from 'types/Workout'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { FaCheck } from 'react-icons/fa'
-import { Exercise } from 'types/Exercise'
+import { type Exercise } from 'types/Exercise'
 
 interface WorkoutHistoryTableRowProps {
   workout: Workout
