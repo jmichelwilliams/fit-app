@@ -14,11 +14,11 @@ import {
   deleteWorkout,
 } from './api/workout_handlers';
 import { errorHandler } from './middleware/error_handler';
+import cors, { CorsOptions } from 'cors';
 
 // Configure environment variables
 dotenv.config({ path: '../.env' });
 
-const cors = require('cors');
 const app = express();
 const { auth } = require('express-oauth2-jwt-bearer');
 
@@ -27,16 +27,25 @@ const checkJwt = auth({
   issuerBaseURL: process.env.AUTH0_DOMAIN,
   tokenSigningAlg: 'RS256',
 });
+const allowedOrigins = [
+  'https://localhost:3000',
+  'https://fit-app-weld.vercel.app',
+];
 
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(
-  cors({
-    origin: ['https://localhost:3000', 'https://fit-app-weld.vercel.app/'],
-  }),
-);
 
+app.use(cors(corsOptions));
 // Routes
 app.get('/programs/user/:userId', checkJwt, getAllProgramsForUser);
 app.get('/programs/:programId', checkJwt, getProgram);
