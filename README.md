@@ -38,6 +38,14 @@ Thank you for using Fit-App!
 - Styled-Components
 - JavaScript
 
+# Upcoming updates
+
+- Convert project to React Native (iOS and Android)
+- Various improvements:
+  - Ability to pause a workout
+  - Partial completion of exercises in a workout
+  - Allowing to add or remove sets in edit mode of a program
+  - more to come!
 # Setup
 
 ### The Frontend
