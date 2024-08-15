@@ -10,7 +10,8 @@
     "paths": {
       "types/*" : ["types/*"],
       "hooks/*" : ["hooks/*"],
-      "utils/*" : ["utils/*"]
+      "utils/*" : ["utils/*"],
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
     },
     "allowJs": true,
     "skipLibCheck": true,
