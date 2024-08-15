@@ -1,21 +1,27 @@
 import React from 'react'
-import { Controller } from 'react-hook-form'
-import { Box, TextField } from '@mui/material'
+import { Controller, type Control } from 'react-hook-form'
+import { Box, TextField, styled } from '@mui/material'
+import { type ProgramFormInputs } from 'types/ProgramFormInputs'
 
-interface programNameFieldProps {
-  control: any
+interface ProgramNameFieldProps {
+  control: Control<ProgramFormInputs>
 }
-export const ProgramNameField: React.FC<programNameFieldProps> = ({
+
+const StyledWrapper = styled(Box)`
+  display: flex;
+  justify-content: center;
+  height: 90px;
+`
+
+const StyledTextField = styled(TextField)`
+  width: 95vw;
+  margin: 8px;
+`
+export const ProgramNameField: React.FC<ProgramNameFieldProps> = ({
   control
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        height: '90px'
-      }}
-    >
+    <StyledWrapper>
       <Controller
         name="programName"
         control={control}
@@ -27,16 +33,13 @@ export const ProgramNameField: React.FC<programNameFieldProps> = ({
           field: { onChange, value, ref, onBlur },
           fieldState: { error }
         }) => (
-          <TextField
+          <StyledTextField
             label="Name of Program"
             id="program-name"
             value={value}
             onBlur={onBlur}
             inputRef={ref}
-            onChange={(e) => {
-              const val = e.target.value
-              onChange(val)
-            }}
+            onChange={onChange}
             required
             sx={{
               width: '95vw',
@@ -47,6 +50,6 @@ export const ProgramNameField: React.FC<programNameFieldProps> = ({
           />
         )}
       />
-    </Box>
+    </StyledWrapper>
   )
 }

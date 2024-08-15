@@ -6,18 +6,8 @@ import { Button, Typography, Box } from '@mui/material'
 import { ProgramNameField } from 'components/common'
 import { ExerciseInputFields } from './components'
 import { useSnackbar } from 'context/SnackbarContext'
+import { type ProgramFormInputs } from 'types/ProgramFormInputs'
 import BACKEND_URL from '../../../constants'
-
-interface ProgramFormInputs {
-  programName: string
-  exercises: Array<{
-    exerciseName: string
-    sets: number
-    reps: number
-    rest: string
-    weight: string | number
-  }>
-}
 
 export const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
