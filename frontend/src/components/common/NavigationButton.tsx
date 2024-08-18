@@ -1,13 +1,27 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@mui/material'
-import Typography from '@mui/material/Typography'
+import { Button, Typography, styled } from '@mui/material'
 
 interface NavigationButtonProps {
   buttonText: string
   destination: string
   isBig?: boolean
+  children?: React.ReactNode
 }
+interface StyledButtonProps {
+  isBig?: boolean
+}
+
+const StyledButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'isBig'
+})<StyledButtonProps>`
+  background-color: var(--button-color);
+  height: ${(props) => (props.isBig ?? false ? '150px' : '60px')};
+  width: 150px;
+  &:hover {
+    background-color: var(--button-color);
+  }
+`
 export const NavigationButton: React.FC<NavigationButtonProps> = ({
   buttonText,
   destination,
@@ -20,21 +34,10 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
   }
 
   return (
-    <Button
-      variant="contained"
-      onClick={handleNavigate}
-      sx={{
-        height: isBig ? '150px' : '60px',
-        width: '150px',
-        backgroundColor: 'var(--button-color)',
-        '&:hover': {
-          backgroundColor: 'var(--button-color)'
-        }
-      }}
-    >
+    <StyledButton variant="contained" onClick={handleNavigate} isBig={isBig}>
       <Typography variant="button" overflow="hidden" textOverflow="ellipsis">
         {buttonText}
       </Typography>
-    </Button>
+    </StyledButton>
   )
 }

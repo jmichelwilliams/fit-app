@@ -8,7 +8,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  InputAdornment
+  InputAdornment,
+  styled
 } from '@mui/material'
 import { Controller } from 'react-hook-form'
 import { SetRepsField } from '../../../common/SetRepsField'
@@ -25,6 +26,48 @@ interface ExerciseFieldProps {
   control: any
 }
 
+const StyledExerciseFieldsWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 16px;
+  padding: 8px;
+  margin-bottom: 16px;
+  height: auto;
+  width: 90vw;
+  border: 2px solid black;
+`
+const StyledExerciseNameContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  height: 90px;
+`
+const StyledExerciseNameTextField = styled(TextField)`
+  width: 85vw;
+  margin: 8px;
+`
+
+const StyledExerciseInputsContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`
+const StyledWeightInputContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  height: 70px;
+`
+const StyledWeightInputTextField = styled(TextField)`
+  width: 120px;
+  margin-top: 8px;
+`
+const StyledSetsInputContainer = styled(Box)`
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  height: auto;
+`
 export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
   exercise,
   exerciseIndex,
@@ -33,27 +76,8 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   return (
-    <Box
-      key={`exercise-${exerciseIndex}`}
-      sx={{
-        border: '2px solid black',
-        width: '90vw',
-        height: 'auto',
-        marginBottom: '16px',
-        padding: '8px',
-        borderRadius: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          height: '90px'
-        }}
-      >
+    <StyledExerciseFieldsWrapper key={`exercise-${exerciseIndex}`}>
+      <StyledExerciseNameContainer>
         <Controller
           name={`exercises.${exerciseIndex}.exerciseName`}
           control={control}
@@ -66,7 +90,7 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
             field: { onChange, value, ref, onBlur },
             fieldState: { error }
           }) => (
-            <TextField
+            <StyledExerciseNameTextField
               label="Name of Exercise"
               id={`exercises.${exerciseIndex}.exerciseName`}
               value={value}
@@ -77,31 +101,14 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
                 onChange(val)
               }}
               required
-              sx={{
-                width: '85vw',
-                margin: '8px'
-              }}
               error={!(error == null)}
               helperText={error != null ? error.message : null}
             />
           )}
         />
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-          alignItems: 'center'
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            height: '70px'
-          }}
-        >
+      </StyledExerciseNameContainer>
+      <StyledExerciseInputsContainer>
+        <StyledWeightInputContainer>
           <Controller
             name={`exercises.${exerciseIndex}.weight`}
             control={control}
@@ -114,7 +121,7 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
               field: { onChange, value, ref, onBlur },
               fieldState: { error }
             }) => (
-              <TextField
+              <StyledWeightInputTextField
                 id={`weightInput-${exerciseIndex}`}
                 label="weight"
                 name={`exercises.${exerciseIndex}.weight`}
@@ -150,24 +157,13 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
                     fontSize: isSmallScreen ? '.95rem' : '1rem'
                   }
                 }}
-                sx={{
-                  width: '120px',
-                  marginTop: '8px'
-                }}
                 error={!(error == null)}
                 helperText={error != null ? error.message : null}
               />
             )}
           />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            flexWrap: 'wrap',
-            height: 'auto'
-          }}
-        >
+        </StyledWeightInputContainer>
+        <StyledSetsInputContainer>
           {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
             return (
               <SetRepsField
@@ -179,7 +175,7 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
               />
             )
           })}
-        </Box>
+        </StyledSetsInputContainer>
         <Controller
           name={`exercises.${exerciseIndex}.rest`}
           control={control}
@@ -219,7 +215,7 @@ export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
             </FormControl>
           )}
         />
-      </Box>
-    </Box>
+      </StyledExerciseInputsContainer>
+    </StyledExerciseFieldsWrapper>
   )
 }

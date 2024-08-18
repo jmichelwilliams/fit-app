@@ -1,52 +1,57 @@
 import * as React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
+import { AppBar, Box, styled, Toolbar } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { BackButton } from './'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Profile } from '../auth/components'
 
+const StyledWrapper = styled(Box)`
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+`
+const StyledPlaceholderBox = styled(Box)`
+  height: 80px;
+  width: 100%;
+`
+const StyledAppBar = styled(AppBar)`
+  border-bottom: 4px solid rgb(252, 163, 17);
+`
+const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+`
+const StyledBackButtonContainer = styled(Box)`
+  padding-left: 8px;
+`
+const StyledProfileContainer = styled(Box)`
+  margin-left: auto;
+`
 export const Header: React.FC = () => {
   const { isAuthenticated } = useAuth0()
   const location = useLocation()
   const onHomePage = location.pathname === '/'
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-        justifyContent: 'flex-end',
-        marginBottom: '8px'
-      }}
-    >
+    <StyledWrapper>
       {!isAuthenticated ? (
-        <Box sx={{ height: '80px', width: '100%' }}> </Box>
+        <StyledPlaceholderBox />
       ) : (
-        <AppBar
-          position="static"
-          color="transparent"
-          sx={{ borderBottom: '4px solid rgb(252,163,17)' }}
-        >
-          <Toolbar
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '0px'
-            }}
-          >
+        <StyledAppBar position="static" color="transparent">
+          <StyledToolbar>
             {!onHomePage && (
-              <Box sx={{ paddingLeft: '8px' }}>
+              <StyledBackButtonContainer>
                 <BackButton />
-              </Box>
+              </StyledBackButtonContainer>
             )}
-            <Box sx={{ marginLeft: 'auto' }}>
+            <StyledProfileContainer>
               <Profile />
-            </Box>
-          </Toolbar>
-        </AppBar>
+            </StyledProfileContainer>
+          </StyledToolbar>
+        </StyledAppBar>
       )}
-    </Box>
+    </StyledWrapper>
   )
 }
