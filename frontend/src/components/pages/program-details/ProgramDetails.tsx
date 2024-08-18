@@ -31,6 +31,7 @@ const StyledProgramDetailsWrapper = styled(Box)`
   overflow-x: hidden;
   overflow-y: scroll;
   padding-top: 8px;
+  max-height: 75dvh;
 `
 const StyledLoadingContainer = styled(Box)`
   display: flex;
