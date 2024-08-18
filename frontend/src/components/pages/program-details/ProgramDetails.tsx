@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import { useFetchProgram } from 'hooks/useFetchProgram'
 import { fetchProgram } from '../../../utils/fetchProgram'
-import { Box, TextField, Button, CircularProgress } from '@mui/material'
+import { Box, TextField, Button, CircularProgress, styled } from '@mui/material'
 import type { Program } from 'types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -22,6 +22,30 @@ interface ProgramFormInputs {
   }>
 }
 
+const StyledProgramDetailsWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-top: 8px;
+`
+const StyledLoadingContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 100%;
+`
+const StyledCenteredContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+`
+const StyledProgramNameContainer = styled(StyledCenteredContainer)`
+  height: 90px;
+`
 export const ProgramDetails: React.FC = () => {
   const [program, setProgram] = useState<Program | undefined>()
   const [open, setOpen] = useState(false)
@@ -120,42 +144,16 @@ export const ProgramDetails: React.FC = () => {
     }
   }
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '0px auto',
-        position: 'relative',
-        overflowX: 'hidden',
-        overflowY: 'scroll',
-        paddingTop: '8px',
-        maxHeight: '75dvh'
-      }}
-    >
+    <StyledProgramDetailsWrapper>
       {program == null ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50vh',
-            width: '100%'
-          }}
-        >
+        <StyledLoadingContainer>
           <CircularProgress size={70} />
-        </Box>
+        </StyledLoadingContainer>
       ) : (
         <Box>
           <form id="program-form" onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  height: '90px'
-                }}
-              >
+            <StyledCenteredContainer>
+              <StyledProgramNameContainer>
                 <Controller
                   name="programName"
                   control={control}
@@ -187,8 +185,8 @@ export const ProgramDetails: React.FC = () => {
                     />
                   )}
                 />
-              </Box>
-            </Box>
+              </StyledProgramNameContainer>
+            </StyledCenteredContainer>
             {program.exercises.map((exercise, exerciseIndex) => {
               return (
                 <ExerciseFields
@@ -226,6 +224,6 @@ export const ProgramDetails: React.FC = () => {
         handleClose={handleClose}
         handleDeleteConfirm={handleDeleteConfirm}
       />
-    </Box>
+    </StyledProgramDetailsWrapper>
   )
 }

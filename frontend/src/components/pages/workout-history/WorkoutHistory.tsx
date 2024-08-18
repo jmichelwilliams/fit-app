@@ -12,13 +12,29 @@ import {
   TableRow,
   Paper,
   CircularProgress,
-  TableSortLabel
+  TableSortLabel,
+  styled
 } from '@mui/material'
 import { WorkoutHistoryTableRow } from './components'
 import BACKEND_URL from '../../../constants'
 
 type Order = 'asc' | 'desc'
 
+const StyledWorkoutHistoryWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+`
+
+const StyledLoadingContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 100%;
+`
 export const WorkoutHistory: React.FC = () => {
   const [workoutHistory, setWorkoutHistory] = useState<Workout[] | null>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -82,27 +98,11 @@ export const WorkoutHistory: React.FC = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '8px'
-      }}
-    >
+    <StyledWorkoutHistoryWrapper>
       {isLoading ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50vh',
-            width: '100%'
-          }}
-        >
+        <StyledLoadingContainer>
           <CircularProgress size={70} />
-        </Box>
+        </StyledLoadingContainer>
       ) : (
         <Box>
           <Box sx={{ margin: '16px 0px' }}>
@@ -168,6 +168,6 @@ export const WorkoutHistory: React.FC = () => {
           </TableContainer>
         </Box>
       )}
-    </Box>
+    </StyledWorkoutHistoryWrapper>
   )
 }

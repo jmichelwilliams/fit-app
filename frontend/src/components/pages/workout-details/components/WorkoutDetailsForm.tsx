@@ -8,7 +8,8 @@ import {
   TextField,
   useMediaQuery,
   FormControlLabel,
-  InputAdornment
+  InputAdornment,
+  styled
 } from '@mui/material'
 import { SetRepsField } from 'components/common/SetRepsField'
 import useTheme from '@mui/material/styles/useTheme'
@@ -25,6 +26,36 @@ interface WorkoutDetailsFormProps {
   control: any
 }
 
+const StyledWorkoutDetailsFormWrapper = styled(Box)`
+  border: 2px solid black;
+  width: 90vw;
+  height: auto;
+  margin: 16px;
+  padding: 8px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const StyledInputsContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`
+
+const StyledWeightInputsContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  height: 60px;
+`
+const StyledSetsInputsContainer = styled(Box)`
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  height: auto;
+`
 export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
   exerciseIndex,
   exercise,
@@ -34,19 +65,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Box
-      sx={{
-        border: '2px solid black',
-        width: '90vw',
-        height: 'auto',
-        margin: '16px',
-        padding: '8px',
-        borderRadius: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
+    <StyledWorkoutDetailsFormWrapper>
       <Typography
         variant="h5"
         fontWeight="bold"
@@ -55,22 +74,8 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
       >
         {exercise.exerciseName}
       </Typography>
-      {/* Weight */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-          alignItems: 'center'
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            height: '60px'
-          }}
-        >
+      <StyledInputsContainer>
+        <StyledWeightInputsContainer>
           <Controller
             name={`exercises.${exerciseIndex}.weight`}
             control={control}
@@ -127,16 +132,8 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
               />
             )}
           />
-        </Box>
-        {/* Sets */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            flexWrap: 'wrap',
-            height: 'auto'
-          }}
-        >
+        </StyledWeightInputsContainer>
+        <StyledSetsInputsContainer>
           {Array.from({ length: exercise.sets.length }, (_, setIndex) => {
             return (
               <SetRepsField
@@ -148,8 +145,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
               />
             )
           })}
-        </Box>
-        {/* Rest */}
+        </StyledSetsInputsContainer>
         <Typography
           variant="body1"
           textAlign="center"
@@ -157,7 +153,6 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
         >
           Rest: {formatRestTime(exercise.rest)}
         </Typography>
-        {/* Completed */}
         <Controller
           name={`exercises.${exerciseIndex}.completed`}
           control={control}
@@ -184,7 +179,7 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
             />
           )}
         />
-      </Box>
-    </Box>
+      </StyledInputsContainer>
+    </StyledWorkoutDetailsFormWrapper>
   )
 }

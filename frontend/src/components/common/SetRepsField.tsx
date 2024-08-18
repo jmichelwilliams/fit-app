@@ -5,7 +5,8 @@ import {
   Typography,
   Box,
   Grid,
-  TextField
+  TextField,
+  styled
 } from '@mui/material'
 import { Controller } from 'react-hook-form'
 
@@ -21,6 +22,25 @@ interface SetRepsFieldProps {
     completed: boolean
   }
 }
+
+const StyledRepsWrapper = styled(Box)`
+  display: flex;
+  margin: 8px;
+  flex-direction: column;
+  max-width: 80px;
+  align-items: space-evenly;
+`
+
+const StyledTextField = styled(TextField)`
+  width: 70px;
+  margin-bottom: 8px;
+
+  .muiformhelpertext-root {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 4px 0px;
+  }
+`
 export const SetRepsField: React.FC<SetRepsFieldProps> = ({
   exercise,
   exerciseIndex,
@@ -30,15 +50,7 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        margin: '8px',
-        flexDirection: 'column',
-        maxWidth: '80px',
-        alignItems: 'space-evenly'
-      }}
-    >
+    <StyledRepsWrapper>
       <Typography
         variant="body1"
         textAlign="center"
@@ -76,7 +88,7 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
               field: { onChange, value, ref, onBlur },
               fieldState: { error }
             }) => (
-              <TextField
+              <StyledTextField
                 id={`repsInput-${exerciseIndex}-${setIndex + 1}`}
                 label="reps"
                 name="reps"
@@ -87,12 +99,7 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
                 onBlur={onBlur}
                 onChange={(e) => {
                   const val = parseInt(e.target.value)
-
-                  if (!isNaN(val) && val !== 0) {
-                    onChange(val)
-                  } else {
-                    onChange('')
-                  }
+                  onChange(isNaN(val) || val <= 0 ? '' : val)
                 }}
                 onKeyDown={(e) => {
                   if (['e', '-', '+'].includes(e.key)) {
@@ -109,15 +116,6 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
                     textAlign: 'center'
                   }
                 }}
-                sx={{
-                  width: '70px',
-                  marginBottom: '8px',
-                  '& .MuiFormHelperText-root': {
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis',
-                    margin: '4px 0px'
-                  }
-                }}
                 error={!(error == null)}
                 helperText={error != null ? error.message : null}
               />
@@ -125,6 +123,6 @@ export const SetRepsField: React.FC<SetRepsFieldProps> = ({
           />
         </Grid>
       </Grid>
-    </Box>
+    </StyledRepsWrapper>
   )
 }

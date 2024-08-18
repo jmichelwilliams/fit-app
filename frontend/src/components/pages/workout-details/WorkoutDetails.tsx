@@ -5,7 +5,13 @@ import type { Program } from 'types/Program'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { fetchProgram } from 'utils/fetchProgram'
-import { Box, Button, Typography, CircularProgress } from '@mui/material'
+import {
+  Box,
+  Button,
+  Typography,
+  CircularProgress,
+  styled
+} from '@mui/material'
 import { Footer } from '../../common'
 import { WorkoutDetailsForm } from './components'
 import { useSnackbar } from 'context/SnackbarContext'
@@ -20,6 +26,22 @@ interface ProgramFormInputs {
   }>
 }
 
+const StyledWorkoutDetailsWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-top: 8px;
+  max-height: 75dvh;
+`
+const StyledLoadingContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+`
 export const WorkoutDetails: React.FC = () => {
   const [program, setProgram] = useState<Program>()
   const { user, getAccessTokenSilently } = useAuth0()
@@ -73,30 +95,11 @@ export const WorkoutDetails: React.FC = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '0px auto',
-        overflowX: 'hidden',
-        overflowY: 'scroll',
-        paddingTop: '8px',
-        maxHeight: '75dvh'
-      }}
-    >
+    <StyledWorkoutDetailsWrapper>
       {program == null ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50vh',
-            width: '100%'
-          }}
-        >
+        <StyledLoadingContainer>
           <CircularProgress size={70} />
-        </Box>
+        </StyledLoadingContainer>
       ) : (
         <Box>
           <Typography
@@ -117,7 +120,6 @@ export const WorkoutDetails: React.FC = () => {
                 />
               )
             })}
-
             <Footer>
               <Button
                 variant={'contained'}
@@ -131,6 +133,6 @@ export const WorkoutDetails: React.FC = () => {
           </form>
         </Box>
       )}
-    </Box>
+    </StyledWorkoutDetailsWrapper>
   )
 }

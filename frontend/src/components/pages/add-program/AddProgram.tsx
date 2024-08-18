@@ -2,13 +2,19 @@ import React from 'react'
 import { useForm, useFieldArray, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Button, Typography, Box } from '@mui/material'
+import { Button, Typography, Box, styled } from '@mui/material'
 import { ProgramNameField } from 'components/common'
 import { ExerciseInputFields } from './components'
 import { useSnackbar } from 'context/SnackbarContext'
 import { type ProgramFormInputs } from 'types/ProgramFormInputs'
 import BACKEND_URL from '../../../constants'
 
+const StyledContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px auto;
+`
 export const AddProgram: React.FC = () => {
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
@@ -74,14 +80,7 @@ export const AddProgram: React.FC = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '16px auto'
-      }}
-    >
+    <StyledContainer>
       <Box>
         <Typography variant="h3" textAlign="center">
           Enter your program
@@ -89,14 +88,7 @@ export const AddProgram: React.FC = () => {
       </Box>
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              margin: '16px auto'
-            }}
-          >
+          <StyledContainer>
             <ProgramNameField control={control} />
             {fields.map((exercise, exerciseIndex) => (
               <ExerciseInputFields
@@ -116,7 +108,6 @@ export const AddProgram: React.FC = () => {
                 }}
                 onClick={handleAddExercise}
               >
-                {' '}
                 <Typography
                   variant="button"
                   overflow="hidden"
@@ -144,9 +135,9 @@ export const AddProgram: React.FC = () => {
                 </Typography>
               </Button>
             </Box>
-          </Box>
+          </StyledContainer>
         </form>
       </Box>
-    </Box>
+    </StyledContainer>
   )
 }

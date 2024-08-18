@@ -1,25 +1,26 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
+import { Box, Typography, styled } from '@mui/material'
 import { ProgramList } from './'
 
+const StyledWorkoutListWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px;
+  align-items: center;
+`
+const StyledTitleContainer = styled(Box)`
+  margin: 16px 0px;
+`
 export const WorkoutList: React.FC = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        margin: '8px',
-        alignItems: 'center'
-      }}
-    >
-      <Box sx={{ margin: '16px 0px' }}>
+    <StyledWorkoutListWrapper>
+      <StyledTitleContainer>
         <Typography variant="h3" textAlign="center">
           Workouts
         </Typography>
-      </Box>
+      </StyledTitleContainer>
       <ProgramList />
-    </Box>
+    </StyledWorkoutListWrapper>
   )
 }

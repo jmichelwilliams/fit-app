@@ -1,38 +1,51 @@
 import React from 'react'
-import Box from '@mui/material/Box'
+import { Box, Typography, styled } from '@mui/material'
 import { NavigationButton } from '../../common'
 import { LoginButton } from '../../auth/components'
-import Typography from '@mui/material/Typography'
 import { GiMuscleUp } from 'react-icons/gi'
 import { useAuth0 } from '@auth0/auth0-react'
 
+const StyledHomepageWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+`
+const StyledTitleContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px auto;
+`
+
+const StyledSubtitleContainer = styled(StyledTitleContainer)`
+  justify-content: center;
+`
+const StyledButtonsContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  height: 240px;
+  justify-content: space-between;
+  margin-top: 8px;
+`
+const StyledLoginButtonContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  margin-top: 32px;
+  justify-content: space-between;
+`
 export const Homepage: React.FC = () => {
   const { isAuthenticated } = useAuth0()
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '8px'
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          margin: '8px auto'
-        }}
-      >
+    <StyledHomepageWrapper>
+      <StyledTitleContainer>
         <Typography variant="h1">Fit-App</Typography>
         <GiMuscleUp style={{ height: '4em', width: '4em' }} />
-      </Box>
-      <Box
-        sx={{ display: 'flex', justifyContent: 'center', margin: '8px auto' }}
-      >
+      </StyledTitleContainer>
+      <StyledSubtitleContainer>
         <Typography
           variant="h5"
           gutterBottom
@@ -42,9 +55,9 @@ export const Homepage: React.FC = () => {
           Tired of losing track of your workouts? Fear no more, Fit-App is here
           to help you!
         </Typography>
-      </Box>
+      </StyledSubtitleContainer>
       {isAuthenticated ? (
-        <Box
+        <StyledButtonsContainer
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -65,20 +78,12 @@ export const Homepage: React.FC = () => {
             buttonText="Workout History"
             destination={'/workouts/history'}
           />
-        </Box>
+        </StyledButtonsContainer>
       ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '160px',
-            marginTop: '32px',
-            justifyContent: 'space-between'
-          }}
-        >
+        <StyledLoginButtonContainer>
           <LoginButton buttonText="Login / Register" isSmall={false} />
-        </Box>
+        </StyledLoginButtonContainer>
       )}
-    </Box>
+    </StyledHomepageWrapper>
   )
 }

@@ -41,10 +41,6 @@ export const ProgramNameField: React.FC<ProgramNameFieldProps> = ({
             inputRef={ref}
             onChange={onChange}
             required
-            sx={{
-              width: '95vw',
-              margin: '8px'
-            }}
             error={!(error == null)}
             helperText={error != null ? error.message : null}
           />
