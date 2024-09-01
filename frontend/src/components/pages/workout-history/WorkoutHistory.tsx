@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { type Workout } from 'types/Workout'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -42,7 +43,7 @@ export const WorkoutHistory: React.FC = () => {
   const [orderBy, setOrderBy] = useState<keyof Workout>('createdOn')
   const [open, setOpen] = useState<Record<string, boolean>>({})
   const { user, getAccessTokenSilently } = useAuth0()
-
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
@@ -57,7 +58,14 @@ export const WorkoutHistory: React.FC = () => {
             }
           })
           const data = await res.json()
-          setWorkoutHistory(data.data)
+          const parsedData = data.data.map((workout: Workout) => ({
+            ...workout,
+            createdOn: new Date(workout.createdOn).toLocaleString('en-US', {
+              timeZone: timezone
+            })
+          }))
+
+          setWorkoutHistory(parsedData)
         }
       } catch (error) {
         console.error('Error fetching programs:', error)
