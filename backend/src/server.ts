@@ -12,6 +12,7 @@ import {
   getAllWorkoutsForUser,
   addWorkout,
   deleteWorkout,
+  getLatestWorkoutForUser,
 } from './api/workout_handlers';
 import { errorHandler } from './middleware/error_handler';
 import cors, { CorsOptions } from 'cors';
@@ -56,6 +57,11 @@ app.put('/programs/:programId', checkJwt, updateProgram);
 app.post('/programs/:userId', checkJwt, addProgram);
 app.delete('/programs/:programId', checkJwt, deleteProgram);
 app.get('/workouts/:userId', checkJwt, getAllWorkoutsForUser);
+app.get(
+  '/workouts/:userId/latest/:programName',
+  checkJwt,
+  getLatestWorkoutForUser,
+);
 app.post('/workouts/:userId', checkJwt, addWorkout);
 app.delete('/workouts/:workoutId', checkJwt, deleteWorkout);
 // Error Handling Middleware

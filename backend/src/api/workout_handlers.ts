@@ -39,7 +39,8 @@ export const addWorkout = async (req: Request, res: Response) => {
   const { client, db } = await connectToDatabase();
   const parsedUserId = userId.split('|')[1];
   const workoutCollection = db.collection(WORKOUTS_COLLECTION);
-  const today = new Date().toLocaleString('en-US', { timeZone: timezone });
+
+  const createdOn = new Date();
 
   const formattedExercises = workoutSession.exercises.map((exercise: any) => {
     const setsArray = Array.from(
@@ -64,7 +65,7 @@ export const addWorkout = async (req: Request, res: Response) => {
     exercises: formattedExercises,
     createdBy: new ObjectId(parsedUserId),
     programName: workoutSession.programName,
-    createdOn: today,
+    createdOn,
   };
 
   const result = await workoutCollection.insertOne(newWorkoutSession as any);
@@ -75,6 +76,37 @@ export const addWorkout = async (req: Request, res: Response) => {
   }
 };
 
+export const getLatestWorkoutForUser = async (req: Request, res: Response) => {
+  const { userId, programName } = req.params;
+  const { client, db } = await connectToDatabase();
+  const parsedUserId = userId.split('|')[1];
+
+  const workoutsCollection = db.collection(WORKOUTS_COLLECTION);
+
+  try {
+    const latestWorkout = await workoutsCollection.findOne(
+      { createdBy: new ObjectId(parsedUserId), programName: programName },
+      { sort: { createdOn: -1 } },
+    );
+
+    if (!latestWorkout) {
+      return res
+        .status(404)
+        .json({ message: 'No workouts found for this program.' });
+    }
+
+    return res.status(200).json({ status: 200, data: latestWorkout });
+  } catch (error) {
+    console.error('Error fetching the latest workout:', error);
+    return res
+      .status(500)
+      .json({ message: 'Server error, please try again later.' });
+  } finally {
+    if (client) {
+      await client.close();
+    }
+  }
+};
 export const deleteWorkout = async (req: Request, res: Response) => {
   const { workoutId } = req.params;
   const { client, db } = await connectToDatabase();
