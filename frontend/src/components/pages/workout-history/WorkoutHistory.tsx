@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { type Workout } from 'types/Workout'
 import { useAuth0 } from '@auth0/auth0-react'
