@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useFetchProgram } from 'hooks/useFetchProgram'
 import type { Program } from 'types/Program'
@@ -44,23 +44,68 @@ const StyledLoadingContainer = styled(Box)`
 `
 export const WorkoutDetails: React.FC = () => {
   const [program, setProgram] = useState<Program>()
+  const [isLoading, setIsLoading] = useState(true)
   const { user, getAccessTokenSilently } = useAuth0()
   const { programId } = useParams<{
     programId: string
   }>()
-  useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
-  const { control, handleSubmit } = useForm<ProgramFormInputs>({
+  const { control, handleSubmit, setValue } = useForm<ProgramFormInputs>({
     mode: 'onBlur'
   })
   const navigate = useNavigate()
   const { showMessage } = useSnackbar()
+
+  useFetchProgram(programId, getAccessTokenSilently, fetchProgram, setProgram)
+
+  useEffect(() => {
+    if (program?.programName == null) return
+
+    const fetchLatestWorkout = async (): Promise<void> => {
+      setIsLoading(true)
+      try {
+        if (user !== null && user !== undefined) {
+          const accessToken = await getAccessTokenSilently()
+          const res = await fetch(
+            `${BACKEND_URL}/workouts/${user.sub}/latest/${program?.programName}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+              }
+            }
+          )
+          const data = await res.json()
+
+          if (data.data !== null) {
+            data.data.exercises.forEach(
+              (exercise: { weight: any; sets: any }, exerciseIndex: any) => {
+                setValue(`exercises.${exerciseIndex}.weight`, exercise.weight)
+
+                exercise.sets.forEach((_: any, setIndex: number) => {
+                  setValue(
+                    `exercises.${exerciseIndex}.sets.${setIndex}.reps`,
+                    exercise.sets[setIndex].reps
+                  )
+                })
+              }
+            )
+          }
+        }
+      } catch (error) {
+        console.error('No Workouts Found')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    void fetchLatestWorkout()
+  }, [program, setValue, getAccessTokenSilently, user])
 
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (
     data
   ): Promise<void> => {
     try {
       const accessToken = await getAccessTokenSilently()
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
       const completeData = {
         ...data,
@@ -78,7 +123,7 @@ export const WorkoutDetails: React.FC = () => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${accessToken}`
           },
-          body: JSON.stringify({ workoutSession: completeData, timezone })
+          body: JSON.stringify({ workoutSession: completeData })
         })
 
         if (response.ok) {
@@ -96,7 +141,7 @@ export const WorkoutDetails: React.FC = () => {
 
   return (
     <StyledWorkoutDetailsWrapper>
-      {program == null ? (
+      {isLoading ? (
         <StyledLoadingContainer>
           <CircularProgress size={70} />
         </StyledLoadingContainer>
