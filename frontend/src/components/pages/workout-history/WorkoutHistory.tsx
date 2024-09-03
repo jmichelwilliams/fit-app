@@ -42,7 +42,9 @@ export const WorkoutHistory: React.FC = () => {
   const [orderBy, setOrderBy] = useState<keyof Workout>('createdOn')
   const [open, setOpen] = useState<Record<string, boolean>>({})
   const { user, getAccessTokenSilently } = useAuth0()
+
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
