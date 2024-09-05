@@ -64,11 +64,8 @@ export const WorkoutHistory: React.FC = () => {
         })
       }))
 
-      if (parsedData.length === 0) {
-        setHasMore(false)
-      } else {
-        setWorkoutHistory((prev) => [...prev, ...parsedData])
-      }
+      setWorkoutHistory((prev) => [...prev, ...parsedData])
+      setHasMore(data.hasMore)
     } catch (error) {
       console.error('Error fetching workouts:', error)
     } finally {
@@ -175,22 +172,19 @@ export const WorkoutHistory: React.FC = () => {
         </TableContainer>
 
         <Box sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}>
-          {hasMore && (
-            <LoadingButton
-              variant="contained"
-              loading={isLoading}
-              onClick={() => {
-                setPage((prevPage) => prevPage + 1)
-              }}
-              sx={{
-                width: '128px',
-                backgroundColor: 'var(--button-color)'
-              }}
-            >
-              Load More
-              {/* {isLoading ? 'Loading...' : 'Load More'} */}
-            </LoadingButton>
-          )}
+          <LoadingButton
+            variant="contained"
+            loading={isLoading || !hasMore}
+            onClick={() => {
+              setPage((prevPage) => prevPage + 1)
+            }}
+            sx={{
+              width: '128px',
+              backgroundColor: 'var(--button-color)'
+            }}
+          >
+            {isLoading ? 'Loading...' : 'Load More'}
+          </LoadingButton>
         </Box>
       </Box>
     </StyledWorkoutHistoryWrapper>
