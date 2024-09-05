@@ -18,18 +18,39 @@ export const getAllWorkoutsForUser = async (req: Request, res: Response) => {
 
   const workoutsCollection = db.collection(WORKOUTS_COLLECTION);
 
-  const result = await workoutsCollection
-    .find({ createdBy: new ObjectId(parsedUserId) })
-    .toArray();
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
 
-  if (result.length === 0) {
-    res.status(404).json({ status: 404, message: 'No workouts found!' });
-  } else {
-    res.status(200).json({ status: 200, data: result });
-  }
+  try {
+    const skip = (page - 1) * limit;
+    const result = await workoutsCollection
+      .find({ createdBy: new ObjectId(parsedUserId) })
+      .skip(skip)
+      .limit(limit)
+      .toArray();
 
-  if (client) {
-    await client.close();
+    const totalCount = await workoutsCollection.countDocuments({
+      createdBy: new ObjectId(parsedUserId),
+    });
+
+    if (result.length === 0) {
+      res.status(404).json({ status: 404, message: 'No workouts found!' });
+    } else {
+      res.status(200).json({
+        status: 200,
+        data: result,
+        totalCount,
+        totalPages: Math.ceil(totalCount / limit),
+        currentPage: page,
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching workouts:', error);
+    res.status(500).json({ status: 500, message: 'Internal server error' });
+  } finally {
+    if (client) {
+      await client.close();
+    }
   }
 };
 
