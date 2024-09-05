@@ -34,7 +34,7 @@ export const BackButton: React.FC = () => {
       <Button
         variant="text"
         onClick={handleBack}
-        sx={{ color: 'var( --font-color)' }}
+        sx={{ color: 'var( --font-color) !important' }}
       >
         Back
       </Button>

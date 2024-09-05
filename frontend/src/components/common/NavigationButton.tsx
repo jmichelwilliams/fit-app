@@ -16,7 +16,7 @@ const StyledButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'isBig'
 })<StyledButtonProps>`
   background-color: var(--button-color);
-  height: ${(props) => (props.isBig ?? false ? '150px' : '60px')};
+  height: ${(props) => ((props.isBig ?? false) ? '150px' : '60px')};
   width: 150px;
   &:hover {
     background-color: var(--button-color);

@@ -44,7 +44,7 @@ export const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
           </IconButton>
         </TableCell>
         <TableCell>{workout.programName}</TableCell>
-        <TableCell>{workout.createdOn}</TableCell>
+        <TableCell sx={{ width: '130px' }}>{workout.createdOn}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell

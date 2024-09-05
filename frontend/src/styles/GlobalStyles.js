@@ -114,7 +114,18 @@ const GlobalStyle = createGlobalStyle`
     .MuiTypography-root{
         color: rgb(252,163,17)
     }
-
+    .MuiTypography-root.MuiTypography-button{
+        color: black
+    }
+    .MuiLoadingButton-label{
+        color:black
+    }
+    .MuiLoadingButton-root.Mui-disabled{
+        background-color:gray
+    }
+    /* .MuiLoadingButton-loading{
+        background-color: var(--button-color) !important
+    } */
 
     /* Table Styling */
     .MuiTable-root{
@@ -142,7 +153,9 @@ const GlobalStyle = createGlobalStyle`
         background-color:var(--background-color)
         
     }
-
+    .MuiInputAdornment-root{
+        color:red !important
+    }
     .tablehead-row{
         background-color:rgb(252,163,17);
         color:black
