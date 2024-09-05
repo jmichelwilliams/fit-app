@@ -27,6 +27,7 @@ export const getAllWorkoutsForUser = async (req: Request, res: Response) => {
       .find({ createdBy: new ObjectId(parsedUserId) })
       .skip(skip)
       .limit(limit)
+      .sort({ createdOn: -1 })
       .toArray();
 
     const totalCount = await workoutsCollection.countDocuments({
