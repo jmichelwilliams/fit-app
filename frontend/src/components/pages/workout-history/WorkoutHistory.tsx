@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useCallback } from 'react'
 import { type Workout } from 'types/Workout'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -28,13 +27,7 @@ const StyledWorkoutHistoryWrapper = styled(Box)`
   align-items: center;
   padding: 8px;
 `
-// const StyledButton = styled(LoadingButton)`
-//   background-color: var(--button-color);
 
-//   &:hover {
-//     background-color: var(--button-color);
-//   }
-// `
 export const WorkoutHistory: React.FC = () => {
   const [workoutHistory, setWorkoutHistory] = useState<Workout[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -53,7 +46,7 @@ export const WorkoutHistory: React.FC = () => {
       setIsLoading(true)
       const accessToken = await getAccessTokenSilently()
       const res = await fetch(
-        `${BACKEND_URL}/workouts/${user.sub}?page=${page}&limit=5`,
+        `${BACKEND_URL}/workouts/${user.sub}?page=${page}&limit=8`,
         {
           method: 'GET',
           headers: {
@@ -189,9 +182,13 @@ export const WorkoutHistory: React.FC = () => {
               onClick={() => {
                 setPage((prevPage) => prevPage + 1)
               }}
-              sx={{ width: '128px', backgroundColor: 'var(--button-color)' }}
+              sx={{
+                width: '128px',
+                backgroundColor: 'var(--button-color)'
+              }}
             >
-              {isLoading ? 'Loading...' : 'Load More'}
+              Load More
+              {/* {isLoading ? 'Loading...' : 'Load More'} */}
             </LoadingButton>
           )}
         </Box>

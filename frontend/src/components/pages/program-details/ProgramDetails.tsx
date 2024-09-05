@@ -204,7 +204,9 @@ export const ProgramDetails: React.FC = () => {
                 type="submit"
                 form="program-form"
                 color="success"
-                sx={{ marginRight: '16px' }}
+                sx={{
+                  marginRight: '16px'
+                }}
                 disabled={!isDirty}
               >
                 Save Changes
