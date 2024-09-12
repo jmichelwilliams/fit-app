@@ -1,4 +1,4 @@
-import { Set } from './Set'
+import type { Set } from './Set'
 
 export interface Exercise {
   exerciseName: string
