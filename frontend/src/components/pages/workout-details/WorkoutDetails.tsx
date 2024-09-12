@@ -45,6 +45,7 @@ const StyledLoadingContainer = styled(Box)`
 export const WorkoutDetails: React.FC = () => {
   const [program, setProgram] = useState<Program>()
   const [isLoading, setIsLoading] = useState(true)
+  const [completionOrder, setCompletionOrder] = useState<number[]>([])
   const { user, getAccessTokenSilently } = useAuth0()
   const { programId } = useParams<{
     programId: string
@@ -101,21 +102,59 @@ export const WorkoutDetails: React.FC = () => {
     void fetchLatestWorkout()
   }, [program, setValue, getAccessTokenSilently, user])
 
+  const handleCompletionOrder = (
+    exerciseIndex: number,
+    isChecked: boolean
+  ): void => {
+    if (isChecked) {
+      setCompletionOrder((prevOrder) => [...prevOrder, exerciseIndex])
+    } else {
+      setCompletionOrder((prevOrder) =>
+        prevOrder.filter((index) => index !== exerciseIndex)
+      )
+    }
+  }
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (
     data
   ): Promise<void> => {
     try {
       const accessToken = await getAccessTokenSilently()
 
+      if (program?.exercises == null) {
+        console.error('No exercises found in program')
+        return
+      }
+
+      const completedExercises = completionOrder.map((index) => ({
+        ...data.exercises[index],
+        exerciseName: program.exercises[index].exerciseName,
+        rest: program.exercises[index].rest,
+        completed: true
+      }))
+
+      const nonCompletedExercises = program.exercises
+        .map((exercise, index) => {
+          if (!completionOrder.includes(index)) {
+            return {
+              exerciseName: exercise.exerciseName,
+              rest: exercise.rest,
+              weight: data.exercises[index]?.weight ?? 0,
+              sets: data.exercises[index]?.sets ?? [],
+              completed: false
+            }
+          }
+          return null
+        })
+        .filter((exercise) => exercise !== null)
+
+      const allExercises = [...completedExercises, ...nonCompletedExercises]
+
       const completeData = {
         ...data,
         programName: program?.programName,
-        exercises: data.exercises.map((exercise, index) => ({
-          ...exercise,
-          exerciseName: program?.exercises[index].exerciseName,
-          rest: program?.exercises[index].rest
-        }))
+        exercises: allExercises
       }
+
       if (user !== null && user !== undefined) {
         const response = await fetch(`${BACKEND_URL}/workouts/${user.sub}`, {
           method: 'POST',
@@ -162,6 +201,8 @@ export const WorkoutDetails: React.FC = () => {
                   exerciseIndex={exerciseIndex}
                   exercise={exercise}
                   control={control}
+                  completionOrder={completionOrder}
+                  handleCompletionOrder={handleCompletionOrder}
                 />
               )
             })}
