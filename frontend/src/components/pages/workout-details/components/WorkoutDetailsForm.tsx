@@ -24,6 +24,8 @@ interface WorkoutDetailsFormProps {
   }
   exerciseIndex: number
   control: any
+  completionOrder: number[]
+  handleCompletionOrder: (exerciseIndex: number, isChecked: boolean) => void
 }
 
 const StyledWorkoutDetailsFormWrapper = styled(Box)`
@@ -59,7 +61,9 @@ const StyledSetsInputsContainer = styled(Box)`
 export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
   exerciseIndex,
   exercise,
-  control
+  control,
+  completionOrder,
+  handleCompletionOrder
 }) => {
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -162,14 +166,12 @@ export const WorkoutDetailsForm: React.FC<WorkoutDetailsFormProps> = ({
               control={
                 <Checkbox
                   id={`completed-checkbox-${exerciseIndex}`}
-                  checked={value}
-                  onChange={() => {
-                    if (value === false) {
-                      onChange(true)
-                    } else {
-                      onChange(false)
-                    }
+                  onChange={(e) => {
+                    const isChecked = e.target.checked
+                    handleCompletionOrder(exerciseIndex, e.target.checked)
+                    onChange(isChecked)
                   }}
+                  checked={completionOrder.includes(exerciseIndex)}
                   style={{
                     color: value != null ? 'green' : 'initial'
                   }}
