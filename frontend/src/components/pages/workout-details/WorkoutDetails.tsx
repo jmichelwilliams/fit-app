@@ -79,16 +79,29 @@ export const WorkoutDetails: React.FC = () => {
           const data = await res.json()
 
           if (data.data !== null) {
-            data.data.exercises.forEach(
-              (exercise: { weight: any; sets: any }, exerciseIndex: any) => {
-                setValue(`exercises.${exerciseIndex}.weight`, exercise.weight)
+            const exercises = data.data.exercises
 
-                exercise.sets.forEach((_: any, setIndex: number) => {
-                  setValue(
-                    `exercises.${exerciseIndex}.sets.${setIndex}.reps`,
-                    exercise.sets[setIndex].reps
+            exercises.forEach(
+              (exercise: {
+                exerciseName: string
+                weight: number
+                sets: Array<{ reps: number }>
+              }) => {
+                const exerciseIndex = program?.exercises.findIndex(
+                  (e) => e.exerciseName === exercise.exerciseName
+                )
+
+                if (exerciseIndex !== undefined && exerciseIndex !== -1) {
+                  setValue(`exercises.${exerciseIndex}.weight`, exercise.weight)
+                  exercise.sets.forEach(
+                    (set: { reps: number }, setIndex: number) => {
+                      setValue(
+                        `exercises.${exerciseIndex}.sets.${setIndex}.reps`,
+                        set.reps
+                      )
+                    }
                   )
-                })
+                }
               }
             )
           }
