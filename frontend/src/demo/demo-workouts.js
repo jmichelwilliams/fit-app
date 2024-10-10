@@ -1,4 +1,4 @@
-export const workouts = [
+export const demoWorkouts = [
   {
     _id: '66cdf8a6f02b5a1a0af02407',
     exercises: [

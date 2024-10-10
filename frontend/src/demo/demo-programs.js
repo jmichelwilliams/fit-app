@@ -1,6 +1,6 @@
-export const programs = [
+export const demoPrograms = [
   {
-    id: '6690034cc976fb54e162a145',
+    _id: '6690034cc976fb54e162a145',
     programName: 'Ultimate Upper',
     exercises: [
       {
@@ -73,7 +73,7 @@ export const programs = [
     createdBy: '64f116d4e2c29ce3479b82dd'
   },
   {
-    id: '668eabbce486d6e2f926f17f',
+    _id: '668eabbce486d6e2f926f17f',
     programName: 'Ultimate Lower',
     exercises: [
       {
@@ -150,7 +150,7 @@ export const programs = [
     createdBy: '64f116d4e2c29ce3479b82dd'
   },
   {
-    id: '6668bb56da7a566774abbcfb',
+    _id: '6668bb56da7a566774abbcfb',
     programName: 'Lower and Shoulders',
     exercises: [
       {
