@@ -5,6 +5,9 @@ import { BackButton } from './'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Profile } from '../auth/components'
 
+interface HeaderProps {
+  demoMode?: boolean
+}
 const StyledWrapper = styled(Box)`
   flex-grow: 1;
   display: flex;
@@ -29,14 +32,15 @@ const StyledBackButtonContainer = styled(Box)`
 const StyledProfileContainer = styled(Box)`
   margin-left: auto;
 `
-export const Header: React.FC = () => {
+
+export const Header: React.FC<HeaderProps> = ({ demoMode = false }) => {
   const { isAuthenticated } = useAuth0()
   const location = useLocation()
   const onHomePage = location.pathname === '/'
 
   return (
     <StyledWrapper>
-      {!isAuthenticated ? (
+      {!isAuthenticated && demoMode ? (
         <StyledPlaceholderBox />
       ) : (
         <StyledAppBar position="static" color="transparent">
