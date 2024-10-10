@@ -22,7 +22,7 @@ interface ProgramFormInputs {
     exerciseName: string
     sets: Array<{ setId: number; reps: number }>
     weight: number
-    completed: boolean
+    completed?: boolean
   }>
 }
 
