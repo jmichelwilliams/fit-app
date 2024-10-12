@@ -40,7 +40,7 @@ export const DemoHomepage: React.FC = () => {
           variant="h5"
           gutterBottom
           textAlign="center"
-          sx={{ marginTop: '8px' }}
+          sx={{ marginTop: '8px', marginBottom: '32px' }}
         >
           Tired of losing track of your workouts? Fear no more, Fit-App is here
           to help you!
@@ -55,7 +55,10 @@ export const DemoHomepage: React.FC = () => {
           marginTop: '8px'
         }}
       >
-        <NavigationButton buttonText="Go to Planner" destination={'/planner'} />
+        <NavigationButton
+          buttonText="Go to Planner"
+          destination={'/demo/planner'}
+        />
         <NavigationButton
           buttonText="Start Workout"
           destination={'/demo/workouts'}
