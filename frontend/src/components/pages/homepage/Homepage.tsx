@@ -82,6 +82,7 @@ export const Homepage: React.FC = () => {
       ) : (
         <StyledLoginButtonContainer>
           <LoginButton buttonText="Login / Register" isSmall={false} />
+          <NavigationButton buttonText="Try it out" destination={'/demo'} />
         </StyledLoginButtonContainer>
       )}
     </StyledHomepageWrapper>

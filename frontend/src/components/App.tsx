@@ -13,12 +13,11 @@ import GlobalStyle from '../styles/GlobalStyles'
 import { NotFound } from './pages/not-found'
 import { ProtectedRoute } from './auth/components'
 import { NotMobile } from './pages/not-mobile'
-
 import { SnackbarNotification } from './common/SnackbarNotification'
 import { DemoDataProvider } from 'context/DemoDataContext'
 import { DemoHomepage } from 'demo/pages/demo-homepage'
 import { DemoPlanner } from 'demo/pages/demo-planner'
-
+import { Header } from './common'
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')
 
@@ -63,19 +62,34 @@ const App: React.FC = () => {
             element={<ProtectedRoute element={<WorkoutHistory />} />}
           />
         </Route>
-
         <Route element={<DemoLayout />}>
-          <Route path="/demo" element={<DemoHomepage />} />
-          <Route path="/demo/planner" element={<DemoPlanner />} />
           <Route
-            path="/"
+            path="/demo"
             element={
               <DemoDataProvider>
-                <Homepage />
+                <DemoHomepage />
+              </DemoDataProvider>
+            }
+          />
+          <Route
+            path="/demo/planner"
+            element={
+              <DemoDataProvider>
+                <DemoPlanner />
               </DemoDataProvider>
             }
           />
         </Route>
+
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Homepage />
+            </>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
