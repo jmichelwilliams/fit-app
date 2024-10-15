@@ -13,7 +13,6 @@ const StyledWrapper = styled(Box)`
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  margin-bottom: 8px;
 `
 const StyledDemoUserContainer = styled(Box)`
   padding-right: 16px;
@@ -24,7 +23,7 @@ const StyledAppBar = styled(AppBar)`
 `
 const StyledDemoAppBar = styled(AppBar)`
   border-bottom: 4px solid rgb(252, 163, 17);
-  height: 78px;
+  height: 88px;
 `
 const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -32,7 +31,7 @@ const StyledToolbar = styled(Toolbar)`
   padding: 0;
 `
 const StyledPlaceholderBox = styled(Box)`
-  height: 80px;
+  height: 88px;
   width: 100%;
 `
 const StyledBackButtonContainer = styled(Box)`
