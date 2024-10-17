@@ -4,6 +4,7 @@ import { Header } from './Header'
 import { NavigationButton } from './NavigationButton'
 import { Drawer } from './Drawer'
 import { ProgramNameField } from './ProgramNameField'
+import { ExerciseInputFields } from './ExerciseInputFields'
 
 export {
   BackButton,
@@ -11,5 +12,6 @@ export {
   Header,
   NavigationButton,
   Drawer,
-  ProgramNameField
+  ProgramNameField,
+  ExerciseInputFields
 }

@@ -3,7 +3,7 @@ import { useForm, useFieldArray, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { Button, Typography, Box, styled } from '@mui/material'
 import { ProgramNameField } from 'components/common'
-import { ExerciseInputFields } from '../../../components/pages/add-program/components'
+import { ExerciseInputFields } from '../../../components/common'
 import { useSnackbar } from 'context/SnackbarContext'
 import { type ProgramFormInputs } from 'types/ProgramFormInputs'
 
