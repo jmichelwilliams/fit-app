@@ -62,23 +62,15 @@ const App: React.FC = () => {
             element={<ProtectedRoute element={<WorkoutHistory />} />}
           />
         </Route>
-        <Route element={<DemoLayout />}>
-          <Route
-            path="/demo"
-            element={
-              <DemoDataProvider>
-                <DemoHomepage />
-              </DemoDataProvider>
-            }
-          />
-          <Route
-            path="/demo/planner"
-            element={
-              <DemoDataProvider>
-                <DemoPlanner />
-              </DemoDataProvider>
-            }
-          />
+        <Route
+          element={
+            <DemoDataProvider>
+              <DemoLayout />
+            </DemoDataProvider>
+          }
+        >
+          <Route path="/demo" element={<DemoHomepage />} />
+          <Route path="/demo/planner" element={<DemoPlanner />} />
         </Route>
 
         <Route

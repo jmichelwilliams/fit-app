@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, Typography, styled } from '@mui/material'
+import { Box, Typography, styled, CircularProgress } from '@mui/material'
 import { NavigationButton } from '../../../components/common'
 import { GiMuscleUp } from 'react-icons/gi'
 
+import { useMockLoading } from 'hooks/useMockLoading'
 const StyledHomepageWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -27,8 +28,14 @@ const StyledButtonsContainer = styled(Box)`
   justify-content: space-between;
   margin-top: 8px;
 `
-
+const StyledLoadingContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+`
 export const DemoHomepage: React.FC = () => {
+  const [isLoading] = useMockLoading(true, 500)
   return (
     <StyledHomepageWrapper>
       <StyledTitleContainer>
@@ -46,28 +53,34 @@ export const DemoHomepage: React.FC = () => {
           to help you!
         </Typography>
       </StyledSubtitleContainer>
-      <StyledButtonsContainer
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '240px',
-          justifyContent: 'space-between',
-          marginTop: '8px'
-        }}
-      >
-        <NavigationButton
-          buttonText="Go to Planner"
-          destination={'/demo/planner'}
-        />
-        <NavigationButton
-          buttonText="Start Workout"
-          destination={'/demo/workouts'}
-        />
-        <NavigationButton
-          buttonText="Workout History"
-          destination={'/demo/workouts/history'}
-        />
-      </StyledButtonsContainer>
+      {isLoading ? (
+        <StyledLoadingContainer>
+          <CircularProgress size={70} />
+        </StyledLoadingContainer>
+      ) : (
+        <StyledButtonsContainer
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '240px',
+            justifyContent: 'space-between',
+            marginTop: '8px'
+          }}
+        >
+          <NavigationButton
+            buttonText="Go to Planner"
+            destination={'/demo/planner'}
+          />
+          <NavigationButton
+            buttonText="Start Workout"
+            destination={'/demo/workouts'}
+          />
+          <NavigationButton
+            buttonText="Workout History"
+            destination={'/demo/workouts/history'}
+          />
+        </StyledButtonsContainer>
+      )}
     </StyledHomepageWrapper>
   )
 }

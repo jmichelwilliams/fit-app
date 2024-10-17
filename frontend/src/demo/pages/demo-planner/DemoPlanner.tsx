@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography, Box, styled } from '@mui/material'
-// import { ProgramList } from '../../../components'
+import { DemoProgramList } from './components/DemoProgramList'
 import { NavigationButton } from '../../../components/common/'
 
 const StyledPlannerWrapper = styled(Box)`
@@ -28,7 +28,7 @@ export const DemoPlanner: React.FC = () => {
           buttonText="Add Program"
         />
       </StyledButtonContainer>
-      {/* <ProgramList /> */}
+      <DemoProgramList />
     </StyledPlannerWrapper>
   )
 }

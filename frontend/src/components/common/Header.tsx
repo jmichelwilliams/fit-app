@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { AppBar, Box, styled, Toolbar } from '@mui/material'
+import { AppBar, Box, styled, Toolbar, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { BackButton } from './'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -16,7 +16,6 @@ const StyledWrapper = styled(Box)`
 `
 const StyledDemoUserContainer = styled(Box)`
   padding-right: 16px;
-  padding-top: 16px;
 `
 const StyledAppBar = styled(AppBar)`
   border-bottom: 4px solid rgb(252, 163, 17);
@@ -36,10 +35,15 @@ const StyledPlaceholderBox = styled(Box)`
 `
 const StyledBackButtonContainer = styled(Box)`
   padding-left: 8px;
-  padding-top: 16px;
 `
 const StyledProfileContainer = styled(Box)`
   margin-left: auto;
+`
+const StyledTitleContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 88px;
 `
 
 export const Header: React.FC<HeaderProps> = ({ demoMode = false }) => {
@@ -61,6 +65,9 @@ export const Header: React.FC<HeaderProps> = ({ demoMode = false }) => {
                 <BackButton />
               </StyledBackButtonContainer>
             )}
+            <StyledTitleContainer>
+              <Typography variant="h6">DEMO MODE</Typography>
+            </StyledTitleContainer>
             <StyledDemoUserContainer>
               <Profile demoMode />
             </StyledDemoUserContainer>
