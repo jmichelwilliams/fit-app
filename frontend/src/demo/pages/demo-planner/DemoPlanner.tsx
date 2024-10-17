@@ -24,7 +24,7 @@ export const DemoPlanner: React.FC = () => {
       </StyledTitleContainer>
       <StyledButtonContainer>
         <NavigationButton
-          destination="/planner/addprogram"
+          destination="/demo/addprogram"
           buttonText="Add Program"
         />
       </StyledButtonContainer>

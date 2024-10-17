@@ -82,7 +82,11 @@ export const Homepage: React.FC = () => {
       ) : (
         <StyledLoginButtonContainer>
           <LoginButton buttonText="Login / Register" isSmall={false} />
-          <NavigationButton buttonText="Try it out" destination={'/demo'} />
+          <NavigationButton
+            buttonText="Try it out"
+            destination={'/demo'}
+            color="lightblue"
+          />
         </StyledLoginButtonContainer>
       )}
     </StyledHomepageWrapper>

@@ -18,6 +18,7 @@ import { DemoDataProvider } from 'context/DemoDataContext'
 import { DemoHomepage } from 'demo/pages/demo-homepage'
 import { DemoPlanner } from 'demo/pages/demo-planner'
 import { Header } from './common'
+import { DemoAddProgram } from 'demo/pages/demo-add-program/DemoAddProgram'
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')
 
@@ -71,6 +72,7 @@ const App: React.FC = () => {
         >
           <Route path="/demo" element={<DemoHomepage />} />
           <Route path="/demo/planner" element={<DemoPlanner />} />
+          <Route path="/demo/addprogram" element={<DemoAddProgram />} />
         </Route>
 
         <Route
