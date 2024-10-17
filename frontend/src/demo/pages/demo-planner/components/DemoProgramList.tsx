@@ -34,13 +34,13 @@ export const DemoProgramList: React.FC = () => {
           <StyledProgramContainer key={program._id} sx={{ margin: '16px' }}>
             {workoutMode ? (
               <NavigationButton
-                destination={`/workouts/${program._id}`}
+                destination={`/demo/workouts/${program._id}`}
                 buttonText={program.programName}
                 isBig
               />
             ) : (
               <NavigationButton
-                destination={`/programs/${program._id}`}
+                destination={`/demo/programs/${program._id}`}
                 buttonText={program.programName}
                 isBig
               />
