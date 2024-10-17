@@ -5,6 +5,8 @@ import { NavigationButton } from './NavigationButton'
 import { Drawer } from './Drawer'
 import { ProgramNameField } from './ProgramNameField'
 import { ExerciseInputFields } from './ExerciseInputFields'
+import { ConfirmDeleteDialog } from './ConfirmDeleteDialog'
+import { ExerciseFields } from './ExerciseFields'
 
 export {
   BackButton,
@@ -13,5 +15,7 @@ export {
   NavigationButton,
   Drawer,
   ProgramNameField,
-  ExerciseInputFields
+  ExerciseInputFields,
+  ConfirmDeleteDialog,
+  ExerciseFields
 }

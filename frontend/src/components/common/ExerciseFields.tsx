@@ -12,7 +12,7 @@ import {
   styled
 } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import { SetRepsField } from '../../../common/SetRepsField'
+import { SetRepsField } from './SetRepsField'
 
 interface ExerciseFieldProps {
   exercise: {
