@@ -7,6 +7,7 @@ import { ProgramNameField } from './ProgramNameField'
 import { ExerciseInputFields } from './ExerciseInputFields'
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog'
 import { ExerciseFields } from './ExerciseFields'
+import { WorkoutDetailsForm } from './WorkoutDetailsForm'
 
 export {
   BackButton,
@@ -17,5 +18,6 @@ export {
   ProgramNameField,
   ExerciseInputFields,
   ConfirmDeleteDialog,
-  ExerciseFields
+  ExerciseFields,
+  WorkoutDetailsForm
 }

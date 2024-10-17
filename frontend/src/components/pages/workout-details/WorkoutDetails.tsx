@@ -12,8 +12,7 @@ import {
   CircularProgress,
   styled
 } from '@mui/material'
-import { Footer } from '../../common'
-import { WorkoutDetailsForm } from './components'
+import { Footer, WorkoutDetailsForm } from '../../common'
 import { useSnackbar } from 'context/SnackbarContext'
 import BACKEND_URL from '../../../constants'
 

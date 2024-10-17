@@ -9,35 +9,31 @@ export const BackButton: React.FC = () => {
   const handleBack = (): void => {
     const id = location.pathname.split('/')[2]
 
-    switch (location.pathname) {
-      case `/programs/${id}`:
+    switch (true) {
+      case location.pathname.includes(`/programs/${id}`):
+      case location.pathname.includes(`/workouts/${id}`):
         navigate('/planner')
         break
-      case '/planner':
+      case location.pathname.includes(`/workouts/history`):
+      case location.pathname.includes(`/demo/workouts/history`):
         navigate('/')
         break
-      case '/workouts':
-        navigate('/')
-        break
-      case '/workouts/history':
-        navigate('/')
-        break
-      case `/workouts/${id}`:
-        navigate('/workouts')
+      case location.pathname.includes(`/demo/programs/${id}`):
+      case location.pathname.includes(`/demo/workouts/${id}`):
+        navigate('/demo/planner')
         break
       default:
         navigate(-1)
     }
   }
+
   return (
-    <>
-      <Button
-        variant="text"
-        onClick={handleBack}
-        sx={{ color: 'var( --font-color) !important' }}
-      >
-        Back
-      </Button>
-    </>
+    <Button
+      variant="text"
+      onClick={handleBack}
+      sx={{ color: 'var(--font-color) !important' }}
+    >
+      Back
+    </Button>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatRestTime } from '../../../../utils/formatRestTime'
+import { formatRestTime } from '../../utils/formatRestTime'
 import { Controller } from 'react-hook-form'
 import {
   Box,

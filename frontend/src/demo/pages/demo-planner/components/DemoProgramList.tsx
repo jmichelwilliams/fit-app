@@ -18,11 +18,14 @@ const StyledLoadingContainer = styled(Box)`
 const StyledProgramContainer = styled(Box)`
   margin: 16px;
 `
+
 export const DemoProgramList: React.FC = () => {
-  const { programs } = useDemoData()
+  const { programs, workouts } = useDemoData()
   const [isLoading] = useMockLoading(true, 1000)
-  const workoutMode = location.pathname === '/workouts'
-  console.log('programs: ', programs)
+  const workoutMode = location.pathname === '/demo/workouts'
+
+  const itemsToDisplay = workoutMode ? workouts : programs
+
   return (
     <StyledProgramListWrapper>
       {isLoading ? (
@@ -30,21 +33,17 @@ export const DemoProgramList: React.FC = () => {
           <CircularProgress size={70} />
         </StyledLoadingContainer>
       ) : (
-        programs.map((program) => (
-          <StyledProgramContainer key={program._id} sx={{ margin: '16px' }}>
-            {workoutMode ? (
-              <NavigationButton
-                destination={`/demo/workouts/${program._id}`}
-                buttonText={program.programName}
-                isBig
-              />
-            ) : (
-              <NavigationButton
-                destination={`/demo/programs/${program._id}`}
-                buttonText={program.programName}
-                isBig
-              />
-            )}
+        itemsToDisplay.map((item) => (
+          <StyledProgramContainer key={item._id}>
+            <NavigationButton
+              destination={
+                workoutMode
+                  ? `/demo/workouts/${item._id}`
+                  : `/demo/programs/${item._id}`
+              }
+              buttonText={item.programName}
+              isBig
+            />
           </StyledProgramContainer>
         ))
       )}
