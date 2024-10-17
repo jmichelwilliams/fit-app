@@ -54,7 +54,7 @@ export const DemoAddProgram: React.FC = () => {
   const onSubmit: SubmitHandler<ProgramFormInputs> = async () => {
     showMessage(
       'Thank you for trying FitApp! Sign up to save your programs and continue your fitness journey.',
-      'warning'
+      'success'
     )
     navigate('/demo/planner')
   }
