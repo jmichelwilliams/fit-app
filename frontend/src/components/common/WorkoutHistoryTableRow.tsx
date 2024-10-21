@@ -152,7 +152,9 @@ export const WorkoutHistoryTableRow: React.FC<WorkoutHistoryTableRowProps> = ({
                         {exercise.sets?.length}
                       </TableCell>
                       <TableCell>{exercise.rest}</TableCell>
-                      <TableCell>{exercise.completed ? 'Yes' : 'No'}</TableCell>
+                      <TableCell>
+                        {(exercise.completed ?? false) ? 'Yes' : 'No'}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

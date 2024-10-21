@@ -22,6 +22,7 @@ import { DemoAddProgram } from 'demo/pages/demo-add-program/DemoAddProgram'
 import { DemoProgramDetails } from 'demo/pages/demo-program-details/DemoProgramDetails'
 import { DemoWorkoutDetails } from 'demo/pages/demo-workout-details'
 import { DemoWorkoutList } from 'demo/pages/demo-planner/components'
+import { DemoWorkoutHistory } from 'demo/pages/demo-workout-history/DemoWorkoutHistory'
 
 const App: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:768px)')
@@ -85,6 +86,10 @@ const App: React.FC = () => {
           <Route
             path="/demo/workouts/:programId"
             element={<DemoWorkoutDetails />}
+          />
+          <Route
+            path="/demo/workouts/history"
+            element={<DemoWorkoutHistory />}
           />
         </Route>
 

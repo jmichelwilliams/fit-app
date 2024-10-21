@@ -5,12 +5,13 @@ import React, {
   type ReactNode
 } from 'react'
 import type { Program } from 'types/Program'
+import type { Workout } from 'types/Workout'
 import { demoPrograms } from 'demo/data/demo-programs'
 import { demoWorkouts } from 'demo/data/demo-workouts'
 
 interface DemoDataContextType {
   programs: Program[]
-  workouts: Program[]
+  workouts: Program[] | Workout[]
 }
 
 const DemoDataContext = createContext<DemoDataContextType | undefined>(
@@ -33,7 +34,7 @@ export const DemoDataProvider = ({
   children: ReactNode
 }): JSX.Element => {
   const [programs] = useState<Program[]>(demoPrograms)
-  const [workouts] = useState<Program[]>(demoWorkouts)
+  const [workouts] = useState<Workout[]>(demoWorkouts)
   return (
     <DemoDataContext.Provider value={{ programs, workouts }}>
       {children}

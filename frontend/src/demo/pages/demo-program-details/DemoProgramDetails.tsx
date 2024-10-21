@@ -55,7 +55,7 @@ export const DemoProgramDetails: React.FC = () => {
   const program: Program | undefined = programs.find(
     (program) => program._id === programId
   )
-  console.log('program ', program)
+
   const {
     control,
     handleSubmit,

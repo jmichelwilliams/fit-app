@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import type { Program } from 'types/Program'
+import type { Workout } from 'types/Workout'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDemoData } from 'context/DemoDataContext'
 import { useMockLoading } from 'hooks/useMockLoading'
@@ -51,8 +52,8 @@ export const DemoWorkoutDetails: React.FC = () => {
   })
   const navigate = useNavigate()
   const { showMessage } = useSnackbar()
-  console.log('workouts: ', workouts)
-  const program: Program | undefined = workouts.find(
+
+  const program: Program | Workout | undefined = workouts.find(
     (workout) => workout._id === programId
   )
 

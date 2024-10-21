@@ -81,6 +81,11 @@ export const Drawer: React.FC<DrawerProps> = ({ demoMode = false }) => {
           action: () => {
             handleNavigation('/demo/workouts')
           }
+        },
+        {
+          text: 'Logout',
+          icon: <LogoutIcon style={{ color: 'var(--font-color)' }} />,
+          action: handleLogout
         }
       ]
     }

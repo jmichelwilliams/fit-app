@@ -8,7 +8,7 @@ import { ExerciseInputFields } from './ExerciseInputFields'
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog'
 import { ExerciseFields } from './ExerciseFields'
 import { WorkoutDetailsForm } from './WorkoutDetailsForm'
-
+import { WorkoutHistoryTableRow } from './WorkoutHistoryTableRow'
 export {
   BackButton,
   Footer,
@@ -19,5 +19,6 @@ export {
   ExerciseInputFields,
   ConfirmDeleteDialog,
   ExerciseFields,
-  WorkoutDetailsForm
+  WorkoutDetailsForm,
+  WorkoutHistoryTableRow
 }
