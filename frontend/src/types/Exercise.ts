@@ -5,5 +5,5 @@ export interface Exercise {
   sets: Set[]
   rest: string
   weight: number
-  completed: boolean
+  completed?: boolean
 }

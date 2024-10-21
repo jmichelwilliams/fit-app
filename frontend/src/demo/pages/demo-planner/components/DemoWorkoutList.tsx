@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
-import { ProgramList } from '.'
+import { DemoProgramList } from '.'
 
 const StyledWorkoutListWrapper = styled(Box)`
   display: flex;
@@ -12,7 +12,7 @@ const StyledWorkoutListWrapper = styled(Box)`
 const StyledTitleContainer = styled(Box)`
   margin: 16px 0px;
 `
-export const WorkoutList: React.FC = () => {
+export const DemoWorkoutList: React.FC = () => {
   return (
     <StyledWorkoutListWrapper>
       <StyledTitleContainer>
@@ -20,7 +20,7 @@ export const WorkoutList: React.FC = () => {
           Workouts
         </Typography>
       </StyledTitleContainer>
-      <ProgramList />
+      <DemoProgramList />
     </StyledWorkoutListWrapper>
   )
 }

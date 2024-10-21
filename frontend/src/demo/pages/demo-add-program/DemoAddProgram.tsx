@@ -1,13 +1,11 @@
 import React from 'react'
 import { useForm, useFieldArray, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
 import { Button, Typography, Box, styled } from '@mui/material'
 import { ProgramNameField } from 'components/common'
-import { ExerciseInputFields } from '../../common'
+import { ExerciseInputFields } from '../../../components/common'
 import { useSnackbar } from 'context/SnackbarContext'
 import { type ProgramFormInputs } from 'types/ProgramFormInputs'
-import BACKEND_URL from '../../../constants'
 
 const StyledContainer = styled(Box)`
   display: flex;
@@ -15,8 +13,7 @@ const StyledContainer = styled(Box)`
   align-items: center;
   margin: 16px auto;
 `
-export const AddProgram: React.FC = () => {
-  const { user, getAccessTokenSilently } = useAuth0()
+export const DemoAddProgram: React.FC = () => {
   const navigate = useNavigate()
   const { showMessage } = useSnackbar()
   const { control, handleSubmit } = useForm<ProgramFormInputs>({
@@ -54,29 +51,12 @@ export const AddProgram: React.FC = () => {
     remove(index)
   }
 
-  const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
-    try {
-      const accessToken = await getAccessTokenSilently()
-
-      if (user !== null && user !== undefined) {
-        const res = await fetch(`${BACKEND_URL}/programs/${user.sub}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`
-          },
-          body: JSON.stringify({ program: data })
-        })
-
-        if (res.ok) {
-          showMessage('Program saved successfully', 'success')
-          navigate('/planner')
-        }
-      }
-    } catch (error) {
-      showMessage('Failed to save program, please try again', 'error')
-      console.error('Error:', error)
-    }
+  const onSubmit: SubmitHandler<ProgramFormInputs> = async () => {
+    showMessage(
+      'Thank you for trying FitApp! Sign up to save your programs and continue your fitness journey.',
+      'success'
+    )
+    navigate('/demo/planner')
   }
 
   return (

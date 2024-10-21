@@ -19,7 +19,7 @@ interface SetRepsFieldProps {
     sets: Array<{ setId: number; reps: number }>
     weight: number
     rest: string
-    completed: boolean
+    completed?: boolean
   }
 }
 

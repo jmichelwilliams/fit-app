@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useEffect } from 'react'
 import { type Workout } from 'types/Workout'
-import { useAuth0 } from '@auth0/auth0-react'
+import { type Program } from 'types/Program'
+import { useDemoData } from 'context/DemoDataContext'
 import {
   Box,
   Typography,
@@ -15,9 +17,9 @@ import {
   styled
 } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
-import { WorkoutHistoryTableRow } from '../../common'
-import BACKEND_URL from '../../../constants'
+import { WorkoutHistoryTableRow } from '../../../components/common'
 import type {} from '@mui/lab/themeAugmentation'
+
 type Order = 'asc' | 'desc'
 
 const StyledWorkoutHistoryWrapper = styled(Box)`
@@ -28,54 +30,27 @@ const StyledWorkoutHistoryWrapper = styled(Box)`
   padding: 8px;
 `
 
-export const WorkoutHistory: React.FC = () => {
-  const [workoutHistory, setWorkoutHistory] = useState<Workout[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+export const DemoWorkoutHistory: React.FC = () => {
+  const { workouts } = useDemoData()
+  const [workoutHistory, setWorkoutHistory] = useState<Workout[]>()
   const [order, setOrder] = useState<Order>('desc')
   const [orderBy, setOrderBy] = useState<keyof Workout>('createdOn')
   const [open, setOpen] = useState<Record<string, boolean>>({})
-  const { user, getAccessTokenSilently } = useAuth0()
-  const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
 
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+  useEffect(() => {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
-  const fetchWorkouts = useCallback(async () => {
-    if (user === undefined || user === null || !hasMore) return
-    try {
-      setIsLoading(true)
-      const accessToken = await getAccessTokenSilently()
-      const res = await fetch(
-        `${BACKEND_URL}/workouts/${user.sub}?page=${page}&limit=8`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      )
-      const data = await res.json()
-
-      const parsedData = data.data.map((workout: Workout) => ({
+    const filteredWorkouts = (workouts as Array<Program | Workout>)
+      .filter((item): item is Workout => 'createdOn' in item)
+      .map((workout) => ({
         ...workout,
         createdOn: new Date(workout.createdOn).toLocaleString('en-US', {
           timeZone: timezone
         })
       }))
 
-      setWorkoutHistory((prev) => [...prev, ...parsedData])
-      setHasMore(data.hasMore)
-    } catch (error) {
-      console.error('Error fetching workouts:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [user, getAccessTokenSilently, page, hasMore, timezone])
-
-  useEffect(() => {
-    void fetchWorkouts()
-  }, [fetchWorkouts])
+    setWorkoutHistory(filteredWorkouts)
+  }, [workouts])
 
   const handleRequestSort = (property: keyof Workout): void => {
     const isAsc = orderBy === property && order === 'asc'
@@ -170,22 +145,6 @@ export const WorkoutHistory: React.FC = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}>
-          <LoadingButton
-            variant="contained"
-            loading={isLoading || !hasMore}
-            onClick={() => {
-              setPage((prevPage) => prevPage + 1)
-            }}
-            sx={{
-              width: '128px',
-              backgroundColor: 'var(--button-color)'
-            }}
-          >
-            {isLoading ? 'Loading...' : 'Load More'}
-          </LoadingButton>
-        </Box>
       </Box>
     </StyledWorkoutHistoryWrapper>
   )

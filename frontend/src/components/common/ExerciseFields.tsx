@@ -12,7 +12,7 @@ import {
   styled
 } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import { SetRepsField } from '../../../common/SetRepsField'
+import { SetRepsField } from './SetRepsField'
 
 interface ExerciseFieldProps {
   exercise: {
@@ -20,7 +20,7 @@ interface ExerciseFieldProps {
     sets: Array<{ setId: number; reps: number }>
     weight: number
     rest: string
-    completed: boolean
+    completed?: boolean
   }
   exerciseIndex: number
   control: any

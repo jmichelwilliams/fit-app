@@ -1,10 +1,9 @@
 import React from 'react'
-import { Box, Typography, styled } from '@mui/material'
-import { NavigationButton } from '../../common'
-import { LoginButton } from '../../auth/components'
+import { Box, Typography, styled, CircularProgress } from '@mui/material'
+import { NavigationButton } from '../../../components/common'
 import { GiMuscleUp } from 'react-icons/gi'
-import { useAuth0 } from '@auth0/auth0-react'
 
+import { useMockLoading } from 'hooks/useMockLoading'
 const StyledHomepageWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -29,16 +28,14 @@ const StyledButtonsContainer = styled(Box)`
   justify-content: space-between;
   margin-top: 8px;
 `
-const StyledLoginButtonContainer = styled(Box)`
+const StyledLoadingContainer = styled(Box)`
   display: flex;
-  flex-direction: column;
-  height: 160px;
-  margin-top: 32px;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 `
-export const Homepage: React.FC = () => {
-  const { isAuthenticated } = useAuth0()
-
+export const DemoHomepage: React.FC = () => {
+  const [isLoading] = useMockLoading(true, 500)
   return (
     <StyledHomepageWrapper>
       <StyledTitleContainer>
@@ -50,13 +47,17 @@ export const Homepage: React.FC = () => {
           variant="h5"
           gutterBottom
           textAlign="center"
-          sx={{ marginTop: '8px' }}
+          sx={{ marginTop: '8px', marginBottom: '32px' }}
         >
           Tired of losing track of your workouts? Fear no more, Fit-App is here
           to help you!
         </Typography>
       </StyledSubtitleContainer>
-      {isAuthenticated ? (
+      {isLoading ? (
+        <StyledLoadingContainer>
+          <CircularProgress size={70} />
+        </StyledLoadingContainer>
+      ) : (
         <StyledButtonsContainer
           sx={{
             display: 'flex',
@@ -68,26 +69,17 @@ export const Homepage: React.FC = () => {
         >
           <NavigationButton
             buttonText="Go to Planner"
-            destination={'/planner'}
+            destination={'/demo/planner'}
           />
           <NavigationButton
             buttonText="Start Workout"
-            destination={'/workouts'}
+            destination={'/demo/workouts'}
           />
           <NavigationButton
             buttonText="Workout History"
-            destination={'/workouts/history'}
+            destination={'/demo/workouts/history'}
           />
         </StyledButtonsContainer>
-      ) : (
-        <StyledLoginButtonContainer>
-          <LoginButton buttonText="Login / Register" isSmall={false} />
-          <NavigationButton
-            buttonText="Try it out"
-            destination={'/demo'}
-            color="lightgreen"
-          />
-        </StyledLoginButtonContainer>
       )}
     </StyledHomepageWrapper>
   )
