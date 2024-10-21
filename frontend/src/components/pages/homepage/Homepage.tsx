@@ -85,7 +85,7 @@ export const Homepage: React.FC = () => {
           <NavigationButton
             buttonText="Try it out"
             destination={'/demo'}
-            color="lightblue"
+            color="lightgreen"
           />
         </StyledLoginButtonContainer>
       )}
