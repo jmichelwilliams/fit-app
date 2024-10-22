@@ -16,6 +16,9 @@ export const BackButton: React.FC = () => {
         break
       case location.pathname.includes(`/workouts/history`):
       case location.pathname.includes(`/demo/workouts/history`):
+      case location.pathname.includes(`/demo/planner`):
+      case location.pathname.includes(`/demo/workouts`):
+      case location.pathname.includes(`/planner`):
         navigate('/')
         break
       case location.pathname.includes(`/demo/programs/${id}`):
