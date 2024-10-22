@@ -67,6 +67,7 @@ const StyledSetsInputContainer = styled(Box)`
   justify-content: space-evenly;
   flex-wrap: wrap;
   height: auto;
+  margin-bottom: 16px;
 `
 export const ExerciseFields: React.FC<ExerciseFieldProps> = ({
   exercise,
