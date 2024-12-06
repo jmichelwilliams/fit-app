@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { type Workout } from 'types/Workout'
 import { type Program } from 'types/Program'
@@ -16,7 +15,6 @@ import {
   TableSortLabel,
   styled
 } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { WorkoutHistoryTableRow } from '../../../components/common'
 import type {} from '@mui/lab/themeAugmentation'
 
